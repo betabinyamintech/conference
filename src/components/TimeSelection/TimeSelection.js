@@ -1,9 +1,9 @@
 import { DatePicker } from "antd";
 
-const TimeSelection = () => (
-    <div>
-        <DatePicker />
-    </div>
+const TimeSelection = ({ user }) => (
+    < div >
+        {user.firstName}
+    </div >
 )
 
 export default TimeSelection
