@@ -1,4 +1,5 @@
+import TimeSelection from "./components/TimeSelection/TimeSelection";
 
 export const TestComponent = () => (
-    <div></div>
+    <div><TimeSelection /></div>
 )
