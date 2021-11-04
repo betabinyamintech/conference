@@ -1,6 +1,6 @@
 import { Form, Input, Button, Alert } from 'antd';
 import { useState } from 'react';
-import { register } from '../../actions/auth';
+import { getUserDetails, register } from '../../actions/auth';
 
 export const Register = () => {
     const [error, setError] = useState()
@@ -9,10 +9,10 @@ export const Register = () => {
         delete registerDetails.confirm
         const response = await register(registerDetails)
         if (!response.ok) {
-            console.log('response', response)
             const text = await response.text()
-            console.log('text', text)
             setError(text)
+        } else {
+            getUserDetails()
         }
     }
     return (

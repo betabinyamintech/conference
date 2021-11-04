@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './App.css';
-import { TestComponent } from './TestComponent';
 
 function App() {
   return (

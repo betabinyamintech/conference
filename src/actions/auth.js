@@ -6,11 +6,42 @@ export async function register(details) {
         headers: {
             'Content-Type': 'application/json'
         },
-        cors: 'cors'
+        cors: 'cors',
+        body: JSON.stringify(details)
     })
 
     if (response.ok) {
         localStorage.setItem('token', response.json().token)
     }
     return response
+}
+
+export async function login(details) {
+    const response = await fetch(baseUrl + '/auth/login', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cors: 'cors',
+        body: JSON.stringify(details)
+    })
+
+    if (response.ok) {
+        const token = (await response.json()).token
+        localStorage.setItem('token', token)
+    }
+    return response
+}
+
+export async function getUserDetails() {
+    const response = await fetch(baseUrl + '/auth/user', {
+        method: "GET",
+        cors: 'cors',
+        headers: {
+            'Authorization': localStorage.getItem('token')
+        }
+    })
+    if (response.ok) {
+        const userDetails = await response.json()
+    }
 }
