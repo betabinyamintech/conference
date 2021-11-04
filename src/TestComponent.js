@@ -1,51 +1,12 @@
-import TimeSelection from "./components/TimeSelection/TimeSelection";
-import { user } from './components/TimeSelection/mock.js'
+import { useState } from "react";
+import BookingResponse from "./components/BookingResponse/BookingResponse";
+import BookingRoomComit from './components/BookingResponse/BookingRoomComit'
 
-const response = {
-    requestAccepted: {
-        room: {},
-        bookingDetails: {
 
-        }
-    }
+
+
+
+export const TestComponent = () => {
+    
+    
 }
-
-const response2 = {
-    alternatives: [
-
-    ]
-}
-
-const BookingRoomFound = ({ requestAccepted }) => (
-    <div>
-        Requst Accepted
-    </div>
-)
-
-const BookingAlternatives = ({ alternatives }) => (
-    <div>
-        alternatives
-    </div>
-
-)
-
-const BookingResponse = ({ bookingRequestResponse }) => {
-    const { alternatives, requestAccepted } = bookingRequestResponse
-    if (alternatives) {
-        return <BookingAlternatives alternatives={alternatives} />
-    }
-    if (requestAccepted) {
-        return <BookingRoomFound requestAccepted={requestAccepted} />
-    }
-}
-// <div>
-//     {bookingRequestResponse.requestAccepted && }
-//     {bookingRequestResponse.alternatives &&  />}
-// </div>
-
-
-export const TestComponent = ({ bookingRequestResponse }) => (
-    <>
-        <BookingResponse bookingRequestResponse={response2} />
-    </>
-)

@@ -1,59 +1,50 @@
 import { Modal, Button } from "antd";
-import React,{ useState } from "react";
+import React, { useState, useCallback } from "react";
+import BookingRoomComit from "./BookingRoomComit";
 
-const BookingRoomFound =({requestAccepted})=>{
-    
-const [isModalVisible,setIsModalVisible]=useState(true)
+const BookingRoomFound = ({ requestAccepted, setFoundVisible, setBookingCurrentResponse }) => {
 
-const confirm=()=>{
-
-}
-const cancel=()=>{
-    
-}
+  const [loading, setLoading] = useState(false)
 
 
-    return(
-        <>
-            <Modal title='מצאנו חדר בדיוק בשבילך!' visible={isModalVisible} onOk={confirm} onCancel={cancel}>
-                <div>{requestAccepted.room.roomName} - חדר עד {requestAccepted.room.maximumParticipants}</div>
-                <div>ליום שני {requestAccepted.bookingDetails.date.day}, {requestAccepted.bookingDetails.date} לשעה {requestAccepted.bookingDetails.hourStart} - {requestAccepted.bookingDetails.hourEnd}</div>
-                <div>
-                    <span>לשמור לך אותו תמורת {requestAccepted.room.pricePerHour} אסימונים?</span>
-                </div>
-            </Modal>
+  const confirm = () => {
+    //מעבר לקומפוננטה של אישור חדר
+    setLoading(true)
+    setFoundVisible(false)
 
-             {/* <Modal
-          visible={isModalVisible}
-          title="מצאנו חדר בדיוק בשבילך!"
-          
-          footer={[
-            <Button key="back" onClick={cancel}>
-              ביטול
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              ברור
-            </Button>,
-            <Button
-              key="link"
-              href="https://google.com"
-              type="primary"
-              loading={loading}
-              onClick={this.handleOk}
-            >
-              Search on Google
-            </Button>,
-          ]}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal> */}
+  }
+  const cancel = () => {
+    //חזרה לדף של בחירת האופציה
+    setBookingCurrentResponse(null)
+  }
 
-        </>
-    )
+
+  return (
+    <>
+      <Modal centered visible title="מצאנו חדר בדיוק בשבילך!"
+        footer={[
+          <Button key="back" onClick={cancel}>
+            ביטול
+          </Button>,
+          <Button key="submit" type="primary" loading={loading} onClick={confirm}>
+            ברור
+          </Button>,
+        ]}
+      >
+        <div >{requestAccepted.room.roomName} - חדר עד {requestAccepted.room.maximumParticipants}</div>
+        <div>
+          <span>
+            ליום שני {requestAccepted.bookingDetails.date.day},
+            {requestAccepted.bookingDetails.date} לשעה {requestAccepted.bookingDetails.hourStart} - {requestAccepted.bookingDetails.hourEnd}
+          </span>
+        </div>
+        <br />
+        <div>
+          <span>לשמור לך אותו תמורת {requestAccepted.room.pricePerHour} אסימונים?</span>
+        </div>
+      </Modal>
+    </>
+  )
 }
 
 export default BookingRoomFound;
