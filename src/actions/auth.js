@@ -42,6 +42,6 @@ export async function getUserDetails() {
         }
     })
     if (response.ok) {
-        const userDetails = await response.json()
+        return await response.json()
     }
 }
