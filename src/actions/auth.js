@@ -34,6 +34,7 @@ export async function login(details) {
 }
 
 export async function getUserDetails() {
+    console.log("getuserdetails")
     const response = await fetch(baseUrl + '/auth/user', {
         method: "GET",
         cors: 'cors',
