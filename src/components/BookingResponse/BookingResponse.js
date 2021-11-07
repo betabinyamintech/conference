@@ -29,7 +29,7 @@ import BookingRoomFound from "./BookingRoomFound"
 // }
 
 const BookingResponse = ({ bookingRequestResponse, setBookingCurrentResponse }) => {
-
+    console.log("bookingRequestResponse", bookingRequestResponse)
     const [foundVisible, setFoundVisible] = useState(true)
     const { requestAccepted, alternatives } = bookingRequestResponse
     return <div>

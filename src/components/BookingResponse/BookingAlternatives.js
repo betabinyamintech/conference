@@ -6,7 +6,7 @@ const BookingAlternatives =({alternatives})=>{
 
 
     return(
-        <Modal title="אממ... אין לנו בדיוק את מה שרצית">
+        <Modal title="אממ... אין לנו בדיוק את מה שרצית" visible="true">
 
         </Modal>
 

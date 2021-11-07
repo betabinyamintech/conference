@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { getUserDetails } from "../actions/auth"
-
+import { userSchema } from "./mock"
 export const UserContext = React.createContext()
 
 // container to provide the context
 export const UserProvider = ({ children }) => {
     // this is our actual storage
-    const [userState, setUserState] = useState()
+    const [userState, setUserState] = useState(userSchema)
 
     // use effect will be run once with [] empty dependencies
     useEffect(() => {
