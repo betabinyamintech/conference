@@ -28,11 +28,11 @@ export const Register = () => {
                     rules={[
                         {
                             type: 'email',
-                            message: 'The input is not valid E-mail!',
+                            message: 'כתובת לא תקינה',
                         },
                         {
                             required: true,
-                            message: 'Please input your E-mail!',
+                            message: 'הכנס כתובת אימייל',
                         },
                     ]}
                 >
@@ -41,11 +41,11 @@ export const Register = () => {
 
                 <Form.Item
                     name="password"
-                    label="Password"
+                    label="סיסמא"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: 'בחר סיסמא!',
                         },
                     ]}
                     hasFeedback
@@ -55,20 +55,20 @@ export const Register = () => {
 
                 <Form.Item
                     name="confirm"
-                    label="Confirm Password"
+                    label="אשר סיסמא"
                     dependencies={['password']}
                     hasFeedback
                     rules={[
                         {
                             required: true,
-                            message: 'Please confirm your password!',
+                            message: 'הכנס שוב את הסיסמא שבחרת',
                         },
                         ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (!value || getFieldValue('password') === value) {
                                     return Promise.resolve();
                                 }
-                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                return Promise.reject(new Error('הסיסמאות אינן תואמות! נסה שוב'));
                             },
                         }),
                     ]}
@@ -78,17 +78,17 @@ export const Register = () => {
 
                 <Form.Item
                     name="name"
-                    label="Nickname"
-                    tooltip="What do you want others to call you?"
-                    rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+                    label="שם מלא"
+                    tooltip="שם פרטי ושם משפחה"
+                    rules={[{ required: true, message: 'הכנס שם מלא', whitespace: true }]}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     name="phone"
-                    label="Phone"
-                    tooltip="What do you want others to call you?"
-                    rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+                    label="טלפון"
+                    tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
+                    rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
                 >
                     <Input />
                 </Form.Item>

@@ -6,6 +6,7 @@ import { UserContext, UserProvider, useUserState } from '../context/user';
 import App from '../App';
 import { useContext, useEffect } from 'react';
 import { getUserDetails } from '../actions/auth';
+import BookingResponse from './BookingResponse/BookingResponse';
 
 const Router = () => {
     // we need access to current value and updating the value of the user context
@@ -28,6 +29,8 @@ const Router = () => {
                 <Route path="/" element={<App />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/bookingResponse" element={<BookingResponse />} />
+
                 {
                     // we must check that usr state is true otherwise, this component will
                     // fail because it needs userState information
