@@ -40,7 +40,7 @@ export const Login = () => {
 
                 <Form.Item
                     name="password"
-                    label="Password"
+                    label="סיסמא"
                     rules={[
                         {
                             required: true,
