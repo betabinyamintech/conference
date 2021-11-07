@@ -43,7 +43,7 @@ const BookingRequestDetails = ({ user }) => {
   const onFinish = (fieldsValue) => { console.log(fieldsValue) }
   const { Option } = Select;
   // we take first value of the context(second is setUserState)
-  const [userState] = useContext(UserContext)
+  const { userState } = useContext(UserContext)
   return (
     <Form
       name="booking_request_details" {...formItemLayout}
