@@ -42,6 +42,15 @@ const rangeConfig = {
 const BookingRequestDetails = ({ user }) => {
   const onFinish = (fieldsValue) => { console.log(fieldsValue) }
   const { Option } = Select;
+  const num= 26;
+  const numbers = [];
+  for (let i = 2; i < num; i++) {
+    numbers.push(i);
+  }
+  const listItems = numbers.map((number) =>
+  <Option value={number}>{number}</Option>
+);
+
   // we take first value of the context(second is setUserState)
   const { userState } = useContext(UserContext)
   return (
@@ -70,7 +79,7 @@ const BookingRequestDetails = ({ user }) => {
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
-      <Form.Item name="to_time" label="משעה" {...config}>
+      <Form.Item name="to_time" label="עד שעה" {...config}>
         <TimePicker
           minuteStep={15}
           format='HH:mm'
@@ -78,9 +87,7 @@ const BookingRequestDetails = ({ user }) => {
       </Form.Item>
       <Form.Item name="num" label="עבור" {...config}>
         <Select defaultValue="2" style={{ width: 80 }} bordered={false}>
-          <Option value="2">2</Option>
-          <Option value="3">3</Option>
-          <Option value="4">4</Option>
+        {listItems}
         </Select>
       </Form.Item>
       <Form.Item
