@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
-import Router from './components/Router';
 import { UserProvider } from './context/user';
+import Router from './components/Router'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <UserProvider>
-    <Router></Router>
+    <Router />
   </UserProvider>,
   document.getElementById('root')
 );
