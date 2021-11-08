@@ -13,6 +13,7 @@ const Router = () => {
             <Route path="/" element={<App />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+
             {
                 // we must check that usr state is true otherwise, this component will
                 // fail because it needs userState information
