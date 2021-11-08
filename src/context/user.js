@@ -1,16 +1,29 @@
-import React, { useState, useContext } from "react"
-import {userSchema} from "./mock"
-
-const user=userSchema
+import React, { useState, useEffect } from "react"
+import { getUserDetails } from "../actions/auth"
+import { userSchema } from "./mock"
 export const UserContext = React.createContext()
 
 // container to provide the context
 export const UserProvider = ({ children }) => {
-    console.log("in context")
     // this is our actual storage
-    const [userState, setUserState] = useState(user)
+    const [userState, setUserState] = useState(userSchema)
+
+    // use effect will be run once with [] empty dependencies
+    useEffect(() => {
+        // async function seperate for useEffect
+        async function getIt() {
+            // we call the server for details if we have token
+            try {
+                const userDetails = await getUserDetails()
+                setUserState(userDetails)
+            } catch (error) {
+                console.log("an error has occured getting user details: ", error);
+            }
+        }
+        getIt()
+    }, [])
     return (
-        <UserContext.Provider value={[userState, setUserState]}>
+        <UserContext.Provider value={{ userState, setUserState }}>
             {children}
         </UserContext.Provider>
     )
