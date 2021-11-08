@@ -21,7 +21,7 @@ const Router = () => {
 
                 userState && <>
                     <Route path="/bookrequest" element={<BookingRequestDetails />} />
-                    <Route path="/someother" element={<BookingRequestDetails />} />
+                    {/* <Route path="/someother" element={<BookingRequestDetails />} /> */}
                 </>
             }
         </Routes>
