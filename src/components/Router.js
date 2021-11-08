@@ -15,6 +15,7 @@ const Router = () => {
     useEffect(() => {
         // async function seperate for useEffect
         async function getIt() {
+            console.log("get it works")
             // we call the server for details if we have token
             const userDetails = await getUserDetails()
             setUserState(userDetails)
@@ -29,7 +30,7 @@ const Router = () => {
                 <Route path="/" element={<App />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/bookingResponse" element={<BookingResponse />} />
+                
 
                 {
                     // we must check that usr state is true otherwise, this component will
