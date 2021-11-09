@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
-import { Form, TimePicker, Button, Calendar, Select } from 'antd';
+import React, { useContext, useState } from "react";
+import { Form, TimePicker, Button, Calendar, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
+import BookingResponse from "../BookingResponse/BookingResponse";
+import { useNavigate } from "react-router";
 
 const formItemLayout = {
   labelCol: {
@@ -38,25 +40,43 @@ const rangeConfig = {
     },
   ],
 };
+const room = {
+  name: "שופר",
+  value: 15,
+  max: 8
+}
 
 const BookingRequestDetails = ({ user }) => {
-  const onFinish = (fieldsValue) => { console.log(fieldsValue) }
+  const [roomResponseState, setRoomResponseState] = useState(room)
+  const navigate= useNavigate()
+
+  const sendRequest = (fieldsValue) => {
+    console.log("sendRequest: ", fieldsValue)
+    return (
+      <>
+        {room && <BookingResponse bookingRequestResponse={roomResponseState}
+          setBookingCurrentResponse={setRoomResponseState} />}
+        </>
+        //לא עובר קומפוננטה
+      //  return( <BookingResponse bookingRequestResponse={roomResponseState} setBookingCurrentResponse={setRoomResponseState}   />
+    )
+  }
   const { Option } = Select;
-  const num= 26;
+  const num = 26;
   const numbers = [];
   for (let i = 2; i < num; i++) {
     numbers.push(i);
   }
   const listItems = numbers.map((number) =>
-  <Option value={number}>{number}</Option>
-);
+    <Option value={number}>{number}</Option>
+  );
 
   // we take first value of the context(second is setUserState)
   const { userState } = useContext(UserContext)
   return (
     <Form
       name="booking_request_details" {...formItemLayout}
-      onFinish={onFinish}
+      onFinish={sendRequest}
       style={{
         width: '400px',
         margin: '3em auto',
@@ -66,12 +86,8 @@ const BookingRequestDetails = ({ user }) => {
       {/* we use the state in the page */}
       <span>{userState.name}</span>
       <div>ברוכים הבאים למערכת זימון החדרים של בנימין טק. למתי לשריין את החדר?</div>
-      <Form.Item name="my_calander" label="calendar" {...config}>
-        <div>
-          <br />
-          <br />
-          <Calendar fullscreen={false} />
-        </div>
+      <Form.Item name="date-picker" label="בחר תאריך" {...config}>
+        <DatePicker />
       </Form.Item>
       <Form.Item name="from_time" label="משעה" {...config}>
         <TimePicker
@@ -79,15 +95,16 @@ const BookingRequestDetails = ({ user }) => {
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
-      <Form.Item name="to_time" label="עד שעה" {...config}>
+      <Form.Item name="to_time" label="עד שעה" {...config} >
         <TimePicker
           minuteStep={15}
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
-      <Form.Item name="num" label="עבור" {...config}>
-        <Select defaultValue="2" style={{ width: 80 }} bordered={false}>
-        {listItems}
+      {/* {...config} */}
+      <Form.Item name="num" label="עבור" >
+        <Select style={{ width: 80 }} bordered={false} {...config}>
+          {listItems}
         </Select>
       </Form.Item>
       <Form.Item
@@ -102,8 +119,8 @@ const BookingRequestDetails = ({ user }) => {
           },
         }}
       >
-        <Button type="primary" htmlType="מתאים לי בדיוק">
-          Submit
+        <Button type="primary" htmlType="submit">
+          מתאים לי בדיוק
         </Button>
       </Form.Item>
     </Form>
