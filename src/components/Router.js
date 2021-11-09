@@ -5,6 +5,7 @@ import { Register } from './Authentication/Register';
 import { Login } from './Authentication/Login';
 import BookingRequestDetails from './BookingRequestDetails/BookingRequestDetails';
 import { UserContext } from '../context/user';
+import BookingAlternatives from './BookingResponse/BookingAlternatives';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -13,6 +14,8 @@ const Router = () => {
             <Route path="/" element={<App />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/alternatives" element={<BookingAlternatives />} />
+
 
             {
                 // we must check that usr state is true otherwise, this component will

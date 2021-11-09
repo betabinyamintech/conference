@@ -24,7 +24,7 @@ const BookingAlternatives = ({ alternatives }) => {
         }
             visible="true"
             footer={
-                <Button align="center" type="primary" onClick={() => { navigate("") }}>עדיף שאחפש בעצמי</Button>
+                <Button align="center" type="primary" onClick={() => { navigate("/bookrequest") }}>עדיף שאחפש בעצמי</Button>
             } >
 
             {rooms.map(Item => 
