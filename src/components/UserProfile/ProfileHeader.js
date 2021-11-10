@@ -7,7 +7,6 @@ const { Meta } = Card;
 
 
 function ProfileHeader() {
-    
     return (
 
         <Card style={{ height: 100, width: 350, display: 'flex' }} cover={

@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { baseUrl } from ".";
-import BookingResponse from "../components/BookingResponse/BookingResponse";
 
-export default  BookingRequestToServer=(details) =>{
-    console.log("details: ", details)
-    // const response = await fetch(baseUrl + '/booking/bookingRequestToServer', {
+export async function fetchBookingRequest(details) {
+
+    // console.log("details: ", details)
+    // const response = await fetch(baseUrl + '/auth/bookingRequestToServer', {
     //     method: "POST",
     //     headers: {
     //         'Content-Type': 'application/json'
@@ -12,18 +11,21 @@ export default  BookingRequestToServer=(details) =>{
     //     cors: 'cors',
     //     body: JSON.stringify(details)
     // })
-    const room = {
-        name: "שופר",
-        value: 15,
-        maxOfParticipants: 8
+    const mockResponse = {
+        exact: {
+            room:{
+                roomName:"שופר",
+            value:15,
+            maximumParticipants: 6
+            },
+            bookingDetails:{
+                hourEnd:"7:00",
+                hourStart:"10:00",
+                date:"23/12/2021"
+            }
+            
+        }
     }
-    console.log(room)
-    const [bookingRequestResponse, setBookingRequestResponse]= useState({room})
-    return (
-        <>
-        {bookingRequestResponse&& <BookingResponse bookingRequestResponse={bookingRequestResponse}
-                setBookingCurrentResponse={setBookingRequestResponse} />}
-        </>
-    )
-
+    console.log("mockResponse",mockResponse)
+    return mockResponse
 }

@@ -1,6 +1,8 @@
 export const user = {
     firstName: "דניאל",
-    lastName: "בן דוד"
+    lastName: "בן דוד",
+    Email: "DanielBD@gmail.com",
+    Phone: "050-1234567"
 }
 
 export const user2 = {

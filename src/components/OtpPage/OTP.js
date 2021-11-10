@@ -4,24 +4,28 @@ import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 import BookingRequestDetails from "../BookingRequestDetails/BookingRequestDetails";
 import { enumDeclaration } from "@babel/types";
+import ResendCode from "../VerificationResendCode/ResendCode";
 
 
 export default function OTP(props) {
-  const { phone, messegePassword } = props;
+  const { phone ,changeIsOtpPasswordOk } = props;
   const [otp, setOtp] = useState("");
+  const [messegePassword,setMessegePassword]=useState();
+  const [showPopUp,setShowPopUp]=useState(false);
 
   function sendSmsPassword() {
     alert("אמור לשלוח סיסמה לפאלפון")
+    setMessegePassword("1234");
   }
 
   useEffect(() => { sendSmsPassword() }, [])
-  const user={
-    name:"aaa",
-    phone:"0565656566"
-  }
-  const getCodeNow=()=>{
+  // const user={
+  //   name:"aaa",
+  //   phone:"0565656566"
+  // }
+  // const getCodeNow=()=>{
     
-   }
+  //  }
 
   return (
     <div style={{
@@ -50,8 +54,7 @@ export default function OTP(props) {
             console.info(otp);
             setOtp(otp);
             if (otp.length >= 4 && otp == messegePassword)
-              getCodeNow()   
-            
+             changeIsOtpPasswordOk();  
           }}
           numInputs={4}
           inputStyle={{
@@ -79,11 +82,14 @@ export default function OTP(props) {
 
 
           }}
-          isInputNum
+          isInputNum={true}
+          shouldAutoFocus
         />
 
 
-
+<p>לא קיבלת את הקוד?</p>
+<a onClick={()=>{sendSmsPassword();setShowPopUp(true);}} >לקבלת קוד חדש</a>
+{showPopUp && <ResendCode></ResendCode>}
 
 
 

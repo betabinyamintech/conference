@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button, footer } from 'antd';
 import BookingAltenativeRoom from './BookingAlternativeRoom';
-import Item from 'antd/lib/list/Item';
 import { useNavigate } from 'react-router-dom';
 
 
+const BookingAlternatives = ({ book, alternatives }) => {
 
-const BookingAlternatives = ({ alternatives }) => {
-
-      const navigate=useNavigate()  
+    const navigate = useNavigate()
 
     const bookingsOptions = [{ name: "שופר", maxparticipant: "6", mydate: "שני", startTime: "9:00", endTime: "11:00", roomValue: "15" },
     { name: "חליל", maxparticipant: "10", mydate: "שני", startTime: "9:30", endTime: "11:15", roomValue: "45" },
@@ -26,13 +24,9 @@ const BookingAlternatives = ({ alternatives }) => {
             footer={
                 <Button align="center" type="primary" onClick={() => { navigate("/bookrequest") }}>עדיף שאחפש בעצמי</Button>
             } >
-
-            {bookingsOptions.map(Item => 
-
-                <BookingAltenativeRoom booking={Item} />
-
-              )}
-
+            {bookingsOptions.map(Item =>
+                <BookingAltenativeRoom book={book} booking={Item} />
+            )}
         </Modal>
 
     )
