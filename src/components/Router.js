@@ -7,6 +7,7 @@ import { Login } from './Authentication/Login';
 import BookingRequestDetails from './BookingRequestDetails/BookingRequestDetails';
 import { UserContext } from '../context/user';
 import OTP from './OtpPage/OTP';
+import BookingAlternatives from './BookingResponse/BookingAlternatives';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -16,6 +17,8 @@ const Router = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/otp" element={<OTP />} />
+            <Route path="/alternatives" element={<BookingAlternatives />} />
+
 
             {
                 // we must check that usr state is true otherwise, this component will
