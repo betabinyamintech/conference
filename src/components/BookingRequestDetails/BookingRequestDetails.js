@@ -3,6 +3,7 @@ import { Form, TimePicker, Button, Calendar, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
 import BookingResponse from "../BookingResponse/BookingResponse";
 import { useNavigate } from "react-router";
+import {BookingRequestToServer} from "../../actions/bookingRequest"
 
 const formItemLayout = {
   labelCol: {
@@ -48,17 +49,16 @@ const room = {
 
 const BookingRequestDetails = ({ user }) => {
   const [roomResponseState, setRoomResponseState] = useState(room)
-  const navigate= useNavigate()
+  const navigate = useNavigate()
 
   const sendRequest = (fieldsValue) => {
     console.log("sendRequest: ", fieldsValue)
+    BookingRequestToServer(fieldsValue)
     return (
       <>
         {room && <BookingResponse bookingRequestResponse={roomResponseState}
           setBookingCurrentResponse={setRoomResponseState} />}
-        </>
-        //לא עובר קומפוננטה
-      //  return( <BookingResponse bookingRequestResponse={roomResponseState} setBookingCurrentResponse={setRoomResponseState}   />
+      </>
     )
   }
   const { Option } = Select;
@@ -86,23 +86,23 @@ const BookingRequestDetails = ({ user }) => {
       {/* we use the state in the page */}
       <span>{userState.name}</span>
       <div>ברוכים הבאים למערכת זימון החדרים של בנימין טק. למתי לשריין את החדר?</div>
-      <Form.Item name="date-picker" label="בחר תאריך" {...config}>
+      <Form.Item name="date" label="בחר תאריך" {...config}>
         <DatePicker />
       </Form.Item>
-      <Form.Item name="from_time" label="משעה" {...config}>
+      <Form.Item name="fromTime" label="משעה" {...config}>
         <TimePicker
           minuteStep={15}
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
-      <Form.Item name="to_time" label="עד שעה" {...config} >
+      <Form.Item name="toTime" label="עד שעה" {...config} >
         <TimePicker
           minuteStep={15}
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
       {/* {...config} */}
-      <Form.Item name="num" label="עבור" >
+      <Form.Item name="numberOfParticipants" label="עבור" >
         <Select style={{ width: 80 }} bordered={false} {...config}>
           {listItems}
         </Select>
