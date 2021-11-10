@@ -17,7 +17,7 @@ export const BookingAltenativeRoom = ({ booking }) => {
             {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
             <p class="alignright" style={{ display: "inlineBlock" }}>בעבור {booking.roomValue} אסימונים</p>
             {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
-            <Button class="alignleft" type='text' key="submit" style={{ color: "lightblue" }} onClick={() => { createBooking() }}> גם טוב</Button>
+            <Button class="alignleft" type='text'  style={{ color: "blue" }} onClick={() => { createBooking() }}> גם טוב</Button>
             {/* <p  class="alignleft" ><a href={()=>{confirmBooking()}} action >גם טוב</a></p> */}
         </Card>
     )

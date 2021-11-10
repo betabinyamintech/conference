@@ -5,13 +5,13 @@ import { TestComponent } from './TestComponent';
 function App() {
   return (
     <div>
-      <Link to="/register">Register</Link>
+      {/* <Link to="/register">Register</Link>
       <br/>
       <Link to="/login">Login</Link>
       <br/>
-      <Link to="/alternatives">alternatives</Link>
+      <Link to="/alternatives">alternatives</Link> */}
        
-      {/* <TestComponent/> */}
+      <TestComponent/>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { baseUrl } from ".";
 
 export async function bookCommit(bookDetails) {
     // alert("go to server")
-    const response = await fetch(baseUrl + '/booking/bookingcommitRequest', {
+    const response = await fetch(baseUrl + '/auth/bookingcommitRequest', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
