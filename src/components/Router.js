@@ -14,8 +14,6 @@ const Router = () => {
             <Route path="/" element={<App />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/alternatives" element={<BookingAlternatives />} />
-
 
             {
                 // we must check that usr state is true otherwise, this component will

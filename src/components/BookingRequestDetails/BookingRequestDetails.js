@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Form, TimePicker, Button, Calendar, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
-import BookingResponse from "../BookingResponse/BookingResponse";
-import { useNavigate } from "react-router";
-import {BookingRequestToServer} from "../../actions/bookingRequest"
-
+import {fetchBookingRequest} from "../../actions/bookingRequest"
+import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -41,26 +39,17 @@ const rangeConfig = {
     },
   ],
 };
-const room = {
-  name: "שופר",
-  value: 15,
-  max: 8
-}
 
 const BookingRequestDetails = ({ user }) => {
-  const [roomResponseState, setRoomResponseState] = useState(room)
-  const navigate = useNavigate()
+  const [bookingRequestResponse, setBookingRequestResponse] = useState()
 
-  const sendRequest = (fieldsValue) => {
-    console.log("sendRequest: ", fieldsValue)
-    BookingRequestToServer(fieldsValue)
-    return (
-      <>
-        {room && <BookingResponse bookingRequestResponse={roomResponseState}
-          setBookingCurrentResponse={setRoomResponseState} />}
-      </>
-    )
+  const handleBookingRequest = async (fieldsValue) => {
+    console.log(fieldsValue)
+    const response = await fetchBookingRequest(fieldsValue)
+    setBookingRequestResponse(response)
+ 
   }
+
   const { Option } = Select;
   const num = 26;
   const numbers = [];
@@ -74,9 +63,10 @@ const BookingRequestDetails = ({ user }) => {
   // we take first value of the context(second is setUserState)
   const { userState } = useContext(UserContext)
   return (
+    <>
     <Form
       name="booking_request_details" {...formItemLayout}
-      onFinish={sendRequest}
+      onFinish={handleBookingRequest}
       style={{
         width: '400px',
         margin: '3em auto',
@@ -124,6 +114,8 @@ const BookingRequestDetails = ({ user }) => {
         </Button>
       </Form.Item>
     </Form>
+        {bookingRequestResponse && <BookingRequestResponse bookingRequestResponse={bookingRequestResponse} />}
+</>
   );
 };
 
