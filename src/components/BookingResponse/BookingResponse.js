@@ -1,13 +1,15 @@
 import { Modal, Button } from "antd";
 import React, { useState } from "react";
 
-const BookingResponse = ({ bookingResponse }) => {
+
+const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
 
     const [loading, setLoading] = useState(false)
 
-    const InvitationParticipants = () => {
+    const goBackHome = () => {
         //העברה לקומפוננטה של הזמנת משתתפים
         //bookingResponse=false
+        setBookingRequestResponse(false)
     }
     const AddToCcalendar = () => {
         //העברה לקומפוננטה של הוספת הפגישה ליומן אישי
@@ -20,11 +22,11 @@ const BookingResponse = ({ bookingResponse }) => {
             <Modal width="10cm" centered
                 visible title="תענוג, החדר כולו שלך!"
                 footer={[
-                    <Button  type='text' key="submit" loading={loading} onClick={InvitationParticipants}>
+                    <Button  type='text' key="submit" loading={loading} onClick={goBackHome}>
                         אין צורך
                     </Button>,
                     <span >|</span>,
-                    <Button  type='text' key="back" loading={loading} onClick={AddToCcalendar}>
+                    <Button  type='text' key="back" loading={loading} onClick={goBackHome}>
                         הוספה ליומן שלי
                     </Button>,
                 ]}

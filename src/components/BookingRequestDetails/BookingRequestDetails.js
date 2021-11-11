@@ -45,8 +45,9 @@ const BookingRequestDetails = ({ user }) => {
 
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue)
-    const response = await fetchBookingRequest(fieldsValue)
-    setBookingRequestResponse(response)
+    const response = await fetchBookingRequest({fieldsValue})
+    const fullRes={exact:response,alternatives:null}
+    setBookingRequestResponse(fullRes)
  
   }
 
@@ -114,7 +115,7 @@ const BookingRequestDetails = ({ user }) => {
         </Button>
       </Form.Item>
     </Form>
-        {bookingRequestResponse && <BookingRequestResponse bookingRequestResponse={bookingRequestResponse} />}
+        {bookingRequestResponse && <BookingRequestResponse bookingRequestResponse={bookingRequestResponse} setBookingRequestResponse={setBookingRequestResponse} />}
 </>
   );
 };

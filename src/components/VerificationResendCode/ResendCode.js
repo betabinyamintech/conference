@@ -1,11 +1,9 @@
 import React from "react";
 import { Modal, Button } from "antd";
 import { Link } from "react-router-dom";
-import { Route } from "workbox-routing";
 
 
-const ResendCode = ({ }) => {
-
+const ResendCode = () => {
     const myuser = {
         name: "שירה",
         phone: "0527185555"
