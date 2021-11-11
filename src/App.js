@@ -5,9 +5,8 @@ import { TestComponent } from './TestComponent';
 function App() {
   return (
     <div>
-      {/* <Link to="/register">Register</Link>
-      <Link to="/login">Login</Link> */}
-      <TestComponent/>
+      <Link to="/register">Register</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
 }

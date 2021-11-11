@@ -2,7 +2,7 @@ import { Modal, Button } from "antd";
 import React, { useState } from "react";
 
 const BookingDetails = ({ book, details }) => {
-
+ const {date, maxOfPeople, value, name, fromTime, toTime }=details
   const [loading, setLoading] = useState(false)
   const cancel = () => {
     //חזרה לדף של בחירת האופציה
@@ -21,16 +21,16 @@ const BookingDetails = ({ book, details }) => {
           </Button>,
         ]}
       >
-        <div >{details.room.roomName} - חדר עד {details.room.maximumParticipants}</div>
+        <div >{name} - חדר עד {maxOfPeople}</div>
         <div>
           <span>
-            ליום שני {details.bookingDetails.date.day},
-            {details.bookingDetails.date} לשעה {details.bookingDetails.hourStart} - {details.bookingDetails.hourEnd}
+            ליום שני {date},
+            {date} לשעה {fromTime} - {toTime}
           </span>
         </div>
         <br />
         <div>
-          <span>לשמור לך אותו תמורת {details.room.value} אסימונים?</span>
+          <span>לשמור לך אותו תמורת {value} אסימונים?</span>
         </div>
       </Modal>
     </>
