@@ -11,8 +11,8 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
     const { exact, alternatives } = bookingRequestResponse
     const [bookingResponse, setBookingResponse] = useState()
 
-    const book=(bookingDetails)=>{
-        const bookCommit1=  bookCommit(bookingDetails)
+    const book=async (bookingDetails)=>{
+        const bookCommit1= await bookCommit({bookingDetails})
         setBookingResponse( bookCommit1)
     }
 

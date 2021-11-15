@@ -46,9 +46,9 @@ const BookingRequestDetails = ({ user }) => {
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue)
     const response = await fetchBookingRequest({fieldsValue})
-    const fullRes={exact:response,alternatives:null}
-    setBookingRequestResponse(fullRes)
- 
+    console.log("res in the form", response)
+    setBookingRequestResponse(response)
+
   }
 
   const { Option } = Select;

@@ -7,12 +7,14 @@ import { useNavigate } from 'react-router-dom';
 const BookingAlternatives = ({ book, alternatives }) => {
 
     const navigate = useNavigate()
+    const bookingsOptions =alternatives
 
-    const bookingsOptions = [{ name: "שופר", maxparticipant: "6", mydate: "שני", startTime: "9:00", endTime: "11:00", roomValue: "15" },
-    { name: "חליל", maxparticipant: "10", mydate: "שני", startTime: "9:30", endTime: "11:15", roomValue: "45" },
-    { name: "מחול", maxparticipant: "20", mydate: "שני", startTime: "10:00", endTime: "12:30", roomValue: "50" }
-    ]
-
+    console.log("bookingsOptions: ",bookingsOptions)
+    // const bookingsOptions = [{ name: "שופר", maxparticipant: "6", mydate: "שני", startTime: "9:00", endTime: "11:00", roomValue: "15" },
+    // { name: "חליל", maxparticipant: "10", mydate: "שני", startTime: "9:30", endTime: "11:15", roomValue: "45" },
+    // { name: "מחול", maxparticipant: "20", mydate: "שני", startTime: "10:00", endTime: "12:30", roomValue: "50" }
+    // ]
+    
     return (
         <Modal centered title={
             <div>
