@@ -26,7 +26,7 @@ const config = {
     {
       type: 'object',
       required: true,
-      message: 'Please select time!',
+      message: 'נא לבחור זמן',
     },
   ],
 };
@@ -45,9 +45,10 @@ const BookingRequestDetails = ({ user }) => {
 
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue)
-    const response = await fetchBookingRequest(fieldsValue)
+    const response = await fetchBookingRequest({fieldsValue})
+    console.log("res in the form", response)
     setBookingRequestResponse(response)
- 
+
   }
 
   const { Option } = Select;
@@ -92,8 +93,8 @@ const BookingRequestDetails = ({ user }) => {
           placeholder="בחר שעה" />
       </Form.Item>
       {/* {...config} */}
-      <Form.Item name="numberOfParticipants" label="עבור" >
-        <Select style={{ width: 80 }} bordered={false} {...config}>
+      <Form.Item name="numberOfParticipants" label="עבור" rules={[{ required: true, message: 'נא לבחור כמות משתתפים' }]} >
+        <Select style={{ width: 80 }} bordered={false} >
           {listItems}
         </Select>
       </Form.Item>
@@ -114,7 +115,7 @@ const BookingRequestDetails = ({ user }) => {
         </Button>
       </Form.Item>
     </Form>
-        {bookingRequestResponse && <BookingRequestResponse bookingRequestResponse={bookingRequestResponse} />}
+        {bookingRequestResponse && <BookingRequestResponse bookingRequestResponse={bookingRequestResponse} setBookingRequestResponse={setBookingRequestResponse} />}
 </>
   );
 };

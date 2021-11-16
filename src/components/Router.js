@@ -9,6 +9,10 @@ import { UserContext } from '../context/user';
 import OTP from './OtpPage/OTP';
 import BookingAlternatives from './BookingResponse/BookingAlternatives';
 import  {BookingMenu}  from './BookingMenu';
+import UserProfile from './UserProfile/UserProfile';
+import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
+import Home from './Home';
+import Pay from './Pay'
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -17,9 +21,13 @@ const Router = () => {
             <Route path="/" element={<App />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element = { <UserProfile/> }/>
             <Route path="/otp" element={<OTP />} />
             <Route path="/alternatives" element={<BookingAlternatives />} />
             <Route path="/bookingMenu" element={<BookingMenu/>} />
+            <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/pay" element={<Pay />} />
 
 
             {

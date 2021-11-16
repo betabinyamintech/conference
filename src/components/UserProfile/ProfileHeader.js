@@ -1,23 +1,37 @@
-import React from "react";
-import { Card, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import Bt_logo  from '../../img/binyamintech-logo.png';
-import  { user }  from '../TimeSelection/mock';
-const { Meta } = Card;
-
+import '../../App.css'
+import React, { useContext } from "react";
+import {Avatar} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import Bt_logo from '../../img/binyamintech-logo.png';
+import { UserContext } from "../../context/user";
 
 function ProfileHeader() {
+
+const {userState} = useContext(UserContext)
+// console.log(userState);
+
     return (
 
-        <Card style={{ height: 100, width: 350, display: 'flex' }} cover={
-            <img alt="example" style={{ height: 50, width: 160, marginTop: 25 }} src={Bt_logo} />}
-        >
-            <div style={{ width: 500, display: 'flex' }}>
-                <Meta style={{textAlign: 'right'}} title={user.firstName+' '+ user.lastName} description="יתרה 100 אסימונים" />
-                <Avatar icon={<UserOutlined />} />
+        <div className="profileHeader"
+             style={{display: 'flex', backgroundColor: 'white', justifyContent: 'space-between'}}>
+            <div className="img">
+                <img alt="example" src={Bt_logo} style={{margin: 8}}/>
             </div>
-        </Card>
+            <div className="details" style={{display:'flex'}}>
+                <div className="fullName" style={{marginRight: 10 +'px'}}>
+                    <h4>{"שלום" +', '+ userState.name  }</h4>
+                        <div className="bitCoins">
+                        <h6>יתרה 100 אסימונים</h6>
+                    </div>
+                </div>
+                <div className="avatar" style={{margin: 8}}>
+                    <Avatar icon={<UserOutlined/>}/>
+                </div>
+            </div>
+
+        </div>
 
     )
 }
+
 export default ProfileHeader;
