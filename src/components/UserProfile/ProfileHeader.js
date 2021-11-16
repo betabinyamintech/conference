@@ -8,7 +8,7 @@ import { UserContext } from "../../context/user";
 function ProfileHeader() {
 
 const {userState} = useContext(UserContext)
-console.log(userState);
+// console.log(userState);
 
     return (
 
@@ -19,7 +19,7 @@ console.log(userState);
             </div>
             <div className="details" style={{display:'flex'}}>
                 <div className="fullName" style={{marginRight: 10 +'px'}}>
-                    <h4>{userState.name}</h4>
+                    <h4>{"שלום" +', '+ userState.name  }</h4>
                         <div className="bitCoins">
                         <h6>יתרה 100 אסימונים</h6>
                     </div>
