@@ -5,7 +5,7 @@ var moment = require('moment'); // require
 
 
 
-const BookingDetails = ({ book, details }) => {
+const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
   console.log("in the modal: ", details)
   let { date, fromTime, toTime, roomFound } = details
   const { userState } = useContext(UserContext)
@@ -36,7 +36,7 @@ const BookingDetails = ({ book, details }) => {
   const [loading, setLoading] = useState(false)
   const cancel = () => {
     //חזרה לדף של בחירת האופציה
-
+    setBookingRequestResponse(false)
   }
 
   return (

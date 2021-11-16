@@ -18,8 +18,8 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
 
 
     if (bookingResponse) return <BookingResponse bookingResponse={bookingResponse} setBookingRequestResponse={setBookingRequestResponse}/>
-    if (alternatives ) return  <BookingAlternatives book={book} alternatives={alternatives} />
-    else if(exact ) return  <BookingDetails book={book}  details={exact}/>
+    if (alternatives ) return  <BookingAlternatives book={book} alternatives={alternatives} setBookingRequestResponse={setBookingRequestResponse}/>
+    else if(exact ) return  <BookingDetails book={book}  details={exact} setBookingRequestResponse={setBookingRequestResponse}/>
 
 }
 export default BookingRequestResponse;

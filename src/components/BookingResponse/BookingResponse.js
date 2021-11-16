@@ -1,5 +1,6 @@
 import { Modal, Button } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
@@ -22,9 +23,10 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
             <Modal width="10cm" centered
                 visible title="תענוג, החדר כולו שלך!"
                 footer={[
+                    <Link to='/home'>
                     <Button  type='text' key="submit" loading={loading} onClick={goBackHome}>
-                        אין צורך
-                    </Button>,
+                       תודה! סיימתי
+                    </Button> </Link>,
                     <span >|</span>,
                     <Button  type='text' key="back" loading={loading} onClick={goBackHome}>
                         הוספה ליומן שלי
