@@ -1,38 +1,35 @@
 import React from 'react';
-import { Card, Avatar } from 'antd';
-import { ArrowLeftOutlined, CameraFilled, UserOutlined } from '@ant-design/icons';
-
-import { user } from '../TimeSelection/mock';
-
+import {Card, Avatar} from 'antd';
+import {ArrowLeftOutlined, CameraFilled, UserOutlined} from '@ant-design/icons';
+import {user} from '../TimeSelection/mock';
+import ProfileHeader from "./ProfileHeader";
 
 function UserProfile() {
 
 
     return (
-
-        <Card style={{ height: 600, width: 350, display: 'grid', backgroundColor: '#ececec' }}>
-
+        <Card CSSProperties={{padding: 0 }} style={{alignItems: 'center', height: 100 + 'vh', backgroundColor: '#ececec', flexDirection: 'row'}}>
+            <div className="header" style={{width: 100 + '%'}}>
+                <ProfileHeader/>
+            </div>
             <div className="arrow">
-                <ArrowLeftOutlined />
+                <ArrowLeftOutlined/>
             </div>
-            <Card style={{ textAlign: 'center', backgroundColor: '#ececec' }}>
-            <div className="avatar">
-                <Avatar style={{ backgroundColor: '##ffffff', }} icon={<UserOutlined />} />
-                <CameraFilled />
-            </div>
-            
-            <div className="userDet">
-                <div id="email">
-                    {user.Email}
-                </div>
-                <div id="phone">
-                    {user.Phone}
+            <div className="userContainer">
+                <Avatar size={48} style={{backgroundColor: '##ffffff',}} icon={<UserOutlined/>}/>
+                <CameraFilled/>
+                <div className="userDetailes">
+                    <div className="email">
+                        {user.Email}
+                    </div>
+                    <div className="phone">
+                        {user.Phone}
+                    </div>
                 </div>
             </div>
-            </Card>
-            
         </Card>
 
     )
 }
+
 export default UserProfile;

@@ -12,6 +12,7 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
     const [bookingResponse, setBookingResponse] = useState()
 
     const book=async (bookingDetails)=>{
+        console.log("in book (:")
         const bookCommit1= await bookCommit({bookingDetails})
         setBookingResponse( bookCommit1)
     }
