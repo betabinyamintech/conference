@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Card, Avatar, Button, Typography } from 'antd';
 import { LeftSquareTwoTone, CameraTwoTone, UserOutlined} from '@ant-design/icons';
+import {  useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/user";
 import ProfileHeader from "./ProfileHeader";
 const { Paragraph } = Typography;
@@ -12,6 +13,8 @@ function UserProfile() {
     const { userState } = useContext(UserContext)
     const [editableStrEmail, setEditEmail] = useState(userState.email);
     const [editableStrPhone, setEditPhone] = useState(userState.phone);
+    const navigate= useNavigate()
+    navigate("/home")
     
 
 
@@ -23,7 +26,7 @@ function UserProfile() {
                 <ProfileHeader />
             </div>
             <div className="arrow">
-                <Button type="dashed" shape="circle" size="small" icon={<LeftSquareTwoTone />}></Button>
+                <Button type="dashed" shape="circle" size="small" icon={<LeftSquareTwoTone />} onClick={navigate}></Button>
             </div>
             <div className="userContainer">
                 <Avatar size={48} style={{ backgroundColor: '##ffffff', }} icon={<UserOutlined />} />
