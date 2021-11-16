@@ -11,6 +11,7 @@ import BookingAlternatives from './BookingResponse/BookingAlternatives';
 import UserProfile from './UserProfile/UserProfile';
 import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
 import Home from './Home';
+import Pay from './Pay'
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -24,6 +25,7 @@ const Router = () => {
             <Route path="/alternatives" element={<BookingAlternatives />} />
             <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/pay" element={<Pay />} />
 
 
             {
