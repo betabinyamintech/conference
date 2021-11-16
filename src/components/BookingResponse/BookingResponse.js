@@ -1,12 +1,13 @@
 import { Modal, Button } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
 
     const [loading, setLoading] = useState(false)
-
+    const navigate= useNavigate();
     const goBackHome = () => {
         //העברה לקומפוננטה של הזמנת משתתפים
         //bookingResponse=false
@@ -17,10 +18,14 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
         //bookingResponse=false
     }
 
+    const cancelModal= ()=>{
+        navigate("/home")
+    }
+
 
     return (
         <>
-            <Modal width="10cm" centered
+            <Modal width="10cm" centered maskClosable 
                 visible title="תענוג, החדר כולו שלך!"
                 footer={[
                     <Link to='/home'>
@@ -32,6 +37,7 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
                         הוספה ליומן שלי
                     </Button>,
                 ]}
+                onCancel={cancelModal}
             >
                 <br />
                 <div>
