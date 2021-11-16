@@ -41,7 +41,8 @@ const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
 
   return (
     <>
-      <Modal centered visible title="מצאנו חדר בדיוק בשבילך!"
+      <Modal maskClosable centered visible title="מצאנו חדר בדיוק בשבילך!"
+        onCancel={cancel}
         footer={[
           <Button key="back" onClick={cancel}>
             ביטול
