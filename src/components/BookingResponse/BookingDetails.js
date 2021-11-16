@@ -39,6 +39,18 @@ const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
     setBookingRequestResponse(false)
   }
 
+  const commitBooking = ()=> {
+    const details = {
+      logDate:Date.now(),
+      roomId:roomFound._id,
+      endTime:toTime,
+      startTime:fromTime,
+      owner:userId,
+      meetingDate:date
+    }
+    book(details)
+  }
+
   return (
     <>
       <Modal maskClosable centered visible title="מצאנו חדר בדיוק בשבילך!"
@@ -47,18 +59,7 @@ const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
           <Button key="back" onClick={cancel}>
             ביטול
           </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={() => {
-            const details = {
-              logDate:Date.now(),
-              roomId:roomFound._id,
-              endTime:toTime,
-              startTime:fromTime,
-              owner:userId,
-              meetingDate:date
-          }
-          console.log("in butten ", details)
-            book(details)
-          }}>
+          <Button key="submit" type="primary" loading={loading} onClick={() => {commitBooking()}}>
         ברור
       </Button>,
         ]}
