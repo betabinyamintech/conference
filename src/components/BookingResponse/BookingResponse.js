@@ -25,7 +25,7 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
 
     return (
         <>
-            <Modal width="10cm" centered maskClosable 
+            <Modal width="10cm" centered 
                 visible title="תענוג, החדר כולו שלך!"
                 footer={[
                     <Link to='/home'>
