@@ -14,7 +14,7 @@ function ProfileHeader() {
         <div className="profileHeader"
              style={{display: 'flex', backgroundColor: 'white', justifyContent: 'space-between'}}>
             <div className="img">
-                <img alt="example" src={Bt_logo}/>
+                <img alt="example" src={Bt_logo} style={{margin: 8}}/>
             </div>
             <div className="details" style={{display:'flex'}}>
                 <div className="fullName" style={{marginRight: 10 +'px'}}>
@@ -23,7 +23,7 @@ function ProfileHeader() {
                         <h6>יתרה 100 אסימונים</h6>
                     </div>
                 </div>
-                <div className="avatar">
+                <div className="avatar" style={{margin: 8}}>
                     <Avatar icon={<UserOutlined/>}/>
                 </div>
             </div>
