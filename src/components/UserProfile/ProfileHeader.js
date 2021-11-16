@@ -1,23 +1,36 @@
+import '../../App.css'
 import React from "react";
-import { Card, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import Bt_logo  from '../../img/binyamintech-logo.png';
-import  { user }  from '../TimeSelection/mock';
-const { Meta } = Card;
+import {Avatar} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import Bt_logo from '../../img/binyamintech-logo.png';
+import {user} from '../TimeSelection/mock';
+
+const fullName = `${user.firstName + ' ' + user.lastName}`
 
 
 function ProfileHeader() {
     return (
 
-        <Card style={{ height: 100, width: 350, display: 'flex' }} cover={
-            <img alt="example" style={{ height: 50, width: 160, marginTop: 25 }} src={Bt_logo} />}
-        >
-            <div style={{ width: 500, display: 'flex' }}>
-                <Meta style={{textAlign: 'right'}} title={user.firstName+' '+ user.lastName} description="יתרה 100 אסימונים" />
-                <Avatar icon={<UserOutlined />} />
+        <div className="profileHeader"
+             style={{display: 'flex', backgroundColor: 'white', justifyContent: 'space-between'}}>
+            <div className="img">
+                <img alt="example" src={Bt_logo}/>
             </div>
-        </Card>
+            <div className="details" style={{display:'flex'}}>
+                <div className="fullName" style={{marginRight: 10 +'px'}}>
+                    <h4>{fullName}</h4>
+                    <div className="bitCoins">
+                        <h6>יתרה 100 אסימונים</h6>
+                    </div>
+                </div>
+                <div className="avatar">
+                    <Avatar icon={<UserOutlined/>}/>
+                </div>
+            </div>
+
+        </div>
 
     )
 }
+
 export default ProfileHeader;
