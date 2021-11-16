@@ -26,7 +26,7 @@ const config = {
     {
       type: 'object',
       required: true,
-      message: 'Please select time!',
+      message: 'נא לבחור זמן',
     },
   ],
 };
@@ -93,8 +93,8 @@ const BookingRequestDetails = ({ user }) => {
           placeholder="בחר שעה" />
       </Form.Item>
       {/* {...config} */}
-      <Form.Item name="numberOfParticipants" label="עבור" >
-        <Select style={{ width: 80 }} bordered={false} {...config}>
+      <Form.Item name="numberOfParticipants" label="עבור" rules={[{ required: true, message: 'נא לבחור כמות משתתפים' }]} >
+        <Select style={{ width: 80 }} bordered={false} >
           {listItems}
         </Select>
       </Form.Item>
