@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from "react";
 import {Card, Avatar} from 'antd';
 import {ArrowLeftOutlined, CameraFilled, UserOutlined} from '@ant-design/icons';
-import {user} from '../TimeSelection/mock';
+import { UserContext } from "../../context/user";
 import ProfileHeader from "./ProfileHeader";
 
 function UserProfile() {
-
+    const {userState} = useContext(UserContext)
+    console.log(userState);
 
     return (
         <Card CSSProperties={{padding: 0 }} style={{alignItems: 'center', height: 100 + 'vh', backgroundColor: '#ececec', flexDirection: 'row'}}>
@@ -20,10 +21,10 @@ function UserProfile() {
                 <CameraFilled/>
                 <div className="userDetailes">
                     <div className="email">
-                        {user.Email}
+                        {userState.email}
                     </div>
                     <div className="phone">
-                        {user.Phone}
+                        {userState.phone}
                     </div>
                 </div>
             </div>

@@ -1,14 +1,15 @@
 import '../../App.css'
-import React from "react";
+import React, { useContext } from "react";
 import {Avatar} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import Bt_logo from '../../img/binyamintech-logo.png';
-import {user} from '../TimeSelection/mock';
-
-const fullName = `${user.firstName + ' ' + user.lastName}`
-
+import { UserContext } from "../../context/user";
 
 function ProfileHeader() {
+
+const {userState} = useContext(UserContext)
+console.log(userState);
+
     return (
 
         <div className="profileHeader"
@@ -18,8 +19,8 @@ function ProfileHeader() {
             </div>
             <div className="details" style={{display:'flex'}}>
                 <div className="fullName" style={{marginRight: 10 +'px'}}>
-                    <h4>{fullName}</h4>
-                    <div className="bitCoins">
+                    <h4>{userState.name}</h4>
+                        <div className="bitCoins">
                         <h6>יתרה 100 אסימונים</h6>
                     </div>
                 </div>
