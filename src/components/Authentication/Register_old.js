@@ -1,42 +1,16 @@
 import { Form, Input, Button, Alert } from 'antd';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { getUserDetails, register } from '../../actions/auth';
-import OtpModal from '../OtpPage/otpModal';
-import { useNavigate } from 'react-router-dom';
-import { sendPhoneVerificationCode } from '../../actions/otp';
 
-export const Register = () => {
-
-    const navigate = useNavigate()
-
-    const [error, setError] = useState()
-    const phoneRef = useRef()
-
-
-    function handleSendCodeVerfication() {
-        let phone = phoneRef.current.input.value
-        sendPhoneVerificationCode(phone)
-    }
-
-    // async function handleRegister(phoneVerificationCode) {
-    async function handleRegister(registerDetails) {
-        setError(null)
-        const response = await register(registerDetails)
-        if (!response.ok) {
-            setError(await response.text())
-        } else {
-            // אם הוא מצליח להירשם הוא מכניס לתוקן את היוזר
-            getUserDetails()
-            //נשנה את זה בעתיד
-            navigate("/login")
-
-        }
-    }
-
+export const PhoneRegister = () => {
+   
     return (
         <div>
+            {error}
             {error && <Alert type="error">{error}</Alert>}
-            <Form onFinish={handleRegister}>
+            <Form
+                onFinish={handleRegister}
+            >
                 <Form.Item
                     name="email"
                     label="E-mail"
@@ -105,20 +79,7 @@ export const Register = () => {
                     tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
                     rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
                 >
-                    <Input ref={phoneRef} />
-                </Form.Item>
-                <Button onClick={handleSendCodeVerfication}>
-                    שלח קוד אימות לטלפון
-                </Button>
-                <Form.Item
-                    name="code"
-                    label="קוד אימות"
-                    tooltip="קוד הנשלח בהודעה לטלפון"
-                    rules={[{ required: true, message: "עליך להזין קוד אימות" }]}
-                >
-                    <Input type="number" />
-
-
+                    <Input />
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit" >

@@ -32,7 +32,7 @@ export async function login(details) {
     }
     return response
 }
-
+//מוציא מהתוקן את פרטי היוזר
 export async function getUserDetails() {
     const response = await fetch(baseUrl + '/auth/user', {
         method: "GET",

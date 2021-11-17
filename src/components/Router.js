@@ -8,6 +8,7 @@ import BookingRequestDetails from './BookingRequestDetails/BookingRequestDetails
 import { UserContext } from '../context/user';
 import OTP from './OtpPage/OTP';
 import BookingAlternatives from './BookingResponse/BookingAlternatives';
+import { ParentOTP } from './OtpPage/parentOTP';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -16,9 +17,10 @@ const Router = () => {
             <Route path="/" element={<App />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/otp" element={<OTP />} />
+            <Route path="/ParentOTP" element={<ParentOTP />} />
+           
             <Route path="/alternatives" element={<BookingAlternatives />} />
-
+           
 
             {
                 // we must check that usr state is true otherwise, this component will
@@ -27,7 +29,7 @@ const Router = () => {
 //רק אם יש יוזר סטייט הוא יציג את בוקינג רקווסט
                 userState && <>
                     <Route path="/bookrequest" element={<BookingRequestDetails />} />
-                    <Route path="/otp" element={<OTP />} />
+                   
                 </>
             }
         </Routes>

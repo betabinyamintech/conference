@@ -1,0 +1,18 @@
+/* .customOverlay {
+    background: rgba(36, 123, 160, 0.7);
+  }
+  .customModal {
+    background: #b2dbbf;
+    max-width: 500px;
+    width: 100%;
+  } */
+  .ant-modal-content{ background-color: rgba(0, 170, 175);}
+  /* .ant-modal-header{ background-color: rgba(0, 170, 175);} */
+  .ant-modal-close-icon{
+      visibility:hidden;
+  }
+
+  /* באגים
+  מגריל לפעמים 3 ספרות בלבד
+  ב או טי פי ה- יוזר קונטקסק הוא אנדיפיינד בפונקציית יוז אפקט
+  זה לא שומר את הסיסמה ל-3 דקות בלבד */
