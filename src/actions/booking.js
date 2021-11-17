@@ -38,6 +38,7 @@ export  async function getUserBookings (userId){
         console.log("oopsss...error", err.message)
         return
     }
+}
 
 export async function checkIfSubscriber(bookDetails) {
     
@@ -67,4 +68,4 @@ export async function IfSubscriberPay(bookDetails) {
         return response.json()
     }
     
-}}
+}
