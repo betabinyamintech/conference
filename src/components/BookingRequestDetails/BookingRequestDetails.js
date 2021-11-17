@@ -3,6 +3,7 @@ import { Form, TimePicker, Button, Calendar, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
 import {fetchBookingRequest} from "../../actions/bookingRequest"
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -45,7 +46,13 @@ const BookingRequestDetails = ({ user }) => {
 
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue)
-    const response = await fetchBookingRequest({fieldsValue})
+    
+    const response = await fetchBookingRequest(
+      {...fieldsValue,
+       date:fieldsValue.date.format('DMY'),
+        fromTime: fieldsValue.fromTime.format('HHmm'),
+        toTime: fieldsValue.toTime.format('HHmm')
+      })
     console.log("res in the form", response)
     setBookingRequestResponse(response)
 

@@ -29,6 +29,7 @@ export async function login(details) {
     if (response.ok) {
         const token = (await response.json()).token
         localStorage.setItem('token', token)
+        console.log('written token!')
     }
     return response
 }
@@ -41,6 +42,9 @@ export async function getUserDetails() {
             'Authorization': localStorage.getItem('token')
         }
     })
+    if (!response.ok) {
+        localStorage.removeItem('token')
+    }
     if (response.ok) {
         return await response.json()
     }

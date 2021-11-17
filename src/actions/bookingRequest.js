@@ -3,7 +3,7 @@ import { baseUrl } from ".";
 export async function fetchBookingRequest(details) {
 
     console.log("details: ", details)
-    const response = await fetch(baseUrl + '/auth/getAvailableBookings', {
+    const response = await fetch(baseUrl + '/booking/getAvailableBookings', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'        },
