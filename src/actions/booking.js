@@ -17,17 +17,16 @@ export async function bookCommit(bookDetails) {
     return response
 }
 
-export  async function getUserBookings (userId){
+export  async function getUserBookings (){
 // alert(userId.user )
     try {
-        const res = await fetch(baseUrl + '/auth/bookingOfUserRequest', {
+        const res = await fetch(baseUrl + '/booking/user', {
             //צריכה לשנות ל GET
-            method: "POST",
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json'
+                'Authorization': localStorage.getItem('token')
             },
             cors: 'cors',
-            body: JSON.stringify(userId)
         })
         let data = await res.json();
         console.log("data",data);
@@ -38,6 +37,7 @@ export  async function getUserBookings (userId){
         console.log("oopsss...error", err.message)
         return
     }
+}
 
 export async function checkIfSubscriber(bookDetails) {
     
@@ -67,4 +67,4 @@ export async function IfSubscriberPay(bookDetails) {
         return response.json()
     }
     
-}}
+}

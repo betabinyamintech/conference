@@ -5,6 +5,7 @@ import BookingDetails from "./BookingDetails"
 import { bookCommit, IfSubscriberPay } from "../../actions/booking"
 import { Navigate } from "react-router"
 import { useNavigate } from "react-router-dom"
+// import {IfSubscriberPay} from '../'
 
 
 const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestResponse }) => {

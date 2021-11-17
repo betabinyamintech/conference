@@ -10,8 +10,7 @@ function App() {
       <Link to="/login">Login</Link>
       <br/>
       <Link to="/bookingMenu">BookingMenu</Link>
-          
-      <Link to="/login">Login</Link>
+      <br/>  
       <Link to="/home">home</Link>
 
       
