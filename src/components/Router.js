@@ -9,7 +9,7 @@ import { UserContext } from '../context/user';
 import OTP from './OtpPage/OTP';
 import BookingAlternatives from './BookingResponse/BookingAlternatives';
 import { ParentOTP } from './OtpPage/parentOTP';
-import  {BookingMenu}  from './BookingMenu';
+import { BookingMenu } from './BookingMenu';
 import UserProfile from './UserProfile/UserProfile';
 import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
 import Home from './Home';
@@ -17,36 +17,37 @@ import Pay from './Pay'
 
 const Router = () => {
     const { userState } = useContext(UserContext)
-    return (<BrowserRouter >
-        <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/ParentOTP" element={<ParentOTP />} />
-           
-            <Route path="/alternatives" element={<BookingAlternatives />} />
-           
-            <Route path="/profile" element = { <UserProfile/> }/>
-            <Route path="/otp" element={<OTP />} />
-            <Route path="/alternatives" element={<BookingAlternatives />} />
-            <Route path="/bookingMenu" element={<BookingMenu/>} />
-            <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/pay" element={<Pay />} />
+    return (
+        <BrowserRouter >
+            <Routes>
+                <Route path="/" element={<App />} />
+                <Route path="/home" element={<Home />} />
+
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+
+                <Route path="/ParentOTP" element={<ParentOTP />} />
+                <Route path="/otp" element={<OTP />} />
 
 
-            {
-                // we must check that usr state is true otherwise, this component will
-                // fail because it needs userState information
-                // and we can group all pages that require this here
-//רק אם יש יוזר סטייט הוא יציג את בוקינג רקווסט
-                userState && <>
-                    <Route path="/bookrequest" element={<BookingRequestDetails />} />
-                   
-                </>
-            }
-        </Routes>
-    </BrowserRouter >)
+                {
+                    // we must check that usr state is true otherwise, this component will
+                    // fail because it needs userState information
+                    // and we can group all pages that require this here
+                    //רק אם יש יוזר סטייט הוא יציג את בוקינג רקווסט
+                    userState && <>
+                        <Route path="/bookrequest" element={<BookingRequestDetails />} />
+                        <Route path="/alternatives" element={<BookingAlternatives />} />
+                        <Route path="/profile" element={<UserProfile />} />
+                        <Route path="/alternatives" element={<BookingAlternatives />} />
+                        <Route path="/bookingMenu" element={<BookingMenu />} />
+                        <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+                        <Route path="/pay" element={<Pay />} />
+
+                    </>
+                }
+            </Routes>
+        </BrowserRouter >)
 }
 
 export default Router
