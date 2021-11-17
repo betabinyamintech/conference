@@ -7,6 +7,7 @@ import english from '../img/english.jpg';
 import wordPress from '../img/wordPress.jpg';
 import ProfileHeader from "./UserProfile/ProfileHeader";
 import '../components/Home.css';
+import { UserContext } from "../context/user";
 
 function onChange(a, b, c) {
 }
@@ -37,10 +38,11 @@ const middleDiv = {
 
 
 const Home = () => {
-
+  const {userState} = useContext(UserContext)
   return (
     <>
-      <ProfileHeader></ProfileHeader>
+    
+      {userState&&<ProfileHeader/>}
       <div style={{ height: '20px' }}></div>
       <div>
         <div style={headDiv}>

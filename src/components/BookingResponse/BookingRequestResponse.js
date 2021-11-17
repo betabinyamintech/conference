@@ -16,17 +16,15 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
     const navigate = useNavigate()
 
     const book = async (bookingDetails) => {
-        console.log("in book (:")
+        delete bookingDetails.roomDetails
         const checkIfSubscriber = await IfSubscriberPay({ bookingDetails })
-        console.log("checkIfSubscriber",checkIfSubscriber)
         if (checkIfSubscriber == -1)
             navigate("/pay")
         else {
-            const bookCommit1 = await bookCommit({ bookingDetails })
+            const bookCommit1 = await bookCommit(bookingDetails)
             setBookingResponse(bookCommit1)
         }
     }
-
 
     if (bookingResponse) return <BookingResponse bookingResponse={bookingResponse} setBookingRequestResponse={setBookingRequestResponse} />
     if (alternatives) return <BookingAlternatives book={book} alternatives={alternatives} setBookingRequestResponse={setBookingRequestResponse} />
