@@ -2,7 +2,7 @@ import { baseUrl } from ".";
 
 export async function bookCommit(bookDetails) {
     // alert("go to server")
-    const response = await fetch(baseUrl + '/auth/bookingcommitRequest', {
+    const response = await fetch(baseUrl + '/booking/bookingcommitRequest', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -11,8 +11,61 @@ export async function bookCommit(bookDetails) {
         body: JSON.stringify(bookDetails)
     })
 
+
     if (response.ok) {
-        // localStorage.setItem('token', response.json().token)
+        await response.body()
     }
     return response
+}
+
+export  async function getUserBookings (){
+// alert(userId.user )
+    try {
+        const res = await fetch(baseUrl + '/booking/user', {
+            //צריכה לשנות ל GET
+            method: "GET",
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            },
+            cors: 'cors',
+        })
+        let data = await res.json();
+        console.log("data",data);
+        if(data) return data    
+      
+}
+    catch (err) {
+        console.log("oopsss...error", err.message)
+        return
+    }
+}
+
+export async function checkIfSubscriber(bookDetails) {
+    
+    const response = await fetch(baseUrl + '/auth/checkIfSubscriberRequest', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cors: 'cors',
+        body: JSON.stringify(bookDetails)
+    })
+
+    return response
+}
+
+export async function IfSubscriberPay(bookDetails) {
+    
+    const response = await fetch(baseUrl + '/auth/IfSubscriberPay', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cors: 'cors',
+        body: JSON.stringify(bookDetails)
+    })
+    if (response.ok){
+        return response.json()
+    }
+    
 }

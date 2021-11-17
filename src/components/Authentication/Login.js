@@ -4,10 +4,13 @@ import { getUserDetails, login } from '../../actions/auth';
 import { Route } from 'react-router'
 import { Switch, useNavigate } from 'react-router-dom';
 import BookingRequestDetails from '../BookingRequestDetails/BookingRequestDetails'
+import { useContext } from 'react/cjs/react.development';
+import { UserContext } from '../../context/user';
 
 export const Login = () => {
     const [error, setError] = useState()
     const navigate= useNavigate()
+    const loginToken = useContext(UserContext).loginToken 
     
     const handleLogin = async (loginDetails) => {
         setError(null)
@@ -16,8 +19,9 @@ export const Login = () => {
             const text = await response.text()
             setError(text)
         } else {
-            getUserDetails()
-            navigate("/bookrequest")
+            console.log('login success')
+            await loginToken()
+            navigate("/home")
         }
     }
     return (

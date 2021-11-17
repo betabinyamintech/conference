@@ -1,38 +1,48 @@
-import React from 'react';
-import { Card, Avatar } from 'antd';
-import { ArrowLeftOutlined, CameraFilled, UserOutlined } from '@ant-design/icons';
+import React, { useContext } from "react";
+import { Card, Avatar, Button, Typography } from 'antd';
+import { LeftSquareTwoTone, CameraTwoTone, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../context/user";
+import ProfileHeader from "./ProfileHeader";
+const { Paragraph } = Typography;
+const { useState } = React;
 
-import { user } from '../TimeSelection/mock';
 
 
 function UserProfile() {
+    const { userState } = useContext(UserContext)
+    const [editableStrEmail, setEditEmail] = useState(userState.email);
+    const [editableStrPhone, setEditPhone] = useState(userState.phone);
+    const navigate = useNavigate()
 
+    function homePage() {
+        navigate("/home")
+    }
 
     return (
 
-        <Card style={{ height: 600, width: 350, display: 'grid', backgroundColor: '#ececec' }}>
-
+        <Card CSSProperties={{ padding: 0 }} style={{ alignItems: 'center', height: 100 + 'vh', backgroundColor: '#ececec', flexDirection: 'row' }}>
+            <div className="header" style={{ width: 100 + '%' }}>
+                <ProfileHeader />
+            </div>
             <div className="arrow">
-                <ArrowLeftOutlined />
+                <Button type="dashed" shape="circle" size="small" icon={<LeftSquareTwoTone />} onClick={homePage}></Button>
             </div>
-            <Card style={{ textAlign: 'center', backgroundColor: '#ececec' }}>
-            <div className="avatar">
-                <Avatar style={{ backgroundColor: '##ffffff', }} icon={<UserOutlined />} />
-                <CameraFilled />
-            </div>
-            
-            <div className="userDet">
-                <div id="email">
-                    {user.Email}
-                </div>
-                <div id="phone">
-                    {user.Phone}
+            <div className="userContainer">
+                <Avatar size={48} style={{ backgroundColor: '##ffffff', }} icon={<UserOutlined />} />
+                <Button type="primary" shape="circle" size="small" icon={<CameraTwoTone />}></Button>
+                <div className="userDetailes">
+                    <div className="email">
+                        <Paragraph editable={{ onChange: setEditEmail }}>{editableStrEmail}</Paragraph>
+                    </div>
+                    <div className="phone">
+                        <Paragraph editable={{ onChange: setEditPhone }}>{editableStrPhone}</Paragraph>
+                    </div>
                 </div>
             </div>
-            </Card>
-            
         </Card>
 
     )
 }
+
 export default UserProfile;
