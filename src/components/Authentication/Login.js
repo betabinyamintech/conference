@@ -17,7 +17,7 @@ export const Login = () => {
             setError(text)
         } else {
             getUserDetails()
-            navigate("/bookrequest")
+            navigate("/home")
         }
     }
     return (

@@ -6,11 +6,16 @@ function App() {
   return (
     <div>
       <Link to="/register">Register</Link>
+      <br/>
+      <Link to="/login">Login</Link>
+      <br/>
+      <Link to="/bookingMenu">BookingMenu</Link>
+          
       <Link to="/login">Login</Link>
       <Link to="/home">home</Link>
 
       
-    </div>
+    // </div>
   );
 }
 

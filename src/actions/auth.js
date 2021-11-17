@@ -45,3 +45,4 @@ export async function getUserDetails() {
         return await response.json()
     }
 }
+
