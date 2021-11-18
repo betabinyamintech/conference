@@ -12,7 +12,7 @@ export async function sendPhoneVerificationCode(phoneNumber) {
 
 
 export async function verifyCode(obj) {
-    const response = await fetch(baseUrl + '/auth/verifyCode', {
+    const response = await fetch(baseUrl + '/auth/verifyPhoneCode', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
