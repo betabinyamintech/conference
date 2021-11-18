@@ -49,7 +49,7 @@ const BookingRequestDetails = ({ user }) => {
     
     const response = await fetchBookingRequest(
       {...fieldsValue,
-       date:fieldsValue.date.format('DMY'),
+       date:fieldsValue.date.format('YMD'),
         fromTime: fieldsValue.fromTime.format('HHmm'),
         toTime: fieldsValue.toTime.format('HHmm')
       })
