@@ -1,9 +1,9 @@
 import { Form, Input, Button, Alert } from 'antd';
 import { useState } from 'react';
 import { getUserDetails, login } from '../../actions/auth';
-import { Route } from 'react-router'
+
 import { Switch, useNavigate } from 'react-router-dom';
-import BookingRequestDetails from '../BookingRequestDetails/BookingRequestDetails'
+
 import { useContext } from 'react/cjs/react.development';
 import { UserContext } from '../../context/user';
 

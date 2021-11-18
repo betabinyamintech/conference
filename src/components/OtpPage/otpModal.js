@@ -1,42 +1,27 @@
 // import react, { useEffect } from "react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Button } from "antd";
-import { PhoneOutlined } from '@ant-design/icons';
-import reactDom from "react-dom";
+
 import OtpInput from "react-otp-input";
-import BookingRequestDetails from "../BookingRequestDetails/BookingRequestDetails";
-import { enumDeclaration } from "@babel/types";
-import ResendCode from "../VerificationResendCode/ResendCode";
+
 import { sendPhoneVerificationCode, verifyCode } from '../../actions/otp';
 import './otpModal.css'
 
-export default function OtpModal(props) {
-
-  const { phone, f_setshowOtpModal, handleRegister } = props;
+export default function OtpModal({phone, handleRegister}) {
   const [otp, setOtp] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   const [error, setError] = useState()
 
-  async function sendSmsPassword() {
-    alert("components - OtpPage - OTP -  sendSmsPassword to phone :" + phone)
-
-    setError(null)
-    const myPhone = { phone: phone }
-    const response = await sendPhoneVerificationCode(myPhone)
-
-
+  const sendSmsPassword = useCallback(async () => {
+    console.log('send verification', phone)
+    const response = await sendPhoneVerificationCode(phone)
     if (!response.ok) {
       const text = await response.text()
       setError(text)
     }
-  }
+  }, [phone])
 
   useEffect(() => { sendSmsPassword() }, [])
-
-
-
-
-
 
   return (
 
