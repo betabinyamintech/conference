@@ -10,8 +10,10 @@ export async function register(details) {
         body: JSON.stringify(details)
     })
 
+
     if (response.ok) {
-        localStorage.setItem('token', response.json().token)
+      
+        localStorage.setItem('token',  (await response.json()).token)
     }
     return response
 }
@@ -33,6 +35,24 @@ export async function login(details) {
     }
     return response
 }
+export async function loginOtp(details) {
+    const response = await fetch(baseUrl + '/auth/loginOtp', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cors: 'cors',
+        body: JSON.stringify(details)
+    })
+
+    if (response.ok) {
+        const token = (await response.json()).token
+        localStorage.setItem('token', token)
+        console.log('written token!')
+    }
+    return response
+}
+
 //מוציא מהתוקן את פרטי היוזר
 export async function getUserDetails() {
     const response = await fetch(baseUrl + '/auth/user', {

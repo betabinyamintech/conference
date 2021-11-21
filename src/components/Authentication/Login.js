@@ -1,17 +1,16 @@
 import { Form, Input, Button, Alert } from 'antd';
 import { useState } from 'react';
 import { getUserDetails, login } from '../../actions/auth';
-
 import { Switch, useNavigate } from 'react-router-dom';
-
 import { useContext } from 'react/cjs/react.development';
 import { UserContext } from '../../context/user';
+import '../../App.css'
 
 export const Login = () => {
     const [error, setError] = useState()
-    const navigate= useNavigate()
-    const loginToken = useContext(UserContext).loginToken 
-    
+    const navigate = useNavigate()
+    const loginToken = useContext(UserContext).loginToken
+
     const handleLogin = async (loginDetails) => {
         setError(null)
         const response = await login(loginDetails)
@@ -20,12 +19,13 @@ export const Login = () => {
             setError(text)
         } else {
             console.log('login success')
+            //save user at UserContext
             await loginToken()
             navigate("/home")
         }
     }
     return (
-        <div>
+        <div className="main" style={{ margin: '3%' }}>
             {error}
             {error && <Alert type="error">{error}</Alert>}
             <Form
@@ -33,7 +33,7 @@ export const Login = () => {
             >
                 <Form.Item
                     name="email"
-                    label="E-mail"
+                    label="מייל"
                     rules={[
                         {
                             type: 'email',
