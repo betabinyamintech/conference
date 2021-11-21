@@ -43,6 +43,10 @@ const Home = () => {
     <>
     
       {userState&&<ProfileHeader/>}
+      {!userState&&<>
+      <Link to="/register"><button >לקוח חדש</button></Link>
+      <button>לקוח קיים</button>
+      </>}
       <div style={{ height: '20px' }}></div>
       <div>
         <div style={headDiv}>
