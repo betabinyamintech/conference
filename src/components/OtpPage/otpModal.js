@@ -1,27 +1,30 @@
 // import react, { useEffect } from "react";
 import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button,Alert } from "antd";
+import { getUserDetails, loginOtp } from '../../actions/auth';
+import { Switch, useNavigate } from 'react-router-dom';
+import { useContext } from 'react/cjs/react.development';
+import { UserContext } from '../../context/user';
 
 import OtpInput from "react-otp-input";
 
 import { sendPhoneVerificationCode, verifyCode } from '../../actions/otp';
 import './otpModal.css'
 
-export default function OtpModal({phone, handleRegister}) {
-  const [otp, setOtp] = useState("");
-  const [showPopUp, setShowPopUp] = useState(false);
+export default function OtpModal({ phone}) {
   const [error, setError] = useState()
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate()
+  const loginToken = useContext(UserContext).loginToken
+  // const [showPopUp, setShowPopUp] = useState(false);
+  function handleSendCodeVerfication() {
+    sendPhoneVerificationCode(phone)
+    
 
-  const sendSmsPassword = useCallback(async () => {
-    console.log('send verification', phone)
-    const response = await sendPhoneVerificationCode(phone)
-    if (!response.ok) {
-      const text = await response.text()
-      setError(text)
-    }
-  }, [phone])
+}
 
-  useEffect(() => { sendSmsPassword() }, [])
+
+
 
   return (
 
@@ -67,19 +70,20 @@ export default function OtpModal({phone, handleRegister}) {
 
               if (otp.length >= 4) {
 
+                setError(null)
+                alert("handleLoginOtp"+otp)
+                    const details = { phone: phone, code: otp }
+                    const response = await loginOtp(details)
+                    if (!response.ok) {
+                      const text = await response.text()
+                      setError(text)
+                    } else {
+                      console.log('loginOtp success')
+                      //save user at UserContext
+                      await loginToken()
+                      navigate("/home")
+                    }
 
-                const obj = { phone: phone, code: otp }
-                const response = await verifyCode(obj)
-                console.log("components - OtpPage - OTP - OtpInput - onChange response: ", response)
-
-                if (response == true) {
-                  handleRegister();
-                 
-
-                }
-                else {
-                  alert("the password is wrong!")
-                }
               }
             }}
             numInputs={4}
@@ -106,10 +110,12 @@ export default function OtpModal({phone, handleRegister}) {
             shouldAutoFocus
           />
 
-
+          {error && <Alert type="error">{error}</Alert>}
           <p>לא קיבלת את הקוד?</p>
-          <a onClick={() => { sendSmsPassword(); setShowPopUp(true); }} >לקבלת קוד חדש</a>
-          {/* {showPopUp && <ResendCode></ResendCode>} */}
+          <a onClick={() => {
+            handleSendCodeVerfication();
+          }} >לקבלת קוד חדש</a>
+
 
 
 

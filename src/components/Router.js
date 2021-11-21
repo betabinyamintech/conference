@@ -14,6 +14,7 @@ import UserProfile from './UserProfile/UserProfile';
 import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
 import Home from './Home';
 import Pay from './Pay'
+import { LoginOtp } from './Authentication/LoginOtp';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -22,8 +23,9 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/home" element={<Home />} />
-
+                
                 <Route path="/register" element={<Register />} />
+                <Route path="/loginOtp" element={<LoginOtp />} />
                 <Route path="/login" element={<Login />} />
 
                 <Route path="/ParentOTP" element={<ParentOTP />} />

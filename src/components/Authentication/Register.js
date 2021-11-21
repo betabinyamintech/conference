@@ -4,6 +4,9 @@ import { getUserDetails, register } from '../../actions/auth';
 import OtpModal from '../OtpPage/otpModal';
 import { useNavigate } from 'react-router-dom';
 import { sendPhoneVerificationCode } from '../../actions/otp';
+import  '../../App.css'
+import { useContext } from 'react/cjs/react.development';
+import { UserContext } from '../../context/user';
 
 export const Register = () => {
 
@@ -12,6 +15,7 @@ export const Register = () => {
     const [error, setError] = useState()
     const phoneRef = useRef()
 
+    const loginToken = useContext(UserContext).loginToken 
 
     function handleSendCodeVerfication() {
         let phone = phoneRef.current.input.value
@@ -25,21 +29,21 @@ export const Register = () => {
         if (!response.ok) {
             setError(await response.text())
         } else {
-            // אם הוא מצליח להירשם הוא מכניס לתוקן את היוזר
-            getUserDetails()
-            //נשנה את זה בעתיד
-            navigate("/login")
-
+          
+            //take UserDetails from mongoose  by email of the token
+            await loginToken()
+            // getUserDetails()           
+            navigate("/home")
         }
     }
 
     return (
-        <div>
+        <div className="main" style={{margin:'3%'}}>
             {error && <Alert type="error">{error}</Alert>}
             <Form onFinish={handleRegister}>
                 <Form.Item
                     name="email"
-                    label="E-mail"
+                    label="מייל"
                     rules={[
                         {
                             type: 'email',
@@ -107,9 +111,11 @@ export const Register = () => {
                 >
                     <Input ref={phoneRef} />
                 </Form.Item>
+                <div className="ant-row ant-form-item" style={{rowGap: '0px'}}>
                 <Button onClick={handleSendCodeVerfication}>
                     שלח קוד אימות לטלפון
                 </Button>
+                </div>
                 <Form.Item
                     name="code"
                     label="קוד אימות"
@@ -120,7 +126,7 @@ export const Register = () => {
 
 
                 </Form.Item>
-                <Form.Item>
+                <Form.Item style={{textAlign:'right'}}>
                     <Button type="primary" htmlType="submit" >
                         הירשם
                     </Button>
