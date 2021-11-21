@@ -46,10 +46,11 @@ const BookingRequestDetails = ({ user }) => {
 
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue)
+    console.log(fieldsValue.date)
     
     const response = await fetchBookingRequest(
       {...fieldsValue,
-       date:fieldsValue.date.format('DMY'),
+        meetingDate:fieldsValue.date.format('YMD'),
         fromTime: fieldsValue.fromTime.format('HHmm'),
         toTime: fieldsValue.toTime.format('HHmm')
       })

@@ -5,7 +5,8 @@ export async function bookCommit(bookDetails) {
     const response = await fetch(baseUrl + '/booking/bookingcommitRequest', {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
         },
         cors: 'cors',
         body: JSON.stringify(bookDetails)
@@ -13,7 +14,7 @@ export async function bookCommit(bookDetails) {
 
 
     if (response.ok) {
-        await response.body()
+        await response
     }
     return response
 }
@@ -25,7 +26,7 @@ export  async function getUserBookings (){
             //צריכה לשנות ל GET
             method: "GET",
             headers: {
-                'Authorization': localStorage.getItem('token')
+                'authorization': localStorage.getItem('token')
             },
             cors: 'cors',
         })
@@ -45,6 +46,7 @@ export async function checkIfSubscriber(bookDetails) {
     const response = await fetch(baseUrl + '/auth/checkIfSubscriberRequest', {
         method: "POST",
         headers: {
+            'authorization': localStorage.getItem('token'),
             'Content-Type': 'application/json'
         },
         cors: 'cors',
@@ -59,6 +61,7 @@ export async function IfSubscriberPay(bookDetails) {
     const response = await fetch(baseUrl + '/auth/IfSubscriberPay', {
         method: "POST",
         headers: {
+            'authorization': localStorage.getItem('token'),
             'Content-Type': 'application/json'
         },
         cors: 'cors',
