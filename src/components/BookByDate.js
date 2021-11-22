@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Divider } from "antd";
 import { booksExample } from "../context/mock";
 import { DeleteTwoTone  } from "@ant-design/icons"
-import { getRoomBookingDetails } from "../actions/booking";
 var moment=require('moment')
 
 
@@ -17,7 +16,7 @@ export const  BookByDate = ({ flag, book }) => {
     let toTime=moment.unix(book.endTime).format('HHmm')
     let toTimeString=toTime.slice(0, 2) + ":" + toTime.slice(2);
     let fromTimeString=fromTime.slice(0, 2) + ":" + fromTime.slice(2);
-    const room=  getRoomBookingDetails(book.roomId)
+    // const room=  getRoomBookingDetails(book.roomId)
     console.log('book', book)
     return (
 
