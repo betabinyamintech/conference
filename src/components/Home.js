@@ -1,5 +1,5 @@
-import { Button } from "antd";
-import React, { useState, useContext } from "react";
+import { Form, Input, Button, Alert } from "antd";
+import React, { useState, useContext, useRef } from "react";
 import { PlusOutlined, LeftOutlined, RightOutlined, BoldOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from "react-router-dom";
 import { Carousel, Tabs, Modal } from 'antd';
@@ -9,6 +9,10 @@ import ProfileHeader from "./UserProfile/ProfileHeader";
 import '../components/Home.css';
 import { UserContext } from "../context/user";
 import { render } from "@testing-library/react";
+import { sendPhoneVerificationCode } from '../actions/otp';
+import OtpModal from "./OtpPage/otpModal"
+import {login} from "../actions/auth"
+// '../OtpPage/otpModal';
 
 
 
@@ -40,14 +44,102 @@ const middleDiv = {
 
 }
 const ModalLogin = () => {
-  
-return <Modal centered visible="true" maskClosable >
+  const [showModalOtp, setShowModalOtp] = useState(false)
+  const [error, setError] = useState()
+  const navigate = useNavigate()
+  const loginToken = useContext(UserContext).loginToken
+
+  const handleLogin = async (loginDetails) => {
+    setError(null)
+    const response = await login(loginDetails)
+    if (!response.ok) {
+        const text = await response.text()
+        setError(text)
+    } else {
+        console.log('login success')
+        //save user at UserContext
+        await loginToken()
+        navigate("/home")
+    }
+}
+
+  function handleSendCodeVerfication(loginDetails) {
+        sendPhoneVerificationCode(loginDetails.phone)
+        setShowModalOtp(true)
+
+    }
+
+  const phoneRef = useRef()
+
+  return <Modal centered visible="true" maskClosable >
         <Tabs defaultActiveKey="1"  >
             <TabPane tab="כניסה עם sms" key="1"  >
-                
+                <div className="main" style={{ margin: '3%' }}>
+                <Form
+                    onFinish={handleSendCodeVerfication}
+                >
+                    <Form.Item
+                        name="phone"
+                        label="טלפון"
+                        tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
+                        rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
+                    >
+                        <Input ref={phoneRef} />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit"  >
+                            התחבר
+                        </Button>
+                    </Form.Item>
+                </Form>
+                {showModalOtp && <OtpModal phone={phoneRef.current.input.value} ></OtpModal>}
+            </div>
             </TabPane>
             <TabPane tab="כניסה עם סיסמא" key="2"  >
-            
+            <div className="main" style={{ margin: '3%' }}>
+            {error}
+            {error && <Alert type="error">{error}</Alert>}
+            <Form
+                onFinish={handleLogin}
+            >
+                <Form.Item
+                    name="email"
+                    label="מייל"
+                    rules={[
+                        {
+                            type: 'email',
+                            message: 'The input is not valid E-mail!',
+                        },
+                        {
+                            required: true,
+                            message: 'Please input your E-mail!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    name="password"
+                    label="סיסמא"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                    hasFeedback
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit"  >
+                        התחבר
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
             </TabPane>
         </Tabs>
       </Modal>
@@ -72,15 +164,7 @@ const Home = () => {
   }
   return (
     <>
-      {userState&&<ProfileHeader/>}
-      {/* {!userState&&<>
-      <Link to="/register"><button >לקוח חדש</button></Link>
-      <button>לקוח קיים</button>
-      </>}
-      {!userState&&<>
-      <Link to="/register"><button > לקוח חדש</button></Link>
-      <button onClick={()=>(setShowModalLogin(true))}> לקוח קיים</button>
-      </>} */}
+      <ProfileHeader/>
       {showModalLogin&&<ModalLogin/>}
       <div style={{ height: '20px' }}></div>
       <div>
