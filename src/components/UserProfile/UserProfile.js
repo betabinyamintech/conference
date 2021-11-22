@@ -4,6 +4,7 @@ import { LeftSquareTwoTone, CameraTwoTone, UserOutlined } from '@ant-design/icon
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/user";
 import ProfileHeader from "./ProfileHeader";
+import './UserProfile.css';
 const { Paragraph } = Typography;
 const { useState } = React;
 
@@ -18,11 +19,10 @@ function UserProfile() {
     function homePage() {
         navigate("/home")
     }
-
     return (
 
         <Card CSSProperties={{ padding: 0 }} style={{ alignItems: 'center', height: 100 + 'vh', backgroundColor: '#ececec', flexDirection: 'row' }}>
-            <div className="header" style={{ width: 100 + '%' }}>
+            <div className="header">
                 <ProfileHeader />
             </div>
             <div className="arrow">

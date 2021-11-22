@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, Divider } from "antd";
 import { booksExample } from "../context/mock";
-import { FormOutlined } from "@ant-design/icons"
+import { DeleteOutlined } from "@ant-design/icons"
+
 
 
 export const BookByDate = ({ flag, book }) => {
@@ -17,7 +18,7 @@ export const BookByDate = ({ flag, book }) => {
             {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
             {/* <p class="alignright" style={{ display: "inlineBlock" }}> אסימונים נוצלו {book.value}</p> */}
             {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
-            {flag ? <FormOutlined class="alignleft" type='text' style={{ color: "blue" }} /> : <p class="alignleft" style={{ color: "gray" }}>הוזמן בתאריך כלשהו</p>}
+            {flag ? <DeleteOutlined class="alignleft" type='text' style={{ color: "blue" }} /> : <p class="alignleft" style={{ color: "gray" }}>הוזמן בתאריך כלשהו</p>}
             <Divider />
             {/* <p  class="alignleft" ><a href={()=>{confirmBooking()}} action >גם טוב</a></p> */}
             {/* </Card>  */}
