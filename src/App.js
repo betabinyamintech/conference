@@ -1,7 +1,6 @@
 import { tsCallSignatureDeclaration } from '@babel/types';
 import { Link } from 'react-router-dom';
 import './App.css';
-import { ParentOTP } from './components/OtpPage/parentOTP';
 import { TestComponent } from './TestComponent';
 
 
@@ -13,6 +12,8 @@ function App() {
       <Link to="/loginOtp">loginOtp</Link>
       <Link to="/bookingMenu">BookingMenu</Link>
       <Link to="/home">home</Link>
+      <Link to="/MeetingRoomsTable">MeetingRoomsTable</Link>
+    
   </div>);
 }
 

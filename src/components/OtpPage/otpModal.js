@@ -28,7 +28,7 @@ export default function OtpModal({ phone}) {
 
   return (
 
-    <Modal
+    <Modal closable="true"
       size="lg"
       // show={lgShow}
       // onHide={() => setLgShow(false)}

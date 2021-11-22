@@ -8,7 +8,6 @@ import BookingRequestDetails from './BookingRequestDetails/BookingRequestDetails
 import { UserContext } from '../context/user';
 import OTP from './OtpPage/OTP';
 import BookingAlternatives from './BookingResponse/BookingAlternatives';
-import { ParentOTP } from './OtpPage/parentOTP';
 import { BookingMenu } from './BookingMenu';
 import UserProfile from './UserProfile/UserProfile';
 import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
@@ -28,7 +27,6 @@ const Router = () => {
                 <Route path="/loginOtp" element={<LoginOtp />} />
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/ParentOTP" element={<ParentOTP />} />
                 <Route path="/otp" element={<OTP />} />
 
 
