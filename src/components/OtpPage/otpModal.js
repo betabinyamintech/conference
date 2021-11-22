@@ -1,6 +1,6 @@
 // import react, { useEffect } from "react";
 import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Button,Alert } from "antd";
+import { Modal, Button, Alert } from "antd";
 import { getUserDetails, loginOtp } from '../../actions/auth';
 import { Switch, useNavigate } from 'react-router-dom';
 import { useContext } from 'react/cjs/react.development';
@@ -11,7 +11,7 @@ import OtpInput from "react-otp-input";
 import { sendPhoneVerificationCode, verifyCode } from '../../actions/otp';
 import './otpModal.css'
 
-export default function OtpModal({ phone}) {
+export default function OtpModal({ phone }) {
   const [error, setError] = useState()
   const [otp, setOtp] = useState("");
   const navigate = useNavigate()
@@ -19,15 +19,9 @@ export default function OtpModal({ phone}) {
   // const [showPopUp, setShowPopUp] = useState(false);
   function handleSendCodeVerfication() {
     sendPhoneVerificationCode(phone)
-    
-
-}
-
-
-
+  }
 
   return (
-
     <Modal
       size="lg"
       // show={lgShow}
@@ -71,18 +65,17 @@ export default function OtpModal({ phone}) {
               if (otp.length >= 4) {
 
                 setError(null)
-                alert("handleLoginOtp"+otp)
-                    const details = { phone: phone, code: otp }
-                    const response = await loginOtp(details)
-                    if (!response.ok) {
-                      const text = await response.text()
-                      setError(text)
-                    } else {
-                      console.log('loginOtp success')
-                      //save user at UserContext
-                      await loginToken()
-                      navigate("/home")
-                    }
+                const details = { phone: phone, code: otp }
+                const response = await loginOtp(details)
+                if (!response.ok) {
+                  const text = await response.text()
+                  setError(text)
+                } else {
+                  console.log('loginOtp success')
+                  //save user at UserContext
+                  await loginToken()
+                  navigate("/bookrequest")
+                }
 
               }
             }}
