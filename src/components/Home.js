@@ -11,7 +11,7 @@ import { UserContext } from "../context/user";
 import { render } from "@testing-library/react";
 import { sendPhoneVerificationCode } from '../actions/otp';
 import OtpModal from "./OtpPage/otpModal"
-import {login} from "../actions/auth"
+import { login } from "../actions/auth"
 // '../OtpPage/otpModal';
 
 
@@ -43,137 +43,138 @@ const middleDiv = {
   lineHeight: '80px',
 
 }
-const ModalLogin = () => {
+const ModalLogin = ({ showModalLogin, setShowModalLogin }) => {
   const [showModalOtp, setShowModalOtp] = useState(false)
   const [error, setError] = useState()
   const navigate = useNavigate()
   const loginToken = useContext(UserContext).loginToken
 
+
   const handleLogin = async (loginDetails) => {
     setError(null)
     const response = await login(loginDetails)
     if (!response.ok) {
-        const text = await response.text()
-        setError(text)
+      const text = await response.text()
+      setError(text)
     } else {
-        console.log('login success')
-        //save user at UserContext
-        await loginToken()
-        navigate("/home")
+      console.log('login success')
+      //save user at UserContext
+      await loginToken()
+      navigate("/bookrequest")
     }
-}
+  }
 
   function handleSendCodeVerfication(loginDetails) {
-        sendPhoneVerificationCode(loginDetails.phone)
-        setShowModalOtp(true)
+    sendPhoneVerificationCode(loginDetails.phone)
+    setShowModalOtp(true)
 
-    }
+  }
 
   const phoneRef = useRef()
 
-  return <Modal centered visible="true" maskClosable >
-        <Tabs defaultActiveKey="1"  >
-            <TabPane tab="כניסה עם sms" key="1"  >
-                <div className="main" style={{ margin: '3%' }}>
-                <Form
-                    onFinish={handleSendCodeVerfication}
-                >
-                    <Form.Item
-                        name="phone"
-                        label="טלפון"
-                        tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
-                        rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
-                    >
-                        <Input ref={phoneRef} />
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit"  >
-                            התחבר
-                        </Button>
-                    </Form.Item>
-                </Form>
-                {showModalOtp && <OtpModal phone={phoneRef.current.input.value} ></OtpModal>}
-            </div>
-            </TabPane>
-            <TabPane tab="כניסה עם סיסמא" key="2"  >
-            <div className="main" style={{ margin: '3%' }}>
-            {error}
-            {error && <Alert type="error">{error}</Alert>}
-            <Form
-                onFinish={handleLogin}
+  return <Modal centered visible="true"
+    maskClosable onCancel={() => (setShowModalLogin(false))}
+    footer={<></>}>
+    <Tabs defaultActiveKey="1"  >
+      <TabPane tab="כניסה עם sms" key="1"  >
+        <div className="main" style={{ margin: '3%' }}>
+          <Form
+            onFinish={handleSendCodeVerfication}
+          >
+            <Form.Item
+              name="phone"
+              label="טלפון"
+              tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
+              rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
             >
-                <Form.Item
-                    name="email"
-                    label="מייל"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+              <Input ref={phoneRef} />
+            </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    label="סיסמא"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit"  >
-                        התחבר
-                    </Button>
-                </Form.Item>
-            </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit"  >
+                התחבר
+              </Button>
+            </Form.Item>
+          </Form>
+          {showModalOtp && <OtpModal phone={phoneRef.current.input.value} ></OtpModal>}
         </div>
-            </TabPane>
-        </Tabs>
-      </Modal>
+      </TabPane>
+      <TabPane tab="כניסה עם סיסמא" key="2"  >
+        <div className="main" style={{ margin: '3%' }}>
+          {error}
+          {error && <Alert type="error">{error}</Alert>}
+          <Form
+            onFinish={handleLogin}
+          >
+            <Form.Item
+              name="email"
+              label="מייל"
+              rules={[
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              label="סיסמא"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit"  >
+                התחבר
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </TabPane>
+    </Tabs>
+  </Modal>
 }
 
-
-
 const Home = () => {
-  const {userState} = useContext(UserContext)
+  const { userState } = useContext(UserContext)
   const navigate = useNavigate()
   const [showModalLogin, setShowModalLogin] = useState(false)
-  const NewBookingButton= ()=>{
+  const NewBookingButton = () => {
     console.log("in newBookingButton", showModalLogin)
-    if(userState){
+    if (userState) {
       navigate("/bookrequest")
     }
-    else{
+    else {
       setShowModalLogin(true)
       console.log("after ", showModalLogin)
     }
-    
+
   }
   return (
     <>
-      <ProfileHeader/>
-      {showModalLogin&&<ModalLogin/>}
+      <ProfileHeader />
+      {showModalLogin && <ModalLogin showModalLogin={showModalLogin} setShowModalLogin={setShowModalLogin} />}
       <div style={{ height: '20px' }}></div>
       <div>
         <div style={headDiv}>
-            <Button type="primary" style={{ background: '#00AAAF' }}
-              shape="round" icon={<PlusOutlined />} size={"large"}
-              onClick={()=>{NewBookingButton()}}>
-              פגישה חדשה
-            </Button>
+          <Button type="primary" style={{ background: '#00AAAF' }}
+            shape="round" icon={<PlusOutlined />} size={"large"}
+            onClick={() => { NewBookingButton() }}>
+            פגישה חדשה
+          </Button>
         </div>
         <div >
           <div >
