@@ -5,6 +5,8 @@ import { BookByDate } from './BookByDate';
 import Item from 'antd/lib/list/Item';
 import { getUserBookings } from '../actions/booking';
 import { UserContext } from '../context/user';
+var moment = require('moment');
+
 
 const { TabPane } = Tabs;
 
@@ -18,19 +20,18 @@ export const BookingMenu = () => {
       console.log("userState", userState)
       const allUserBooking = await getUserBookings({ user: userState._id })
       console.log("booking are", allUserBooking)
-      const now = new Date()
-      let nowToCompare = now.getTime()
+      const now = moment()
+      console.log("now",now)
+      // let nowToCompare = now.getTime()
 
       const compareDateLast = (value) => {
-        let meeting = new Date(value.meetingDate)
-        let meetingToCompare = meeting.getTime()
-        return meetingToCompare < nowToCompare
-
+        let meeting = new moment(value.meetingDate)
+        return moment(now).isAfter(meeting); 
+       
       }
       const compareDateNext = (value) => {
-        let meeting = new Date(value.meetingDate)
-        let meetingToCompare = meeting.getTime()
-        return meetingToCompare > nowToCompare
+        let meeting = new moment(value.meetingDate)
+        return moment(now).isBefore(meeting); 
 
       }
 
@@ -61,7 +62,9 @@ export const BookingMenu = () => {
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
 
-          <BookByDate flag={1} book={Item} />
+        {nextMeetings && nextMeetings.map(meeting =>
+            <BookByDate flag={1} book={meeting} />
+          )}
 
         </TabPane>
 
@@ -78,3 +81,4 @@ export const BookingMenu = () => {
 
 
 
+ 
