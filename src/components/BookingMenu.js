@@ -6,6 +6,7 @@ import Item from 'antd/lib/list/Item';
 import { getUserBookings } from '../actions/booking';
 import { UserContext } from '../context/user';
 var moment = require('moment');
+var os=require('os')
 
 
 const { TabPane } = Tabs;
@@ -47,7 +48,7 @@ export const BookingMenu = () => {
 
 
 
-  if (!meetings) return <div>Loading...</div>
+  if (!meetings) return <div>לא הזמנת פגישות עדיין</div>
   const { lastMeetings, nextMeetings } = meetings
   console.log("meetings", meetings)
   return (
@@ -56,15 +57,15 @@ export const BookingMenu = () => {
 
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1"  >
-          {lastMeetings && lastMeetings.map(meeting =>
+          {lastMeetings.length>0 ? lastMeetings.map(meeting =>
             <BookByDate flag={0} book={meeting} />
-          )}
+          ):<h2>אין פגישות בהסטוריה</h2>}
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
 
-        {nextMeetings && nextMeetings.map(meeting =>
+        {nextMeetings.length>0 ? nextMeetings.map(meeting =>
             <BookByDate flag={1} book={meeting} />
-          )}
+          ):<h2>לא הזמנת פגישות עדיין... מחכים לך!</h2>}
 
         </TabPane>
 
