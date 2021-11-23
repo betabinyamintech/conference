@@ -73,7 +73,6 @@ export default function OtpModal({ phone }) {
                   const text = await response.text()
                   setError(text)
                 } else {
-                  console.log('loginOtp success')
                   //save user at UserContext
                   await loginToken()
                   navigate("/bookrequest")

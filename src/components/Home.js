@@ -85,9 +85,11 @@ const ModalLogin = ({ showModalLogin, setShowModalLogin }) => {
               name="phone"
               label="טלפון"
               tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
-              rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
+              rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true },
+              { min: 10, message: 'מינימום 10 ספרות יש להקיש' },
+              { max: 10, message: 'אופס! יותר מדי ספרות' },]}
             >
-              <Input ref={phoneRef} />
+              <Input type="number"  ref={phoneRef} />
             </Form.Item>
 
             <Form.Item>

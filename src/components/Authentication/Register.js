@@ -1,10 +1,10 @@
-import { Form, Input, Button, Alert } from 'antd';
+import { Form, Input, Button, Alert, InputNumber } from 'antd';
 import { useRef, useState } from 'react';
 import { getUserDetails, register } from '../../actions/auth';
 import OtpModal from '../OtpPage/otpModal';
 import { useNavigate } from 'react-router-dom';
 import { sendPhoneVerificationCode } from '../../actions/otp';
-import  '../../App.css'
+import '../../App.css'
 import { useContext } from 'react/cjs/react.development';
 import { UserContext } from '../../context/user';
 
@@ -13,12 +13,16 @@ export const Register = () => {
     const navigate = useNavigate()
 
     const [error, setError] = useState()
-    const phoneRef = useRef()
+    const [disable, setDisable] = useState(true);
+    const [phone, setPhone] = useState();
+    // const phoneRef = useRef()
 
-    const loginToken = useContext(UserContext).loginToken 
+    const loginToken = useContext(UserContext).loginToken
+
+
 
     function handleSendCodeVerfication() {
-        let phone = phoneRef.current.input.value
+        // let phone = phoneRef.current.input.value
         sendPhoneVerificationCode(phone)
     }
 
@@ -29,7 +33,7 @@ export const Register = () => {
         if (!response.ok) {
             setError(await response.text())
         } else {
-          
+
             //take UserDetails from mongoose  by email of the token
             await loginToken()
             // getUserDetails()           
@@ -38,7 +42,7 @@ export const Register = () => {
     }
 
     return (
-        <div className="main" style={{margin:'3%'}}>
+        <div className="main" style={{ margin: '3%' }}>
             {error && <Alert type="error">{error}</Alert>}
             <Form onFinish={handleRegister}>
                 <Form.Item
@@ -107,14 +111,17 @@ export const Register = () => {
                     name="phone"
                     label="טלפון"
                     tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
-                    rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
+                    rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true },
+                    { min: 10, message: 'מינימום 10 ספרות יש להקיש' },
+                    { max: 10, message: 'אופס! יותר מדי ספרות' },]}
                 >
-                    <Input ref={phoneRef} />
+{/* ref={phoneRef} */}
+                    <Input type="number"  value={phone} onChange={(e) => {setPhone(e.target.value);setDisable((e.target.value.length==10)?false:true)}}  />
                 </Form.Item>
-                <div className="ant-row ant-form-item" style={{rowGap: '0px'}}>
-                <Button onClick={handleSendCodeVerfication}>
-                    שלח קוד אימות לטלפון
-                </Button>
+                <div className="ant-row ant-form-item" style={{ rowGap: '0px' }}>
+                    <Button onClick={handleSendCodeVerfication} disabled={disable}>
+                        שלח קוד אימות לטלפון
+                    </Button>
                 </div>
                 <Form.Item
                     name="code"
@@ -126,7 +133,7 @@ export const Register = () => {
 
 
                 </Form.Item>
-                <Form.Item style={{textAlign:'right'}}>
+                <Form.Item style={{ textAlign: 'right' }}>
                     <Button type="primary" htmlType="submit" >
                         הירשם
                     </Button>

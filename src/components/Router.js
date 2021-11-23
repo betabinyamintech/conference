@@ -27,7 +27,7 @@ const Router = () => {
                 <Route path="/loginOtp" element={<LoginOtp />} />
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/otp" element={<OTP />} />
+                <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
 
 
                 {
@@ -41,7 +41,7 @@ const Router = () => {
                         <Route path="/profile" element={<UserProfile />} />
                         <Route path="/alternatives" element={<BookingAlternatives />} />
                         <Route path="/bookingMenu" element={<BookingMenu />} />
-                        <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+                      
                         <Route path="/pay" element={<Pay />} />
 
                     </>
