@@ -5,8 +5,8 @@ import BookingDetails from "./BookingDetails"
 import { bookCommit, IfSubscriberPay } from "../../actions/booking"
 import { Navigate } from "react-router"
 import { useNavigate } from "react-router-dom"
-// import {IfSubscriberPay} from '../'
-
+import { googleCalendarEventUrl } from 'google-calendar-url';
+var moment = require('moment');
 
 const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestResponse }) => {
 
@@ -16,7 +16,18 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
     const navigate = useNavigate()
 
     const book = async (bookingDetails) => {
+        console.log("bookingDetails ", bookingDetails)
+        let fromTime=moment.unix(bookingDetails.startTime).format('HHmmss')
+        let toTime=moment.unix(bookingDetails.endTime).format('HHmmss')
+        const url = googleCalendarEventUrl({
+            start: bookingDetails.meetingDate + "T" + fromTime+"Z",
+            end: bookingDetails.meetingDate + "T" + toTime+"Z",
+            title: 'פגישה בבנימין טק',
+            details:'פגישה בבנימין טק',
+            location: ' בחדר ' + bookingDetails.roomDetails.name,
+        });
         delete bookingDetails.roomDetails
+        bookingDetails={...bookingDetails, url}
         const checkIfSubscriber = await IfSubscriberPay({ bookingDetails })
         if (checkIfSubscriber == -1)
             navigate("/pay")

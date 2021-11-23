@@ -23,10 +23,16 @@ function onChange(a, b, c) {
 const contentStyle = {
   //height: '160px',
   color: '#fff',
+  width: '100%',
   lineHeight: '160px',
   textAlign: 'center',
-  background: '#00aaaf'
+  direction: 'center',
+  background: '#c0c0c0',
+  border: '2px',
+  padding: '20px',
+  borderRadius: '70px 20px'
 };
+
 
 const headDiv = {
   height: '2cm',
@@ -178,25 +184,24 @@ const Home = () => {
             פגישה חדשה
           </Button>
         </div>
-        <div >
-          <div >
+        <div style={{textAlign:"center"}}>
+          <div style={{width: '80%', marginRight:"auto", marginLeft:"auto"}}>
             <p>כדאי לדעת</p>
-            <Carousel afterChange={onChange} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
-              <div>
-                <h3 style={contentStyle}>
-                  <img alt="example" src={english} style={{ width: '100%' }} /></h3>
+            <Carousel
+            afterChange={onChange}
+            arrows prevArrow={<LeftOutlined />}
+            nextArrow={<RightOutlined />}>
+              <div class="img_carousel">
+                  <img alt="תמונה" src="https://binyamintech.co.il/wp-content/uploads/2021/11/wordpress.png" />
               </div>
-              <div>
-                <h3 style={contentStyle}>
-                  <img alt="example" src={wordPress} style={{ width: '100%' }} /></h3>
+              <div class="img_carousel">
+                  <img alt="תמונה" src="https://binyamintech.co.il/wp-content/uploads/2021/01/SJ2A0013.jpg" />
               </div>
-              <div>
-                <h3 style={contentStyle}>
-                  <img alt="example" src={english} style={{ width: '100%' }} /></h3>
+              <div class="img_carousel">
+                  <img alt="תמונה" src={english} />
               </div>
-              <div>
-                <h3 style={contentStyle}>
-                  <img alt="example" src={wordPress} style={{ width: '100%' }} /></h3>
+              <div class="img_carousel">
+                  <img alt="תמונה" src="https://binyamintech.co.il/wp-content/uploads/2021/02/02-2-1.png" />
               </div>
             </Carousel>
           </div>

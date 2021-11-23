@@ -5,6 +5,9 @@ import { BookByDate } from './BookByDate';
 import Item from 'antd/lib/list/Item';
 import { getUserBookings } from '../actions/booking';
 import { UserContext } from '../context/user';
+var moment = require('moment');
+var os=require('os')
+
 
 const { TabPane } = Tabs;
 
@@ -18,19 +21,18 @@ export const BookingMenu = () => {
       console.log("userState", userState)
       const allUserBooking = await getUserBookings({ user: userState._id })
       console.log("booking are", allUserBooking)
-      const now = new Date()
-      let nowToCompare = now.getTime()
+      const now = moment()
+      console.log("now",now)
+      // let nowToCompare = now.getTime()
 
       const compareDateLast = (value) => {
-        let meeting = new Date(value.meetingDate)
-        let meetingToCompare = meeting.getTime()
-        return meetingToCompare < nowToCompare
-
+        let meeting = new moment(value.meetingDate)
+        return moment(now).isAfter(meeting); 
+       
       }
       const compareDateNext = (value) => {
-        let meeting = new Date(value.meetingDate)
-        let meetingToCompare = meeting.getTime()
-        return meetingToCompare > nowToCompare
+        let meeting = new moment(value.meetingDate)
+        return moment(now).isBefore(meeting); 
 
       }
 
@@ -46,7 +48,7 @@ export const BookingMenu = () => {
 
 
 
-  if (!meetings) return <div>Loading...</div>
+  if (!meetings) return <div>לא הזמנת פגישות עדיין</div>
   const { lastMeetings, nextMeetings } = meetings
   console.log("meetings", meetings)
   return (
@@ -55,13 +57,15 @@ export const BookingMenu = () => {
 
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1"  >
-          {lastMeetings && lastMeetings.map(meeting =>
+          {lastMeetings.length>0 ? lastMeetings.map(meeting =>
             <BookByDate flag={0} book={meeting} />
-          )}
+          ):<h2>אין פגישות בהסטוריה</h2>}
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
 
-          <BookByDate flag={1} book={Item} />
+        {nextMeetings.length>0 ? nextMeetings.map(meeting =>
+            <BookByDate flag={1} book={meeting} />
+          ):<h2>לא הזמנת פגישות עדיין... מחכים לך!</h2>}
 
         </TabPane>
 
@@ -78,3 +82,4 @@ export const BookingMenu = () => {
 
 
 
+ 
