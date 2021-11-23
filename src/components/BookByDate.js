@@ -28,7 +28,7 @@ export const  BookByDate = ({ flag, book }) => {
             {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
             <p class="alignright" style={{ display: "inlineBlock" }}> אסימונים נוצלו {book.value}</p>
             {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
-            {flag ? <DeleteTwoTone class="alignleft" type='text' style={{ color: "blue" }} /> : <p class="alignleft" style={{ color: "gray" }}>{stringLogTime}:{stringLogDate} הוזמן ב  </p>}
+            {flag ? <button><DeleteTwoTone class="alignleft" type='text' style={{ color: "blue" }} /></button> : <p class="alignleft" style={{ color: "gray" }}>{stringLogTime}:{stringLogDate} הוזמן ב  </p>}
             <Divider />
             {/* <p  class="alignleft" ><a href={()=>{confirmBooking()}} action >גם טוב</a></p> */}
             {/* </Card>  */}
