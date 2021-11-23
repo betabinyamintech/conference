@@ -8,14 +8,9 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
 
     const [loading, setLoading] = useState(false)
     const navigate= useNavigate();
+    console.log("bookingResponse", bookingResponse)
     const goBackHome = () => {
-        //העברה לקומפוננטה של הזמנת משתתפים
-        //bookingResponse=false
         setBookingRequestResponse(false)
-    }
-    const AddToCcalendar = () => {
-        //העברה לקומפוננטה של הוספת הפגישה ליומן אישי
-        //bookingResponse=false
     }
 
     const cancelModal= ()=>{
@@ -33,9 +28,12 @@ const BookingResponse = ({ bookingResponse, setBookingRequestResponse }) => {
                        תודה! סיימתי
                     </Button> </Link>,
                     <span >|</span>,
+                    <a href={bookingResponse}>
                     <Button  type='text' key="back" loading={loading} onClick={goBackHome}>
                         הוספה ליומן שלי
-                    </Button>,
+                    </Button>
+                    </a>
+                    ,
                 ]}
                 onCancel={cancelModal}
             >

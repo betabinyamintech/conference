@@ -16,7 +16,7 @@ export async function bookCommit(bookDetails) {
     if (response.ok) {
         await response
     }
-    return response
+    return response.json()
 }
 
 export  async function getUserBookings (){
