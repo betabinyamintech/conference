@@ -12,6 +12,7 @@ import { render } from "@testing-library/react";
 import { sendPhoneVerificationCode } from '../actions/otp';
 import OtpModal from "./OtpPage/otpModal"
 import { login } from "../actions/auth"
+import { Register } from "./Authentication/Register";
 // '../OtpPage/otpModal';
 
 
@@ -151,6 +152,9 @@ const ModalLogin = ({ showModalLogin, setShowModalLogin }) => {
             </Form.Item>
           </Form>
         </div>
+      </TabPane>
+      <TabPane tab="הרשמה" key="3"  >
+        <Register/>
       </TabPane>
     </Tabs>
   </Modal>
