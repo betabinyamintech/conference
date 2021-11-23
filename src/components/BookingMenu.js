@@ -35,7 +35,7 @@ export const BookingMenu = () => {
         return moment(now).isBefore(meeting); 
 
       }
-
+      console.log("going to setMeetings")
       setMeetings({
         lastMeetings: allUserBooking.filter(compareDateLast),
         nextMeetings: allUserBooking.filter(compareDateNext)
@@ -57,15 +57,15 @@ export const BookingMenu = () => {
 
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1"  >
-          {lastMeetings.length>0 ? lastMeetings.map(meeting =>
+          {lastMeetings && lastMeetings.map(meeting =>
             <BookByDate flag={0} book={meeting} />
-          ):<h2>אין פגישות בהסטוריה</h2>}
+          )}
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
 
-        {nextMeetings.length>0 ? nextMeetings.map(meeting =>
+        {nextMeetings && nextMeetings.map(meeting =>
             <BookByDate flag={1} book={meeting} />
-          ):<h2>לא הזמנת פגישות עדיין... מחכים לך!</h2>}
+          )}
 
         </TabPane>
 
