@@ -3,7 +3,7 @@ import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/ico
 import React, { useState, useEffect, useContext } from 'react'
 import { BookByDate } from './BookByDate';
 import Item from 'antd/lib/list/Item';
-import { getUserBookings } from '../actions/booking';
+import { getUserBookings,getRooms } from '../actions/booking';
 import { UserContext } from '../context/user';
 var moment = require('moment');
 var os=require('os')
@@ -20,7 +20,8 @@ export const BookingMenu = () => {
     async function book() {
       console.log("userState", userState)
       const allUserBooking = await getUserBookings({ user: userState._id })
-      console.log("booking are", allUserBooking)
+      const allRooms=await getRooms()
+      console.log("allRooms", allRooms)
       const now = moment()
       console.log("now",now)
       // let nowToCompare = now.getTime()
