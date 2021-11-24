@@ -5,7 +5,7 @@ import OtpModal from '../OtpPage/otpModal';
 import { useNavigate } from 'react-router-dom';
 import { sendPhoneVerificationCode } from '../../actions/otp';
 import '../../App.css'
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
 import { UserContext } from '../../context/user';
 
 export const Register = () => {
