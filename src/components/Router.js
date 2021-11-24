@@ -14,10 +14,12 @@ import MeetingRoomsTable from './MeetingRoom/MeetingRomesTable';
 import Home from './Home';
 import Pay from './Pay'
 import { LoginOtp } from './Authentication/LoginOtp';
+import { ConfigProvider } from 'antd';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
     return (
+        <ConfigProvider direction="rtl">
         <BrowserRouter >
             <Routes>
                 <Route path="/" element={<App />} />
@@ -47,7 +49,8 @@ const Router = () => {
                     </>
                 }
             </Routes>
-        </BrowserRouter >)
+        </BrowserRouter >
+        </ConfigProvider>)
 }
 
 export default Router
