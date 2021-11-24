@@ -2,3 +2,6 @@
 .main{
    direction: rtl;
 }
+.ant-form-rtl .ant-form-item-label{
+   text-align: right;
+}
