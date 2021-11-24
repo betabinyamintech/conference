@@ -19,36 +19,36 @@ const Router = () => {
     const { userState } = useContext(UserContext)
     return (
         <ConfigProvider direction="rtl">
-        <BrowserRouter >
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/home" element={<Home />} />
-                
-                <Route path="/register" element={<Register />} />
-                <Route path="/loginOtp" element={<LoginOtp />} />
-                <Route path="/login" element={<Login />} />
+            <BrowserRouter >
+                <Routes>
+                    <Route path="/app" element={<App />} />
+                    <Route path="/" element={<Home />} />
 
-                <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/loginOtp" element={<LoginOtp />} />
+                    <Route path="/login" element={<Login />} />
+
+                    <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
 
 
-                {
-                    // we must check that usr state is true otherwise, this component will
-                    // fail because it needs userState information
-                    // and we can group all pages that require this here
-                    //רק אם יש יוזר סטייט הוא יציג את בוקינג רקווסט
-                    userState && <>
-                        <Route path="/bookrequest" element={<BookingRequestDetails />} />
-                        <Route path="/alternatives" element={<BookingAlternatives />} />
-                        <Route path="/profile" element={<UserProfile />} />
-                        <Route path="/alternatives" element={<BookingAlternatives />} />
-                        <Route path="/bookingMenu" element={<BookingMenu />} />
-                      
-                        <Route path="/pay" element={<Pay />} />
+                    {
+                        // we must check that usr state is true otherwise, this component will
+                        // fail because it needs userState information
+                        // and we can group all pages that require this here
+                        //רק אם יש יוזר סטייט הוא יציג את בוקינג רקווסט
+                        userState && <>
+                            <Route path="/bookrequest" element={<BookingRequestDetails />} />
+                            <Route path="/alternatives" element={<BookingAlternatives />} />
+                            <Route path="/profile" element={<UserProfile />} />
+                            <Route path="/alternatives" element={<BookingAlternatives />} />
+                            <Route path="/bookingMenu" element={<BookingMenu />} />
 
-                    </>
-                }
-            </Routes>
-        </BrowserRouter >
+                            <Route path="/pay" element={<Pay />} />
+
+                        </>
+                    }
+                </Routes>
+            </BrowserRouter >
         </ConfigProvider>)
 }
 
