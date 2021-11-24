@@ -17,9 +17,7 @@ export const Register = () => {
     const [phone, setPhone] = useState();
     // const phoneRef = useRef()
 
-    const loginToken = useContext(UserContext).loginToken
-
-
+    const { loginToken } = useContext(UserContext)
 
     function handleSendCodeVerfication() {
         // let phone = phoneRef.current.input.value
@@ -115,8 +113,8 @@ export const Register = () => {
                     { min: 10, message: 'מינימום 10 ספרות יש להקיש' },
                     { max: 10, message: 'אופס! יותר מדי ספרות' },]}
                 >
-{/* ref={phoneRef} */}
-                    <Input type="number"  value={phone} onChange={(e) => {setPhone(e.target.value);setDisable((e.target.value.length==10)?false:true)}}  />
+                    {/* ref={phoneRef} */}
+                    <Input type="number" value={phone} onChange={(e) => { setPhone(e.target.value); setDisable((e.target.value.length == 10) ? false : true) }} />
                 </Form.Item>
                 <div className="ant-row ant-form-item" style={{ rowGap: '0px' }}>
                     <Button onClick={handleSendCodeVerfication} disabled={disable}>
