@@ -10,21 +10,6 @@ export async function fetchBookingRequest(details) {
         cors: 'cors',
         body: JSON.stringify(details)
     })
-    // const mockResponse = {
-    //     exact: {
-    //         room:{
-    //             roomName:"שופר",
-    //         value:15,
-    //         maximumParticipants: 6
-    //         },
-    //         bookingDetails:{
-    //             hourEnd:"7:00",
-    //             hourStart:"10:00",
-    //             date:"23/12/2021"
-    //         }
-            
-    //     }
-    // }
 
     return await response.json()
 }

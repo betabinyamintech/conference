@@ -1,7 +1,6 @@
 import { baseUrl } from ".";
 
 export async function bookCommit(bookDetails) {
-    // alert("go to server")
     const response = await fetch(baseUrl + '/booking/bookingcommitRequest', {
         method: "POST",
         headers: {
@@ -20,10 +19,8 @@ export async function bookCommit(bookDetails) {
 }
 
 export  async function getUserBookings (){
-// alert(userId.user )
     try {
         const res = await fetch(baseUrl + '/booking/user', {
-            //צריכה לשנות ל GET
             method: "GET",
             headers: {
                 'authorization': localStorage.getItem('token')
@@ -72,3 +69,30 @@ export async function IfSubscriberPay(bookDetails) {
     }
     
 }
+
+
+
+export  async function getRooms (){
+    // alert(userId.user )
+        try {
+            const res = await fetch(baseUrl + '/booking/rooms', {
+                //צריכה לשנות ל GET
+                method: "GET",
+                headers: {
+                    'authorization': localStorage.getItem('token')
+                },
+                cors: 'cors',
+            })
+            let data = await res.json();
+            console.log("data",data);
+            if(data) return data    
+          
+    }
+        catch (err) {
+            console.log("oopsss...error", err.message)
+            return
+        }
+    }
+    
+
+   

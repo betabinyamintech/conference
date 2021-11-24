@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Form, TimePicker, Button, Calendar, Select, DatePicker } from 'antd';
+import { Form, TimePicker, Button, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
 import {fetchBookingRequest} from "../../actions/bookingRequest"
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
+var moment=require('moment')
 
 const formItemLayout = {
   labelCol: {
@@ -68,6 +69,11 @@ const BookingRequestDetails = ({ user }) => {
   const listItems = numbers.map((number) =>
     <Option value={number}>{number}</Option>
   );
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().startOf('day');
+  }
+  
 
   // we take first value of the context(second is setUserState)
   const { userState } = useContext(UserContext)
@@ -86,7 +92,7 @@ const BookingRequestDetails = ({ user }) => {
       <span>{userState.name}</span>
       <div>ברוכים הבאים למערכת זימון החדרים של בנימין טק. למתי לשריין את החדר?</div>
       <Form.Item name="date" label="בחר תאריך" {...config}>
-        <DatePicker />
+        <DatePicker disabledDate={disabledDate}/>
       </Form.Item>
       <Form.Item name="fromTime" label="משעה" {...config}>
         <TimePicker

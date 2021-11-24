@@ -21,51 +21,51 @@ export const Login = () => {
             console.log('login success')
             //save user at UserContext
             await loginToken()
-            navigate("/home")
+            navigate("/bookrequest")
         }
     }
     return (
         <div className="main" style={{ margin: '3%' }}>
-            {error}
-            {error && <Alert type="error">{error}</Alert>}
-            <Form
-                onFinish={handleLogin}
+          {error}
+          {error && <Alert type="error">{error}</Alert>}
+          <Form
+            onFinish={handleLogin}
+          >
+            <Form.Item
+              name="email"
+              label="מייל"
+              rules={[
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
             >
-                <Form.Item
-                    name="email"
-                    label="מייל"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+              <Input />
+            </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    label="סיסמא"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit"  >
-                        התחבר
-                    </Button>
-                </Form.Item>
-            </Form>
+            <Form.Item
+              name="password"
+              label="סיסמא"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit"  >
+                התחבר
+              </Button>
+            </Form.Item>
+          </Form>
         </div>)
 }

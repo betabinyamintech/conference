@@ -3,7 +3,7 @@ import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/ico
 import React, { useState, useEffect, useContext } from 'react'
 import { BookByDate } from './BookByDate';
 import Item from 'antd/lib/list/Item';
-import { getUserBookings } from '../actions/booking';
+import { getUserBookings,getRooms } from '../actions/booking';
 import { UserContext } from '../context/user';
 var moment = require('moment');
 var os=require('os')
@@ -20,7 +20,8 @@ export const BookingMenu = () => {
     async function book() {
       console.log("userState", userState)
       const allUserBooking = await getUserBookings({ user: userState._id })
-      console.log("booking are", allUserBooking)
+      const allRooms=await getRooms()
+      console.log("allRooms", allRooms)
       const now = moment()
       console.log("now",now)
       // let nowToCompare = now.getTime()
@@ -35,7 +36,7 @@ export const BookingMenu = () => {
         return moment(now).isBefore(meeting); 
 
       }
-
+      console.log("going to setMeetings")
       setMeetings({
         lastMeetings: allUserBooking.filter(compareDateLast),
         nextMeetings: allUserBooking.filter(compareDateNext)
@@ -57,15 +58,15 @@ export const BookingMenu = () => {
 
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1"  >
-          {lastMeetings.length>0 ? lastMeetings.map(meeting =>
+          {lastMeetings && lastMeetings.map(meeting =>
             <BookByDate flag={0} book={meeting} />
-          ):<h2>אין פגישות בהסטוריה</h2>}
+          )}
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
 
-        {nextMeetings.length>0 ? nextMeetings.map(meeting =>
+        {nextMeetings && nextMeetings.map(meeting =>
             <BookByDate flag={1} book={meeting} />
-          ):<h2>לא הזמנת פגישות עדיין... מחכים לך!</h2>}
+          )}
 
         </TabPane>
 

@@ -8,12 +8,13 @@ var moment = require('moment'); // require
 const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
   console.log("in the modal: ", details)
   let { meetingDate, startTime, endTime, roomDetails } = details
+  let fromTime=moment.unix(startTime)
+  let toTime=moment.unix(endTime)
+  let bookValue=roomDetails.value*(toTime.diff(fromTime, 'hours'))
   let stringDate = moment(meetingDate, 'YYYYMMDD').format('l')
   let day = moment(meetingDate, 'YYYYMMDD').format('dddd')
-  let fromTime=moment.unix(startTime).format('HHmm')
-  let toTime=moment.unix(endTime).format('HHmm')
-  let toTimeString=toTime.slice(0, 2) + ":" + toTime.slice(2);
-  let fromTimeString=fromTime.slice(0, 2) + ":" + fromTime.slice(2);
+  let toTimeString=toTime.format('HHmm').slice(0, 2) + ":" + toTime.format('HHmm').slice(2);
+  let fromTimeString=fromTime.format('HHmm').slice(0, 2) + ":" + fromTime.format('HHmm').slice(2);
   const [loading, setLoading] = useState(false)
   const cancel = () => {
     //חזרה לדף של בחירת האופציה
@@ -28,7 +29,7 @@ const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
           <Button key="back" onClick={cancel}>
             ביטול
           </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={() => {book(details)}}>
+          <Button key="submit" type="primary" loading={loading} onClick={() => {details={...details,bookValue}; book(details)}}>
         ברור
       </Button>,
         ]}
@@ -44,7 +45,7 @@ const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
       </div>
       <br />
       <div>
-        <span>לשמור לך אותו תמורת {roomDetails.value} אסימונים?</span>
+        <span>לשמור לך אותו תמורת {bookValue} אסימונים?</span>
       </div>
     </Modal>
     </>

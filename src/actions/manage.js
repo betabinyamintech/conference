@@ -6,7 +6,5 @@ export async function getMeetingRooms() {
         cors: 'cors'
     })
 
-    // console.log(response);
-    // return response
     return response.json()
 }

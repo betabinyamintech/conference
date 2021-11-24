@@ -10,40 +10,41 @@ import OtpModal from '../OtpPage/otpModal';
 
 export const LoginOtp = () => {
 
-    // // const [error, setError] = useState()
-    // const [showModal, setShowModal] = useState(false)
+    // const [error, setError] = useState()
+    const [showModalOtp, setShowModalOtp] = useState(false)
 
-    // const phoneRef = useRef()
+    const phoneRef = useRef()
 
-    // function handleSendCodeVerfication(loginDetails) {
-    //     sendPhoneVerificationCode(loginDetails.phone)
-    //     setShowModal(true)
+    function handleSendCodeVerfication(loginDetails) {
+        sendPhoneVerificationCode(loginDetails.phone)
+        setShowModalOtp(true)
 
-    // }
+    }
 
 
-    // return (
-    //     <div className="main" style={{ margin: '3%' }}>
-    //         <Form
-    //             onFinish={handleSendCodeVerfication}
-    //         >
+    return (
+        <div className="main" style={{ margin: '3%' }}>
+          <Form
+            onFinish={handleSendCodeVerfication}
+          >
+            <Form.Item
+              name="phone"
+              label="טלפון"
+              tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
+              rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true },
+              { min: 10, message: 'מינימום 10 ספרות יש להקיש' },
+              { max: 10, message: 'אופס! יותר מדי ספרות' },]}
+            >
+              <Input type="number"  ref={phoneRef} />
+            </Form.Item>
 
-    //             <Form.Item
-    //                 name="phone"
-    //                 label="טלפון"
-    //                 tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
-    //                 rules={[{ required: true, message: 'הכנס מספר טלפון', whitespace: true }]}
-    //             >
-    //                 <Input ref={phoneRef} />
-    //             </Form.Item>
-
-    //             <Form.Item>
-    //                 <Button type="primary" htmlType="submit"  >
-    //                     התחבר
-    //                 </Button>
-    //             </Form.Item>
-    //         </Form>
-    //         {showModal && <OtpModal phone={phoneRef.current.input.value} ></OtpModal>}
-    //     </div>
-    // )
+            <Form.Item>
+              <Button type="primary" htmlType="submit"  >
+                התחבר
+              </Button>
+            </Form.Item>
+          </Form>
+          {showModalOtp && <OtpModal phone={phoneRef.current.input.value} ></OtpModal>}
+        </div>
+    )
 }
