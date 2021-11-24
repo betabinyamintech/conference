@@ -3,7 +3,6 @@ import BookingAlternatives from "./BookingAlternatives"
 import BookingResponse from "./BookingResponse"
 import BookingDetails from "./BookingDetails"
 import { bookCommit, IfSubscriberPay } from "../../actions/booking"
-import { Navigate } from "react-router"
 import { useNavigate } from "react-router-dom"
 import { googleCalendarEventUrl } from 'google-calendar-url';
 var moment = require('moment');
@@ -29,7 +28,7 @@ const BookingRequestResponse = ({ bookingRequestResponse, setBookingRequestRespo
         delete bookingDetails.roomDetails
         bookingDetails={...bookingDetails, url}
         const checkIfSubscriber = await IfSubscriberPay({ bookingDetails })
-        if (checkIfSubscriber == -1)
+        if (checkIfSubscriber === -1)
             navigate("/pay")
         else {
             const bookCommit1 = await bookCommit(bookingDetails)

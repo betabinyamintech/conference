@@ -1,4 +1,4 @@
-import { Form, Input, Button, Tag } from "antd";
+import { Form, Input, Button} from "antd";
 import ProgramsTags from "./ProgramsTags";
 import { tagsData } from "./mock";
 

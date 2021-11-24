@@ -1,23 +1,16 @@
-import { Table, Tag, Space, Button, Modal, Alert, Select, InputNumber } from "antd";
+import { Table, Space, Modal, Select, InputNumber } from "antd";
 import { useState, useEffect, useRef } from "react";
-import reactDom from "react-dom";
 import MeetingRoomEdit from "./MeetingRoomEdit";
-import ModalEditMeetingRooms from "./ModalEditMeetingRooms";
-import { getMeetingRooms } from '../../actions/manage';
 import React from 'react';
 import { data } from "./mock";
 import '../../App.css';
-import { ConfigProvider } from 'antd';
-
-
-const { Option } = Select;
 
 const MeetingRoomsTable = () => {
   
   const [unfilteredData, setUnfilteredData] = useState();
   const [filteredData, setFilteredData] = useState();
-  const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [visible, setVisible] = useState(false);
   const [modalRecord, setModalRecord] = useState(false);
   // const [items, setItems] = useState([
   //   { id: 1, someattr: "a string", anotherattr: "" },
@@ -211,9 +204,9 @@ const MeetingRoomsTable = () => {
   };
 
   let handleOk = () => {
-    setLoading(true);
+    //setLoading(true);
     setTimeout(() => {
-      setLoading(false);
+      //setLoading(false);
     }, 3000);
   };
 

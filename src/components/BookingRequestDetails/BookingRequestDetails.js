@@ -32,15 +32,6 @@ const config = {
     },
   ],
 };
-const rangeConfig = {
-  rules: [
-    {
-      type: 'array',
-      required: true,
-      message: 'Please select time!',
-    },
-  ],
-};
 
 const BookingRequestDetails = ({ user }) => {
   const [bookingRequestResponse, setBookingRequestResponse] = useState()

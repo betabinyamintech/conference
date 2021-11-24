@@ -8,7 +8,7 @@ import { UserContext } from '../../context/user';
 
 import OtpInput from "react-otp-input";
 
-import { sendPhoneVerificationCode, verifyCode } from '../../actions/otp';
+import { sendPhoneVerificationCode } from '../../actions/otp';
 import './otpModal.css'
 
 export default function OtpModal({ phone }) {
@@ -106,9 +106,9 @@ export default function OtpModal({ phone }) {
 
           {error && <Alert type="error">{error}</Alert>}
           <p>לא קיבלת את הקוד?</p>
-          <a onClick={() => {
+          <button onClick={() => {
             handleSendCodeVerfication();
-          }} >לקבלת קוד חדש</a>
+          }} >לקבלת קוד חדש</button>
 
 
 

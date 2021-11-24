@@ -1,6 +1,6 @@
 import { Button } from "antd";
-import React, { useState, useContext, useRef } from "react";
-import { PlusOutlined, LeftOutlined, RightOutlined, BoldOutlined } from '@ant-design/icons';
+import React, { useState, useContext } from "react";
+import { PlusOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { Carousel, Tabs, Modal } from 'antd';
 import english from '../img/english.jpg';
@@ -17,28 +17,8 @@ const { TabPane } = Tabs;
 
 function onChange(a, b, c) {
 }
-const contentStyle = {
-  //height: '160px',
-  color: '#fff',
-  width: '100%',
-  lineHeight: '160px',
-  textAlign: 'center',
-  direction: 'center',
-  background: '#c0c0c0',
-  border: '2px',
-  padding: '20px',
-  borderRadius: '70px 20px'
-};
 
 const headDiv = {
-  height: '2cm',
-  textAlign: 'center',
-  background: '#F9F9F9',
-  lineHeight: '80px',
-
-}
-
-const middleDiv = {
   height: '2cm',
   textAlign: 'center',
   background: '#F9F9F9',

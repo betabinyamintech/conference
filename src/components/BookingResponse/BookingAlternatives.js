@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Button, footer } from 'antd';
+import React from 'react';
+import { Modal, Button } from 'antd';
 import BookingAltenativeRoom from './BookingAlternativeRoom';
 //import { useNavigate } from 'react-router-dom';
 

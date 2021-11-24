@@ -1,14 +1,11 @@
-import React,{ useContext } from "react"
-import { Modal, Button, footer, Card, action } from 'antd';
+import React from "react"
+import { Button, Card } from 'antd';
 import './BookingAlternativeRoom.css'
-import { UserContext } from "../../context/user";
 var moment = require('moment'); // require
 
 
 export const BookingAltenativeRoom = ({ book, booking }) => {
     let { meetingDate, startTime, endTime, roomDetails } = booking
-    const { userState } = useContext(UserContext)
-    const userId = userState._id
     // const details = {
     //     logDate:Date.now(),
     //     roomId:roomFound._id,
