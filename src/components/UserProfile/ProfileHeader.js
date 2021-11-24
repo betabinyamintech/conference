@@ -22,12 +22,14 @@ export default function ProfileHeader() {
                     <div className="details">
                         <div className="fullName">
                             <h4>{"שלום,"} {userState.name}</h4>
-                            <div className="bitCoins">
-                                <h6>יתרתך 100 אסימונים</h6>
-                            </div>
+                            {userState.subscription &&
+                                <div className="bitCoins">
+                                    <h6>יתרתך {userState.subscription.balance} אסימונים</h6>
+                                </div>
+                            }
                         </div>
                         <div className="avatar">
-                            <Avatar icon={<UserOutlined/>} />
+                            <Avatar icon={<UserOutlined />} />
                         </div>
 
                     </div> : <div>שלום אורח</div>

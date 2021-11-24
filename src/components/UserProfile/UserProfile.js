@@ -17,7 +17,7 @@ function UserProfile() {
     const navigate = useNavigate()
 
     function homePage() {
-        navigate("/home")
+        navigate("/")
     }
     return (
 

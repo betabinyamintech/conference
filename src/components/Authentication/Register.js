@@ -35,7 +35,7 @@ export const Register = () => {
             //take UserDetails from mongoose  by email of the token
             await loginToken()
             // getUserDetails()           
-            navigate("/home")
+            navigate("/")
         }
     }
 
