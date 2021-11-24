@@ -17,6 +17,7 @@ import { ConfigProvider } from 'antd';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
+    console.log("router userState=", userState)
     return (
         <ConfigProvider direction="rtl">
             <BrowserRouter >

@@ -12,8 +12,8 @@ export async function register(details) {
 
 
     if (response.ok) {
-      
-        localStorage.setItem('token',  (await response.json()).token)
+        console.log('token received and written to localStorage')
+        localStorage.setItem('token', (await response.json()).token)
     }
     return response
 }
