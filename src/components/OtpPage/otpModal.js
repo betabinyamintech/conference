@@ -1,8 +1,8 @@
 // import react, { useEffect } from "react";
-import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Button, Alert } from "antd";
-import { getUserDetails, loginOtp } from '../../actions/auth';
-import { Switch, useNavigate } from 'react-router-dom';
+import React, { useState} from "react";
+import { Modal, Alert } from "antd";
+import { loginOtp } from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react/cjs/react.development';
 import { UserContext } from '../../context/user';
 

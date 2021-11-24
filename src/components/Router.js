@@ -6,7 +6,6 @@ import { Register } from './Authentication/Register';
 import { Login } from './Authentication/Login';
 import BookingRequestDetails from './BookingRequestDetails/BookingRequestDetails';
 import { UserContext } from '../context/user';
-import OTP from './OtpPage/OTP';
 import BookingAlternatives from './BookingResponse/BookingAlternatives';
 import { BookingMenu } from './BookingMenu';
 import UserProfile from './UserProfile/UserProfile';

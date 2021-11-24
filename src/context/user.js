@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { useNavigate } from "react-router"
 import { getUserDetails } from "../actions/auth"
 export const UserContext = React.createContext()
 
