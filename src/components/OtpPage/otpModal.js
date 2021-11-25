@@ -1,9 +1,8 @@
 // import react, { useEffect } from "react";
-import React, { useState} from "react";
+import React, { useState,useContext} from "react";
 import { Modal, Alert } from "antd";
 import { loginOtp } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react/cjs/react.development';
 import { UserContext } from '../../context/user';
 
 import OtpInput from "react-otp-input";
