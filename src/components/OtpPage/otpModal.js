@@ -12,10 +12,12 @@ import { sendPhoneVerificationCode } from '../../actions/otp';
 import './otpModal.css'
 
 export default function OtpModal({ phone }) {
+  console.log("OtpModal")
   const [error, setError] = useState()
   const [otp, setOtp] = useState("");
   const navigate = useNavigate()
   const { loginToken } = useContext(UserContext)
+  console.log("loginToken")
   // const [showPopUp, setShowPopUp] = useState(false);
   function handleSendCodeVerfication() {
     sendPhoneVerificationCode(phone)
