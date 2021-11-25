@@ -18,15 +18,15 @@ const BookingAlternatives = ({ book, alternatives , setBookingRequestResponse}) 
     }
     return (
         <Modal centered maskClosable onCancel={goBackHome} title={
-            <div>
-                <h2 style={{ textAlign: "right" }}> אממ... אין לנו את מה שחיפשת</h2>
-                <h3 style={{ textAlign: "right" }}>אולי אחת מהחלופות האלה תתאים לך?</h3>
-            </div>
+            <h2 style={{ textAlign: "right" }}> אממ... אין לנו את מה שחיפשת</h2>
         }
             visible="true"
             footer={
                 <Button align="center" type="primary" onClick={goBackHome }>עדיף שאחפש בעצמי</Button>
             } >
+            {bookingsOptions.length == 0?
+            <h3 style={{ textAlign: "right" }}>אנחנו מצטערים, כל החדרים תפוסים</h3>:
+            <h3 style={{ textAlign: "right" }}>אולי אחת מהחלופות האלה תתאים לך?</h3>}
             {bookingsOptions.map(Item =>
                 <BookingAltenativeRoom book={book} booking={Item} />
             )}
