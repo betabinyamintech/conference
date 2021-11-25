@@ -15,7 +15,7 @@ export default function OtpModal({ phone }) {
   const [error, setError] = useState()
   const [otp, setOtp] = useState("");
   const navigate = useNavigate()
-  const loginToken = useContext(UserContext).loginToken
+  const { loginToken } = useContext(UserContext)
   // const [showPopUp, setShowPopUp] = useState(false);
   function handleSendCodeVerfication() {
     sendPhoneVerificationCode(phone)
