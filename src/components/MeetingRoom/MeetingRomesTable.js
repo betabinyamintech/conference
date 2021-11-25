@@ -4,6 +4,7 @@ import MeetingRoomEdit from "./MeetingRoomEdit";
 import React from 'react';
 import { data } from "./mock";
 import '../../App.css';
+import { getMeetingRooms } from '../../actions/manage';
 
 const MeetingRoomsTable = () => {
   
@@ -88,9 +89,12 @@ const MeetingRoomsTable = () => {
   ];
 
   async function getAllMeetingRooms() {
-  
-    setUnfilteredData(data)
-    setFilteredData(data)
+    const response = await getMeetingRooms()
+     setUnfilteredData(response.rooms)
+     setFilteredData(data)
+
+    // setUnfilteredData(data)
+    // setFilteredData(data)
   
   }
 

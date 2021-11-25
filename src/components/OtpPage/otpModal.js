@@ -65,19 +65,18 @@ export default function OtpModal({ phone }) {
               setOtp(otp);
 
               if (otp.length >= 4) {
-
                 setError(null)
                 const details = { phone: phone, code: otp }
                 const response = await loginOtp(details)
-                if (!response.ok) {
-                  const text = await response.text()
-                  setError(text)
-                } else {
+                if (response.ok) { 
                   //save user at UserContext
                   await loginToken()
                   navigate("/bookrequest")
+                } 
+                else {
+                  const text = await response.text()
+                  setError(text)
                 }
-
               }
             }}
             numInputs={4}

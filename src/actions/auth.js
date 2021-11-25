@@ -35,8 +35,9 @@ export async function login(details) {
     }
     return response
 }
+
 export async function loginOtp(details) {
-    const response = await fetch(baseUrl + '/auth/loginOtp', {
+    const response = await fetch(baseUrl + '/auth/verifyPhoneCode', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -44,12 +45,11 @@ export async function loginOtp(details) {
         cors: 'cors',
         body: JSON.stringify(details)
     })
-
     if (response.ok) {
         const token = (await response.json()).token
         localStorage.setItem('token', token)
-        console.log('written token!')
-    }
+        console.log('auth - loginOtp - written token!')
+    } 
     return response
 }
 
