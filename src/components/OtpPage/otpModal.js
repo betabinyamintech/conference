@@ -7,8 +7,8 @@ import { UserContext } from '../../context/user';
 
 import OtpInput from "react-otp-input";
 
-import { sendPhoneVerificationCode } from '../../actions/otp';
-import './otpModal.css'
+import { sendPhoneVerificationCode } from "../../actions/otp";
+import "./otpModal.css";
 
 export default function OtpModal({ phone }) {
   console.log("OtpModal")
@@ -19,44 +19,45 @@ export default function OtpModal({ phone }) {
   console.log("loginToken")
   // const [showPopUp, setShowPopUp] = useState(false);
   function handleSendCodeVerfication() {
-    sendPhoneVerificationCode(phone)
+    sendPhoneVerificationCode(phone);
   }
 
   return (
-
-    <Modal 
-    // closable="true"
+    <Modal
+      // closable="true"
       size="lg"
       // show={lgShow}
       // onHide={() => setLgShow(false)}
       aria-labelledby="example-modal-sizes-title-lg"
-
       style={{ textAlign: "center" }}
-
-      // visible 
+      // visible
       centered
-      visible title="אימות הרשמה"
-
+      visible
+      title="אימות הרשמה"
       footer={<></>}
     >
-      <div style={{
-        backgroundColor: '#00aaaf',
-        backgroundSize: 'cover',
-        height: '100%',
-        width: '100%',
-        marginTop: 0,
-        zIndex: 1,
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          width: '400px',
-          margin: '3em auto',
-          direction: 'rtl',
-          color: 'white',
-          textAlign: 'center',
-          alignItems: "center", justify: 'center',
-        }}>
-
+      <div
+        style={{
+          backgroundColor: "#00aaaf",
+          backgroundSize: "cover",
+          height: "100%",
+          width: "100%",
+          marginTop: 0,
+          zIndex: 1,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: "400px",
+            margin: "3em auto",
+            direction: "rtl",
+            color: "white",
+            textAlign: "center",
+            alignItems: "center",
+            justify: "center",
+          }}
+        >
           <p>נא להזין את קוד האימות שנשלח אליך לטלפון מספר: {phone}</p>
 
           <OtpInput
@@ -66,19 +67,17 @@ export default function OtpModal({ phone }) {
               setOtp(otp);
 
               if (otp.length >= 4) {
-
-                setError(null)
-                const details = { phone: phone, code: otp }
-                const response = await loginOtp(details)
-                if (!response.ok) {
-                  const text = await response.text()
-                  setError(text)
-                } else {
+                setError(null);
+                const details = { phone: phone, code: otp };
+                const response = await loginOtp(details);
+                if (response.ok) {
                   //save user at UserContext
-                  await loginToken()
-                  navigate("/bookrequest")
+                  await loginToken();
+                  navigate("/bookrequest");
+                } else {
+                  const text = await response.text();
+                  setError(text);
                 }
-
               }
             }}
             numInputs={4}
@@ -92,32 +91,32 @@ export default function OtpModal({ phone }) {
               borderRight: "0px",
               outline: "none",
               borderColor: "white",
-              backgroundColor: '#00aaaf',
-              color: 'white',
+              backgroundColor: "#00aaaf",
+              color: "white",
             }}
             containerStyle={{
               margin: "20px auto",
               padding: "10px",
-              direction: 'ltr',
-              justifyContent: 'center'
+              direction: "ltr",
+              justifyContent: "center",
             }}
             isInputNum={true}
             shouldAutoFocus
           />
 
           {error && <Alert type="error">{error}</Alert>}
-          <p>לא קיבלת את הקוד?</p>
-          <button onClick={() => {
-            handleSendCodeVerfication();
-          }} >לקבלת קוד חדש</button>
-
-
-
-
+          <p>עדיין מחכה לקוד?</p>
+          <a
+            onClick={() => {
+              handleSendCodeVerfication();
+            }}
+          >
+            שלח שוב
+          </a>
         </div>
       </div>
     </Modal>
 
     // </div>
-  )
+  );
 }

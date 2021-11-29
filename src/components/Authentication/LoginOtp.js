@@ -12,8 +12,11 @@ export const LoginOtp = () => {
 
   function handleSendCodeVerfication(loginDetails) {
     sendPhoneVerificationCode(loginDetails.phone);
+<<<<<<< HEAD
     console.log("handleSendCodeVerfication");
     setShowModalOtp(true);
+=======
+   
   }
 
   return (
@@ -22,7 +25,7 @@ export const LoginOtp = () => {
         <Form.Item
           name="phone"
           label="מה מספר הנייד שלך?"
-          tooltip="מספר טלפון ליצירת קשר ואימות סיסמא"
+          tooltip="מספר טלפון שאיתו נרשמת למערכת"
           rules={[
             { required: true, message: "הכנס מספר טלפון", whitespace: true },
             { min: 10, message: "מינימום 10 ספרות יש להקיש" },
@@ -43,4 +46,5 @@ export const LoginOtp = () => {
       )}
     </div>
   );
+};
 };
