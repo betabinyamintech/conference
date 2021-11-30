@@ -3,7 +3,9 @@ import { Form, TimePicker, Button, Select, DatePicker } from 'antd';
 import { UserContext } from "../../context/user";
 import {fetchBookingRequest} from "../../actions/bookingRequest"
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
+import ProfileHeader from "../UserProfile/ProfileHeader";
 var moment=require('moment')
+
 
 const formItemLayout = {
   labelCol: {
@@ -70,6 +72,7 @@ const BookingRequestDetails = ({ user }) => {
   const { userState } = useContext(UserContext)
   return (
     <>
+    <ProfileHeader />
     <Form
       name="booking_request_details" {...formItemLayout}
       onFinish={handleBookingRequest}
@@ -87,12 +90,14 @@ const BookingRequestDetails = ({ user }) => {
       </Form.Item>
       <Form.Item name="fromTime" label="משעה" {...config}>
         <TimePicker
+          defaultValue={moment('08:00', 'HH:mm')}
           minuteStep={15}
           format='HH:mm'
           placeholder="בחר שעה" />
       </Form.Item>
       <Form.Item name="toTime" label="עד שעה" {...config} >
         <TimePicker
+          defaultValue={moment('09:00', 'HH:mm')}
           minuteStep={15}
           format='HH:mm'
           placeholder="בחר שעה" />
