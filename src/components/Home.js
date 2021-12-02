@@ -10,10 +10,11 @@ import { UserContext } from "../context/user";
 import { Register } from "./Authentication/Register";
 import { LoginOtp } from "./Authentication/LoginOtp";
 import { Login } from "./Authentication/Login";
+import { BookingMenu } from "./BookingMenu";
 
 const { TabPane } = Tabs;
 
-function onChange(a, b, c) {}
+function onChange(a, b, c) { }
 
 const headDiv = {
   height: "2cm",
@@ -116,6 +117,7 @@ const Home = () => {
                 />
               </div>
             </Carousel>
+            {userState && <BookingMenu />}
           </div>
         </div>
       </div>
