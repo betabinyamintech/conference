@@ -17,6 +17,7 @@ export const BookingMenu = () => {
 
   const [meetings, setMeetings] = useState({})
   const { userState } = useContext(UserContext);
+  const [allRooms, setAllRooms] = useState()
 
   useEffect(() => {
 
@@ -26,7 +27,8 @@ export const BookingMenu = () => {
       const now = moment()
       console.log("now", now)
       // let nowToCompare = now.getTime()
-
+      let RoomsFromServer = await getRooms()
+      setAllRooms(RoomsFromServer)
       const compareDateLast = (value) => {
         let meeting = new moment(value.meetingDate)
         return moment(now).isAfter(meeting);
@@ -52,7 +54,7 @@ export const BookingMenu = () => {
 
   if (!meetings) return <div>לא הזמנת פגישות עדיין</div>
   const { lastMeetings, nextMeetings } = meetings
-  console.log("meetings", meetings)
+  console.log("allRoomsaftereffect", allRooms)
   return (
 
     <>
@@ -60,14 +62,15 @@ export const BookingMenu = () => {
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1" className="tab" >
           {lastMeetings && lastMeetings.map(meeting =>
-            <BookByDate flag={0} book={meeting} />
+            <BookByDate flag={0} book={meeting} allRooms={allRooms} />
           )}
+
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
-
           {nextMeetings && nextMeetings.map(meeting =>
-            <BookByDate flag={1} book={meeting} />
+            <BookByDate flag={1} book={meeting} allRooms={allRooms} />
           )}
+
 
         </TabPane>
 
