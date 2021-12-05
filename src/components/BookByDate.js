@@ -2,8 +2,10 @@ import React from "react";
 import { Card, Divider } from "antd";
 import { booksExample } from "../context/mock";
 import { DeleteTwoTone } from "@ant-design/icons"
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState, useContext } from "react/cjs/react.development";
 import { Button } from "antd";
+import { deleteMeetingRequest } from '../actions/booking'
+import { UserContext } from "../context/user"
 var moment = require('moment')
 
 
@@ -20,6 +22,7 @@ export const BookByDate = ({ flag, book, allRooms }) => {
     let toTimeString = toTime.slice(0, 2) + ":" + toTime.slice(2);
     let fromTimeString = fromTime.slice(0, 2) + ":" + fromTime.slice(2);
     const [roomDetails, serRoomDetails] = useState({})
+    const { userState, setUserState } = useContext(UserContext);
     let i = 0
     useEffect(() => {
         function getRoomDEtails() {
@@ -39,6 +42,21 @@ export const BookByDate = ({ flag, book, allRooms }) => {
 
     }, [])
 
+    const deleteMeeting = async () => {
+        try {
+            const deleted = await deleteMeetingRequest({ "bookId": book._id })
+            console.log("deleted", deleted)
+            console.log("userBalance", userState.subscription.balance)
+            let newBalance = userState.subscription.balance + book.bookValue
+            console.log("userBalance+book", newBalance)
+            setUserState({ ...userState, subscription: { balance: newBalance } })
+            console.log("userState", userState)
+        }
+        catch (err) {
+            console.log("oops... an error", err.message)
+        }
+    }
+
     const { roomName, roomParticipants } = roomDetails
     return (
 
@@ -50,7 +68,7 @@ export const BookByDate = ({ flag, book, allRooms }) => {
             {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
             <p className="alignright" style={{ display: "inlineBlock" }}> {book.bookValue} קרדיטים נוצלו </p>
             {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
-            {flag ? <Button type="icon" ghost="true"><DeleteTwoTone className="alignleft" type='text' style={{ color: "blue" }} /></Button> : <p class="alignleft" style={{ color: "gray" }}> הוזמן ב {stringLogTime} : {stringLogDate}  </p>}
+            {flag ? <Button type="icon" ghost="true" className="alignleft" onClick={deleteMeeting}><DeleteTwoTone type='text' style={{ color: "blue" }} /></Button> : <p class="alignleft" style={{ color: "gray" }}> הוזמן ב {stringLogTime} : {stringLogDate}  </p>}
             <Divider />
             {/* <p  class="alignleft" ><a href={()=>{confirmBooking()}} action >גם טוב</a></p> */}
             {/* </Card>  */}

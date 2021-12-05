@@ -82,6 +82,7 @@ export async function getRooms() {
                 'authorization': localStorage.getItem('token')
             },
             cors: 'cors',
+
         })
         let data = await res.json();
         console.log("data", data);
@@ -93,6 +94,31 @@ export async function getRooms() {
         return
     }
 }
+
+export async function deleteMeetingRequest(bookId) {
+    console.log("deleteMeetingRequest")
+    try {
+        const res = await fetch(baseUrl + '/booking/delete', {
+            //צריכה לשנות ל GET
+            method: "DELETE",
+            headers: {
+                'authorization': localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            cors: 'cors',
+            body: JSON.stringify(bookId)
+        })
+        let data = await res.json();
+        console.log("data", data);
+        if (data) return data
+
+    }
+    catch (err) {
+        console.log("oopsss...error", err.message)
+        return
+    }
+}
+
 
 
 
