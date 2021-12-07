@@ -18,6 +18,7 @@ export const BookingMenu = () => {
   const [meetings, setMeetings] = useState({})
   const { userState } = useContext(UserContext);
   const [allRooms, setAllRooms] = useState()
+  const [meetingChange, setMeetingChange] = useState(false)
 
   useEffect(() => {
 
@@ -46,7 +47,7 @@ export const BookingMenu = () => {
       })
     }
     book()
-  }, [])
+  }, [meetingChange])
 
 
 
@@ -62,13 +63,13 @@ export const BookingMenu = () => {
       <Tabs defaultActiveKey="1"  >
         <TabPane tab="הסטוריית הזמנות" key="1" className="tab" >
           {lastMeetings && lastMeetings.map(meeting =>
-            <BookByDate flag={0} book={meeting} allRooms={allRooms} />
+            <BookByDate flag={0} book={meeting} allRooms={allRooms} setMeetingChange={setMeetingChange} />
           )}
 
         </TabPane>
         <TabPane tab="חדרים מוזמנים" key="2"  >
           {nextMeetings && nextMeetings.map(meeting =>
-            <BookByDate flag={1} book={meeting} allRooms={allRooms} />
+            <BookByDate flag={1} book={meeting} allRooms={allRooms} setMeetingChange={setMeetingChange} />
           )}
 
 

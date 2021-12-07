@@ -11,7 +11,7 @@ var moment = require('moment')
 
 
 
-export const BookByDate = ({ flag, book, allRooms }) => {
+export const BookByDate = ({ flag, book, allRooms, setMeetingChange }) => {
     let stringDate = moment(book.meetingDate, 'YYYYMMDD').format("dddd, MMMM Do YYYY");
     let stringLogDate = moment(book.logDate).format("D.M.YYYY");
     let stringLogTime = moment(book.logDate).format("HH:mm");
@@ -46,11 +46,12 @@ export const BookByDate = ({ flag, book, allRooms }) => {
         try {
             const deleted = await deleteMeetingRequest({ "bookId": book._id })
             console.log("deleted", deleted)
-            console.log("userBalance", userState.subscription.balance)
-            let newBalance = userState.subscription.balance + book.bookValue
-            console.log("userBalance+book", newBalance)
-            setUserState({ ...userState, subscription: { balance: newBalance } })
-            console.log("userState", userState)
+
+            if (deleted) {
+                setUserState({ ...userState, subscription: { balance: deleted.coinsBalance } })
+                setMeetingChange(currentState => !currentState)
+            }
+
         }
         catch (err) {
             console.log("oops... an error", err.message)

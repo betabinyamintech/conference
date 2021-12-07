@@ -36,12 +36,12 @@ export const BookingAltenativeRoom = ({ book, booking }) => {
         בין השעות {toTimeString} - {fromTimeString}
       </p>
       {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
-      <p class="alignright" style={{ display: "inlineBlock" }}>
+      <p className="alignright" style={{ display: "inlineBlock" }}>
         בעבור {value} קרדיטים
       </p>
       {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
       <Button
-        class="alignleft"
+        className="alignleft"
         type="text"
         style={{ color: "blue" }}
         onClick={() => {

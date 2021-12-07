@@ -54,7 +54,7 @@ export async function checkIfSubscriber(bookDetails) {
 }
 
 export async function IfSubscriberPay(bookDetails) {
-
+    console.log("bookDetails goes to server", bookDetails)
     const response = await fetch(baseUrl + '/auth/IfSubscriberPay', {
         method: "POST",
         headers: {
