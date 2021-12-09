@@ -5,22 +5,17 @@ var moment = require("moment"); // require
 
 export const BookingAltenativeRoom = ({ book, booking }) => {
   let { meetingDate, startTime, endTime, roomDetails } = booking;
-  // const details = {
-  //     logDate:Date.now(),
-  //     roomId:roomFound._id,
-  //     endTime:toTime,
-  //     startTime:fromTime,
-  //     owner:userId,
-  //     meetingDate:date
-  // }
+  console.log("booking in alternatives", booking)
+  // let fromTime = moment.unix(startTime);
+  // let toTime = moment.unix(endTime);
   const { value, name, maxOfPeople } = roomDetails;
-
   let stringDate = moment(meetingDate, "YYYYMMDD").format("l");
   let day = moment(meetingDate, "YYYYMMDD").format("dddd");
-  let fromTime = moment.unix(startTime).format("HHmm");
-  let toTime = moment.unix(endTime).format("HHmm");
-  let toTimeString = toTime.slice(0, 2) + ":" + toTime.slice(2);
-  let fromTimeString = fromTime.slice(0, 2) + ":" + fromTime.slice(2);
+  let fromTime = moment.unix(startTime);
+  let toTime = moment.unix(endTime);
+  let toTimeString = toTime.format("HHmm").slice(0, 2) + ":" + toTime.format("HHmm").slice(2);
+  let fromTimeString = fromTime.format("HHmm").slice(0, 2) + ":" + fromTime.format("HHmm").slice(2);
+  let bookValue = roomDetails.value * toTime.diff(fromTime, "hours");
 
   return (
     <Card type="inner" style={{ marginTop: 16 }}>
@@ -37,7 +32,7 @@ export const BookingAltenativeRoom = ({ book, booking }) => {
       </p>
       {/* הקלאס גורם ששתי התגיות פי יהיו באותה שורה */}
       <p className="alignright" style={{ display: "inlineBlock" }}>
-        בעבור {value} קרדיטים
+        בעבור {bookValue} קרדיטים
       </p>
       {/* //הלינק צריך להיות לפניה לשרת של הקומפוננטה בוקינג רקווסט דיטיילס */}
       <Button
@@ -45,6 +40,7 @@ export const BookingAltenativeRoom = ({ book, booking }) => {
         type="text"
         style={{ color: "blue" }}
         onClick={() => {
+          booking = { ...booking, bookValue }
           book(booking);
         }}
       >
