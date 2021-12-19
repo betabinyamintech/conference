@@ -1,0 +1,7 @@
+@import '~antd/dist/antd.css';
+.main{
+   direction: rtl;
+}
+.ant-form-rtl .ant-form-item-label{
+   text-align: right;
+}
