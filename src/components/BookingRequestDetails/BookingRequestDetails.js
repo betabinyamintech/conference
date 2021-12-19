@@ -3,6 +3,7 @@ import { Form, TimePicker, Button, Select, DatePicker } from "antd";
 import { UserContext } from "../../context/user";
 import { fetchBookingRequest } from "../../actions/bookingRequest";
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
+import ProfileHeader from "../UserProfile/ProfileHeader";
 var moment = require("moment");
 
 const formItemLayout = {

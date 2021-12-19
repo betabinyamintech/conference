@@ -1,12 +1,12 @@
 import { Table, Space, Modal, Select, InputNumber } from "antd";
 import { useState, useEffect, useRef } from "react";
 import MeetingRoomEdit from "./MeetingRoomEdit";
-import React from 'react';
+import React from "react";
 import { data } from "./mock";
-import '../../App.css';
+import "../../App.css";
+import { getMeetingRooms } from "../../actions/manage";
 
 const MeetingRoomsTable = () => {
-  
   const [unfilteredData, setUnfilteredData] = useState();
   const [filteredData, setFilteredData] = useState();
   // const [loading, setLoading] = useState(false);
@@ -17,19 +17,23 @@ const MeetingRoomsTable = () => {
   //   { id: 2, someattr: "another string", anotherattr: "" },
   //   { id: 3, someattr: "a string", anotherattr: "" },
   // ])
-  const valueNameFilter=useRef();
+  const valueNameFilter = useRef();
   //values of filter by fields
 
   const [nameFieldFilter, setNameFieldFilter] = useState("cancel");
   const [operatorFilter, setOperatorFilter] = useState("<=");
   const valueFieldFilter = useRef();
 
-
-  const optionsFieldFilter = [{ value: 'maxOfPeople', label: 'מקסימום משתתפים' }, { value: 'value', label: 'מחיר בסיס לשעה' }, { value: 'cancel', label: 'ללא' }];
-  const optionsOperatorFilter = [{ value: '<=', label: 'פחות מ' }, { value: '=', label: 'שווה ל' }, { value: '>=', label: 'יותר מ' }];
-
-
-
+  const optionsFieldFilter = [
+    { value: "maxOfPeople", label: "מקסימום משתתפים" },
+    { value: "value", label: "מחיר בסיס לשעה" },
+    { value: "cancel", label: "ללא" },
+  ];
+  const optionsOperatorFilter = [
+    { value: "<=", label: "פחות מ" },
+    { value: "=", label: "שווה ל" },
+    { value: ">=", label: "יותר מ" },
+  ];
 
   const columns = [
     {
@@ -88,19 +92,22 @@ const MeetingRoomsTable = () => {
   ];
 
   async function getAllMeetingRooms() {
-  
-    setUnfilteredData(data)
-    setFilteredData(data)
-  
+    const response = await getMeetingRooms();
+    setUnfilteredData(response.rooms);
+    setFilteredData(data);
+
+    // setUnfilteredData(data)
+    // setFilteredData(data)
   }
 
-  useEffect(() => { getAllMeetingRooms(); }, [])
+  useEffect(() => {
+    getAllMeetingRooms();
+  }, []);
 
-  
   // async function f2() {
   //   const response = await getMeetingRooms()
   //   const arr2 = response.rooms
-// עדכון מערך המכיל אוביקטים
+  // עדכון מערך המכיל אוביקטים
   //   console.log("items: ", items)
   //   setItems(
   //     items.map((item) => {
@@ -109,84 +116,100 @@ const MeetingRoomsTable = () => {
   //   );
 
   //   let a = [...arr2];//העתקה עמוקה
-  //   setUnfilteredData([...a]); 
+  //   setUnfilteredData([...a]);
   // }
 
   function filterByName() {
-    _filter()
+    _filter();
   }
   function handleFilterByField() {
-    _filter()
+    _filter();
   }
   function _filter() {
-    const _valueFieldFilter=valueFieldFilter.current.value;
-    const _valueNameFilter=valueNameFilter.current.value;
-   
+    const _valueFieldFilter = valueFieldFilter.current.value;
+    const _valueNameFilter = valueNameFilter.current.value;
+
     if (_valueFieldFilter)
       switch (nameFieldFilter) {
-        case "maxOfPeople":
-          {
+        case "maxOfPeople": {
+          switch (operatorFilter) {
+            case ">=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.maxOfPeople >= _valueFieldFilter
+              );
+              setFilteredData(result);
 
-            switch (operatorFilter) {
-              case ">=":
-                {
-                  const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.maxOfPeople >= _valueFieldFilter);
-                  setFilteredData(result)
-
-                  break;
-                }
-              case "=":
-                {
-                  const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.maxOfPeople == _valueFieldFilter);
-
-                  setFilteredData(result)
-                  console.log("result", result)
-                  break;
-                }
-              case "<=":
-                {
-                  const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.maxOfPeople <= _valueFieldFilter);
-                  setFilteredData(result)
-                  break;
-                }
-              // default:        
+              break;
             }
-            break;
+            case "=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.maxOfPeople == _valueFieldFilter
+              );
+
+              setFilteredData(result);
+              console.log("result", result);
+              break;
+            }
+            case "<=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.maxOfPeople <= _valueFieldFilter
+              );
+              setFilteredData(result);
+              break;
+            }
+            // default:
           }
+          break;
+        }
 
         case "value": {
-
           switch (operatorFilter) {
-            case ">=":
-              {
-                const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.value >= _valueFieldFilter);
-                setFilteredData(result)
-                break;
-              }
-            case "=":
-              {
-                const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.value == _valueFieldFilter);
-                setFilteredData(result)
-                console.log("result", result)
-                break;
-              }
-            case "<=":
-              {
-                const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter) && room.value <= _valueFieldFilter);
-                setFilteredData(result)
+            case ">=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.value >= _valueFieldFilter
+              );
+              setFilteredData(result);
+              break;
+            }
+            case "=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.value == _valueFieldFilter
+              );
+              setFilteredData(result);
+              console.log("result", result);
+              break;
+            }
+            case "<=": {
+              const result = unfilteredData.filter(
+                (room) =>
+                  room.name.includes(_valueNameFilter) &&
+                  room.value <= _valueFieldFilter
+              );
+              setFilteredData(result);
 
-                break;
-              }
-            // default:        
+              break;
+            }
+            // default:
           }
           break;
         }
         // default:
-
       }
     else {
-      const result = unfilteredData.filter(room => room.name.includes(_valueNameFilter));
-      setFilteredData(result)
+      const result = unfilteredData.filter((room) =>
+        room.name.includes(_valueNameFilter)
+      );
+      setFilteredData(result);
     }
   }
 
@@ -215,7 +238,6 @@ const MeetingRoomsTable = () => {
   };
 
   return (
-
     <>
       {modalRecord && (
         <Modal
@@ -230,22 +252,35 @@ const MeetingRoomsTable = () => {
       )}
       <div style={{ direction: "rtl" }}>
         <label>סנן לפי שם חדר</label>
-        <input ref={valueNameFilter}  onChange={() => filterByName()} ></input>
+        <input ref={valueNameFilter} onChange={() => filterByName()}></input>
       </div>
       <div style={{ direction: "rtl" }}>
-      <label>סנן לפי שם שדה</label>
-        <Select value={nameFieldFilter} onChange={(e) => setNameFieldFilter(e)} style={{ width: 170 }} options={optionsFieldFilter}>
-        </Select>
-        <Select value={operatorFilter} onChange={(e) => setOperatorFilter(e)} style={{ width: 120 }} options={optionsOperatorFilter}>
-        </Select>
-        <InputNumber type="number" ref={valueFieldFilter} onChange={() => handleFilterByField()}></InputNumber>
+        <label>סנן לפי שם שדה</label>
+        <Select
+          value={nameFieldFilter}
+          onChange={(e) => setNameFieldFilter(e)}
+          style={{ width: 170 }}
+          options={optionsFieldFilter}
+        ></Select>
+        <Select
+          value={operatorFilter}
+          onChange={(e) => setOperatorFilter(e)}
+          style={{ width: 120 }}
+          options={optionsOperatorFilter}
+        ></Select>
+        <InputNumber
+          type="number"
+          ref={valueFieldFilter}
+          onChange={() => handleFilterByField()}
+        ></InputNumber>
       </div>
 
-     
-
-      <Table style={{ direction: "rtl" }} columns={columns} dataSource={filteredData} />
+      <Table
+        style={{ direction: "rtl" }}
+        columns={columns}
+        dataSource={filteredData}
+      />
     </>
-
   );
 };
 

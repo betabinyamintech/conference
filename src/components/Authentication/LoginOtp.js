@@ -1,5 +1,9 @@
 import { Form, Input, Button, Alert } from "antd";
 import { useState, useRef } from "react";
+import { getUserDetails, login } from "../../actions/auth";
+import { Switch, useNavigate } from "react-router-dom";
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "../../context/user";
 import "../../App.css";
 import { sendPhoneVerificationCode } from "../../actions/otp";
 import OtpModal from "../OtpPage/otpModal";
@@ -12,11 +16,12 @@ export const LoginOtp = () => {
 
   function handleSendCodeVerfication(loginDetails) {
     sendPhoneVerificationCode(loginDetails.phone);
-<<<<<<< HEAD
+
     console.log("handleSendCodeVerfication");
     setShowModalOtp(true);
-=======
-   
+
+    setShowModalOtp(true);
+    console.log("loginOtp - handleSendCodeVerfication");
   }
 
   return (
@@ -46,5 +51,4 @@ export const LoginOtp = () => {
       )}
     </div>
   );
-};
 };

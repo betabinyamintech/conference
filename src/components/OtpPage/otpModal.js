@@ -1,9 +1,10 @@
 // import react, { useEffect } from "react";
-import React, { useState,useContext} from "react";
+import React, { useState } from "react";
 import { Modal, Alert } from "antd";
-import { loginOtp } from '../../actions/auth';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/user';
+import { loginOtp } from "../../actions/auth";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "../../context/user";
 
 import OtpInput from "react-otp-input";
 
@@ -11,12 +12,10 @@ import { sendPhoneVerificationCode } from "../../actions/otp";
 import "./otpModal.css";
 
 export default function OtpModal({ phone }) {
-  console.log("OtpModal")
-  const [error, setError] = useState()
+  const [error, setError] = useState();
   const [otp, setOtp] = useState("");
-  const navigate = useNavigate()
-  const { loginToken } = useContext(UserContext)
-  console.log("loginToken")
+  const navigate = useNavigate();
+  const { loginToken } = useContext(UserContext);
   // const [showPopUp, setShowPopUp] = useState(false);
   function handleSendCodeVerfication() {
     sendPhoneVerificationCode(phone);
@@ -41,7 +40,7 @@ export default function OtpModal({ phone }) {
           backgroundColor: "#00aaaf",
           backgroundSize: "cover",
           height: "100%",
-          width: "100%",
+          // width: "100%",
           marginTop: 0,
           zIndex: 1,
           overflow: "hidden",
