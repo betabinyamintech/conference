@@ -7,7 +7,7 @@ import { UserContext } from '../../context/user';
 import '../../App.css'
 
 export const Login = () => {
-  const [error, setError] = useState()
+  const [error, setError] = useState(false)
   const navigate = useNavigate()
   const { loginToken } = useContext(UserContext)
 
@@ -15,19 +15,18 @@ export const Login = () => {
     setError(null)
     const response = await login(loginDetails)
     if (!response.ok) {
-      const text = await response.text()
-      setError(text)
+      console.log("user or password are invalid")
+      setError(true)
     } else {
       console.log('login success')
       //save user at UserContext
       await loginToken()
-      navigate("/bookrequest")
+      navigate("/")
     }
   }
   return (
     <div className="main" style={{ margin: '3%' }}>
-      {error}
-      {error && <Alert type="error">{error}</Alert>}
+      {error && <Alert type="error" message="שם משתמש או סיסמא אינם נכונים"></Alert>}
       <Form
         onFinish={handleLogin}
       >
@@ -37,11 +36,11 @@ export const Login = () => {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'כתובת מייל אינה תקינה',
             },
             {
               required: true,
-              message: 'Please input your E-mail!',
+              message: 'אנא הכנס כתובת מייל',
             },
           ]}
         >
@@ -54,7 +53,7 @@ export const Login = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'אנא הכנס  סיסמא',
             },
           ]}
           hasFeedback
@@ -65,7 +64,11 @@ export const Login = () => {
           <Button type="primary" htmlType="submit"  >
             התחבר
           </Button>
+          <a style={{ float: 'left' }} href="">
+            Forgot password
+          </a>
         </Form.Item>
       </Form>
-    </div>)
+    </div>
+  )
 }
