@@ -16,12 +16,10 @@ export const LoginOtp = () => {
 
   function handleSendCodeVerfication(loginDetails) {
     sendPhoneVerificationCode(loginDetails.phone);
-
     console.log("handleSendCodeVerfication");
     setShowModalOtp(true);
-
     setShowModalOtp(true);
-    console.log("loginOtp - handleSendCodeVerfication");
+    // console.log("loginOtp - handleSendCodeVerfication");
   }
 
   return (

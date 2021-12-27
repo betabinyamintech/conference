@@ -26,14 +26,20 @@ export const Register = () => {
   // async function handleRegister(phoneVerificationCode) {
   async function handleRegister(registerDetails) {
     setError(null);
-    const response = await register(registerDetails);
-    if (!response.ok) {
-      setError(await response.text());
-    } else {
-      //take UserDetails from mongoose  by email of the token
-      await loginToken();
-      // getUserDetails()
-      navigate("/");
+    try {
+      const response = await register(registerDetails);
+
+      console.log("res", response);
+      if (!response.ok) {
+        setError(await response.text());
+      } else {
+        //take UserDetails from mongoose  by email of the token
+        await loginToken();
+        // getUserDetails()
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 

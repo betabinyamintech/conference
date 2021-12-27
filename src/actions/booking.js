@@ -27,7 +27,7 @@ export async function getUserBookings() {
       cors: "cors",
     });
     let data = await res.json();
-    console.log("data", data);
+    // console.log("data", data);
     if (data) return data;
   } catch (err) {
     console.log("oopsss...error", err.message);

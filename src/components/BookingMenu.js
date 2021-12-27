@@ -23,10 +23,10 @@ export const BookingMenu = () => {
 
   useEffect(() => {
     async function book() {
-      console.log("userState of bookingMenu", userState);
+      // console.log("userState of bookingMenu", userState);
       const allUserBooking = await getUserBookings({ user: userState._id });
       const now = moment();
-      console.log("now", now);
+      // console.log("now", now);
       // let nowToCompare = now.getTime()
       let RoomsFromServer = await getRooms();
       setAllRooms(RoomsFromServer);
@@ -46,10 +46,9 @@ export const BookingMenu = () => {
     }
     book();
   }, [meetingChange]);
-
   if (!meetings) return <div>לא הזמנת פגישות עדיין</div>;
   const { lastMeetings, nextMeetings } = meetings;
-  console.log("allRoomsaftereffect", allRooms);
+  // console.log("allRoomsaftereffect", allRooms);
   return (
     <>
       <Tabs defaultActiveKey="1">

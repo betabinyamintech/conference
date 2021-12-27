@@ -9,9 +9,8 @@ export async function register(details) {
     cors: "cors",
     body: JSON.stringify(details),
   });
-
   if (response.ok) {
-    console.log("token received and written to localStorage");
+    // console.log("token received and written to localStorage");
     localStorage.setItem("token", (await response.json()).token);
   }
   return response;
@@ -26,30 +25,39 @@ export async function login(details) {
     cors: "cors",
     body: JSON.stringify(details),
   });
+  let res = response.json();
+  console.log("res", res);
 
   if (response.ok) {
     const token = (await response.json()).token;
     localStorage.setItem("token", token);
-    console.log("written token!");
+    // console.log("written token!");
   }
   return response;
 }
 
 export async function loginOtp(details) {
-  const response = await fetch(baseUrl + "/auth/verifyPhoneCode", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cors: "cors",
-    body: JSON.stringify(details),
-  });
-  if (response.ok) {
-    const token = (await response.json()).token;
-    localStorage.setItem("token", token);
-    console.log("auth - loginOtp - written token!");
+  console.log("verify code in auth");
+  try {
+    const response = await fetch(baseUrl + "/auth/verifyPhoneCode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cors: "cors",
+      body: JSON.stringify(details),
+    });
+    if (response.ok) {
+      const token = (await response.json()).token;
+      localStorage.setItem("token", token);
+      console.log("auth - loginOtp - written token!");
+    } else {
+      console.log("res", response.text());
+    }
+    return response;
+  } catch (err) {
+    console.log("err", err);
   }
-  return response;
 }
 
 //מוציא מהתוקן את פרטי היוזר
