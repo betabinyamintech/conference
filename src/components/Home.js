@@ -11,6 +11,7 @@ import { Register } from "./Authentication/Register";
 import { LoginOtp } from "./Authentication/LoginOtp";
 import { Login } from "./Authentication/Login";
 import { BookingMenu } from "./BookingMenu";
+import { ResetPassword } from "./ResetPassword";
 
 const { TabPane } = Tabs;
 
@@ -22,7 +23,7 @@ const headDiv = {
   background: "#F9F9F9",
   lineHeight: "80px",
 };
-const ModalLogin = ({ showModalLogin, setShowModalLogin }) => {
+const ModalLogin = ({ setShowModalLogin, setShowModalReset }) => {
   return (
     <Modal
       centered
@@ -36,7 +37,7 @@ const ModalLogin = ({ showModalLogin, setShowModalLogin }) => {
           <LoginOtp />
         </TabPane>
         <TabPane tab="כניסה עם סיסמא" key="2">
-          <Login />
+          <Login setShowModalLogin={setShowModalLogin} setShowModalReset={setShowModalReset} />
         </TabPane>
         <TabPane tab="הרשמה" key="3">
           <Register />
@@ -50,6 +51,9 @@ const Home = () => {
   const { userState } = useContext(UserContext);
   const navigate = useNavigate();
   const [showModalLogin, setShowModalLogin] = useState(false);
+  const [showModalReset, setShowModalReset] = useState(false)
+  console.log("showModalReset", showModalReset)
+  // let selectedValue = "fsasa"
   const NewBookingButton = () => {
     console.log("in newBookingButton", showModalLogin);
     if (userState) {
@@ -59,15 +63,23 @@ const Home = () => {
       console.log("after ", showModalLogin);
     }
   };
+
   return (
-    <>
+    <div className="home">
       <ProfileHeader />
       {showModalLogin && (
         <ModalLogin
-          showModalLogin={showModalLogin}
           setShowModalLogin={setShowModalLogin}
+          setShowModalReset={setShowModalReset}
+
         />
       )}
+
+      {showModalReset.visible && <ResetPassword
+        email={showModalReset.email}
+        setShowModalReset={setShowModalReset}
+      />}
+
       <div style={{ height: "40px" }}></div>
       <div>
         <div style={headDiv}>
@@ -121,7 +133,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

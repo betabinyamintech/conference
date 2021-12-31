@@ -14,6 +14,7 @@ import Home from './Home';
 import Pay from './Pay'
 import { LoginOtp } from './Authentication/LoginOtp';
 import { ConfigProvider } from 'antd';
+import { ResetPassword } from './ResetPassword';
 
 const Router = () => {
     const { userState } = useContext(UserContext)
@@ -24,11 +25,10 @@ const Router = () => {
                 <Routes>
                     <Route path="/app" element={<App />} />
                     <Route path="/" element={<Home />} />
-
                     <Route path="/register" element={<Register />} />
                     <Route path="/loginOtp" element={<LoginOtp />} />
                     <Route path="/login" element={<Login />} />
-
+                    <Route path="/resetPassword" element={<ResetPassword />} />
                     <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
 
 
@@ -43,7 +43,6 @@ const Router = () => {
                             <Route path="/profile" element={<UserProfile />} />
                             <Route path="/alternatives" element={<BookingAlternatives />} />
                             <Route path="/bookingMenu" element={<BookingMenu />} />
-
                             <Route path="/pay" element={<Pay />} />
 
                         </>

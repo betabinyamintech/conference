@@ -1,21 +1,24 @@
-import { Form, Input, Button, Alert } from 'antd';
-import { useState } from 'react';
+import { Form, Input, Button, Alert, Link } from 'antd';
+import { useState, useRef } from 'react';
 import { getUserDetails, login } from '../../actions/auth';
 import { Switch, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user';
 import '../../App.css'
+import './Login.css'
 
-export const Login = () => {
+export const Login = ({ setShowModalLogin, setShowModalReset }) => {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
+  const [selectedValue, setSElectedValue] = useState()
   const { loginToken } = useContext(UserContext)
-
+  const emailRef = useRef("")
   const handleLogin = async (loginDetails) => {
     setError(null)
     const response = await login(loginDetails)
     if (!response.ok) {
       console.log("user or password are invalid")
+      console.log("selectedValue", selectedValue)
       setError(true)
     } else {
       console.log('login success')
@@ -24,27 +27,37 @@ export const Login = () => {
       navigate("/")
     }
   }
+  const resetPass = async () => {
+    setShowModalLogin(false)
+    console.log("selectedValue in reset", selectedValue)
+    setShowModalReset({ visible: true, email: selectedValue })
+  }
+
   return (
     <div className="main" style={{ margin: '3%' }}>
-      {error && <Alert type="error" message="שם משתמש או סיסמא אינם נכונים"></Alert>}
+      {error && <Alert className='alert' type="error" message="שם משתמש או סיסמא אינם נכונים" showIcon></Alert>}
       <Form
         onFinish={handleLogin}
       >
         <Form.Item
           name="email"
           label="מייל"
+          id="emailItem"
           rules={[
             {
+
               type: 'email',
               message: 'כתובת מייל אינה תקינה',
             },
             {
               required: true,
               message: 'אנא הכנס כתובת מייל',
-            },
+            }
+
           ]}
         >
-          <Input />
+          {/* <Input onChange={(e) => selectedValue = e.target.value} /> */}
+          <Input onChange={(e) => setSElectedValue(e.target.value)} />
         </Form.Item>
 
         <Form.Item
@@ -64,11 +77,10 @@ export const Login = () => {
           <Button type="primary" htmlType="submit"  >
             התחבר
           </Button>
-          <a style={{ float: 'left' }} href="">
-            Forgot password
-          </a>
+          <Button type='text' className='buttonResset' onClick={resetPass} >שכחתי סיסמא</Button>
         </Form.Item>
       </Form>
+
     </div>
   )
 }

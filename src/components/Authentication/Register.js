@@ -7,11 +7,12 @@ import { sendPhoneVerificationCode } from "../../actions/otp";
 import "../../App.css";
 import { useContext } from "react";
 import { UserContext } from "../../context/user";
+import './Register.css'
 
 export const Register = () => {
   const navigate = useNavigate();
 
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
   const [disable, setDisable] = useState(true);
   const [phone, setPhone] = useState();
   // const phoneRef = useRef()
@@ -25,10 +26,13 @@ export const Register = () => {
 
   // async function handleRegister(phoneVerificationCode) {
   async function handleRegister(registerDetails) {
-    setError(null);
+    // setError(null);
     const response = await register(registerDetails);
     if (!response.ok) {
-      setError(await response.text());
+      let data = await response.json()
+      console.log("data2", data)
+      setError({ value: true, text: data.errorText });
+
     } else {
       //take UserDetails from mongoose  by email of the token
       await loginToken();
@@ -38,8 +42,8 @@ export const Register = () => {
   }
 
   return (
-    <div className="main" style={{ margin: "3%" }}>
-      {error && <Alert type="error">{error}</Alert>}
+    <div className="main modal" style={{ margin: "3%" }}>
+      {error.value && <Alert className="alert" type="error" message={error.text} showIcon></Alert>}
       <Form onFinish={handleRegister}>
         <Form.Item
           name="name"
@@ -94,6 +98,7 @@ export const Register = () => {
               required: true,
               message: "בחר סיסמא!",
             },
+            { min: 4, message: "מינימום 4 ספרות יש להקיש" }
           ]}
           hasFeedback
         >
