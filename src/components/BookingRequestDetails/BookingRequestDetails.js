@@ -4,9 +4,7 @@ import { UserContext } from "../../context/user";
 import { fetchBookingRequest } from "../../actions/bookingRequest";
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
 import ProfileHeader from "../UserProfile/ProfileHeader";
-import { Link } from "react-router-dom";
-var moment = require('moment')
-
+var moment = require("moment");
 
 const formItemLayout = {
   labelCol: {
@@ -38,7 +36,7 @@ const config = {
 
 const BookingRequestDetails = ({ user }) => {
   const [bookingRequestResponse, setBookingRequestResponse] = useState();
-  let minParticipants = 2
+  let minParticipants = 2;
   const handleBookingRequest = async (fieldsValue) => {
     console.log(fieldsValue);
     console.log(fieldsValue.date);
@@ -70,8 +68,10 @@ const BookingRequestDetails = ({ user }) => {
   // we take first value of the context(second is setUserState)
   const { userState } = useContext(UserContext);
   return (
-    <div >
-      <p className="main"><Link to="/" >ראשי</Link>&gt;&gt; הזמנה חדשה</p>
+    <div>
+      <p className="main">
+        <Link to="/">ראשי</Link>&gt;&gt; הזמנה חדשה
+      </p>
       <Form
         name="booking_request_details"
         {...formItemLayout}
@@ -82,7 +82,6 @@ const BookingRequestDetails = ({ user }) => {
           direction: "rtl",
         }}
       >
-
         <span>אהלן </span>
         {/* we use the state in the page */}
         <span>{userState.name}</span>
@@ -102,9 +101,12 @@ const BookingRequestDetails = ({ user }) => {
           name="numberOfParticipants"
           label="כמה אנשים תהיו"
           rules={[{ required: true, message: "נא לבחור כמות משתתפים" }]}
-
         >
-          <Select style={{ width: 80 }} bordered={true} defaultValue={minParticipants} >
+          <Select
+            style={{ width: 80 }}
+            bordered={true}
+            defaultValue={minParticipants}
+          >
             {listItems}
           </Select>
         </Form.Item>
@@ -125,14 +127,12 @@ const BookingRequestDetails = ({ user }) => {
           </Button>
         </Form.Item>
       </Form>
-      {
-        bookingRequestResponse && (
-          <BookingRequestResponse
-            bookingRequestResponse={bookingRequestResponse}
-            setBookingRequestResponse={setBookingRequestResponse}
-          />
-        )
-      }
+      {bookingRequestResponse && (
+        <BookingRequestResponse
+          bookingRequestResponse={bookingRequestResponse}
+          setBookingRequestResponse={setBookingRequestResponse}
+        />
+      )}
     </div>
   );
 };

@@ -1,59 +1,53 @@
-import { Form, Input, Button, Alert, Link } from 'antd';
-import { useState, useRef } from 'react';
-import { getUserDetails, login } from '../../actions/auth';
-import { Switch, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user';
-import '../../App.css'
-import './Login.css'
+import { Form, Input, Button, Alert } from "antd";
+import { useState } from "react";
+import { getUserDetails, login } from "../../actions/auth";
+import { Switch, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/user";
+import "../../App.css";
 
-export const Login = ({ setShowModalLogin, setShowModalReset }) => {
-  const [error, setError] = useState(false)
-  const navigate = useNavigate()
-  const [selectedValue, setSElectedValue] = useState()
-  const { loginToken } = useContext(UserContext)
-  const emailRef = useRef("")
+export const Login = () => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+  const { loginToken } = useContext(UserContext);
+
   const handleLogin = async (loginDetails) => {
-    setError(null)
-    const response = await login(loginDetails)
-    if (!response.ok) {
-      console.log("user or password are invalid")
-      console.log("selectedValue", selectedValue)
-      setError(true)
-    } else {
-      console.log('login success')
-      //save user at UserContext
-      await loginToken()
-      navigate("/")
+    setError(null);
+    try {
+      const response = await login(loginDetails);
+      let res = response.json();
+      console.log("res", res);
+      if (!response.ok) {
+        const text = await response.text();
+        setError(text);
+      } else {
+        console.log("login success");
+        //save user at UserContext
+        await loginToken();
+        navigate("/bookrequest");
+      }
+    } catch (err) {
+      console.log("err", err);
     }
-  }
-  const resetPass = async () => {
-    setShowModalLogin(false)
-    console.log("selectedValue in reset", selectedValue)
-    setShowModalReset({ visible: true, email: selectedValue })
-  }
-
+  };
   return (
-    <div className="main" style={{ margin: '3%' }}>
-      {error && <Alert className='alert' type="error" message="שם משתמש או סיסמא אינם נכונים" showIcon></Alert>}
-      <Form
-        onFinish={handleLogin}
-      >
+    <div className="main" style={{ margin: "3%" }}>
+      {error}
+      {error && <Alert type="error">{error}</Alert>}
+      <Form onFinish={handleLogin}>
         <Form.Item
           name="email"
           label="מייל"
           id="emailItem"
           rules={[
             {
-
-              type: 'email',
-              message: 'כתובת מייל אינה תקינה',
+              type: "email",
+              message: "The input is not valid E-mail!",
             },
             {
               required: true,
-              message: 'אנא הכנס כתובת מייל',
-            }
-
+              message: "Please input your E-mail!",
+            },
           ]}
         >
           {/* <Input onChange={(e) => selectedValue = e.target.value} /> */}
@@ -66,7 +60,7 @@ export const Login = ({ setShowModalLogin, setShowModalReset }) => {
           rules={[
             {
               required: true,
-              message: 'אנא הכנס  סיסמא',
+              message: "Please input your password!",
             },
           ]}
           hasFeedback
@@ -74,13 +68,14 @@ export const Login = ({ setShowModalLogin, setShowModalReset }) => {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit"  >
+          <Button type="primary" htmlType="submit">
             התחבר
           </Button>
-          <Button type='text' className='buttonResset' onClick={resetPass} >שכחתי סיסמא</Button>
+          <Button type="text" className="buttonResset" onClick={resetPass}>
+            שכחתי סיסמא
+          </Button>
         </Form.Item>
       </Form>
-
     </div>
-  )
-}
+  );
+};

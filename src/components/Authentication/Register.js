@@ -7,7 +7,7 @@ import { sendPhoneVerificationCode } from "../../actions/otp";
 import "../../App.css";
 import { useContext } from "react";
 import { UserContext } from "../../context/user";
-import './Register.css'
+import "./Register.css";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -26,24 +26,34 @@ export const Register = () => {
 
   // async function handleRegister(phoneVerificationCode) {
   async function handleRegister(registerDetails) {
-    // setError(null);
-    const response = await register(registerDetails);
-    if (!response.ok) {
-      let data = await response.json()
-      console.log("data2", data)
-      setError({ value: true, text: data.errorText });
+    setError(null);
+    try {
+      const response = await register(registerDetails);
 
-    } else {
-      //take UserDetails from mongoose  by email of the token
-      await loginToken();
-      // getUserDetails()
-      navigate("/");
+      console.log("res", response);
+      if (!response.ok) {
+        setError(await response.text());
+      } else {
+        //take UserDetails from mongoose  by email of the token
+        await loginToken();
+        // getUserDetails()
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
   return (
     <div className="main modal" style={{ margin: "3%" }}>
-      {error.value && <Alert className="alert" type="error" message={error.text} showIcon></Alert>}
+      {error.value && (
+        <Alert
+          className="alert"
+          type="error"
+          message={error.text}
+          showIcon
+        ></Alert>
+      )}
       <Form onFinish={handleRegister}>
         <Form.Item
           name="name"
@@ -98,7 +108,7 @@ export const Register = () => {
               required: true,
               message: "בחר סיסמא!",
             },
-            { min: 4, message: "מינימום 4 ספרות יש להקיש" }
+            { min: 4, message: "מינימום 4 ספרות יש להקיש" },
           ]}
           hasFeedback
         >

@@ -11,11 +11,10 @@ import { Register } from "./Authentication/Register";
 import { LoginOtp } from "./Authentication/LoginOtp";
 import { Login } from "./Authentication/Login";
 import { BookingMenu } from "./BookingMenu";
-import { ResetPassword } from "./ResetPassword";
 
 const { TabPane } = Tabs;
 
-function onChange(a, b, c) { }
+function onChange(a, b, c) {}
 
 const headDiv = {
   height: "2cm",
@@ -37,7 +36,10 @@ const ModalLogin = ({ setShowModalLogin, setShowModalReset }) => {
           <LoginOtp />
         </TabPane>
         <TabPane tab="כניסה עם סיסמא" key="2">
-          <Login setShowModalLogin={setShowModalLogin} setShowModalReset={setShowModalReset} />
+          <Login
+            setShowModalLogin={setShowModalLogin}
+            setShowModalReset={setShowModalReset}
+          />
         </TabPane>
         <TabPane tab="הרשמה" key="3">
           <Register />
@@ -51,8 +53,8 @@ const Home = () => {
   const { userState } = useContext(UserContext);
   const navigate = useNavigate();
   const [showModalLogin, setShowModalLogin] = useState(false);
-  const [showModalReset, setShowModalReset] = useState(false)
-  console.log("showModalReset", showModalReset)
+  const [showModalReset, setShowModalReset] = useState(false);
+  console.log("showModalReset", showModalReset);
   // let selectedValue = "fsasa"
   const NewBookingButton = () => {
     console.log("in newBookingButton", showModalLogin);
@@ -71,14 +73,15 @@ const Home = () => {
         <ModalLogin
           setShowModalLogin={setShowModalLogin}
           setShowModalReset={setShowModalReset}
-
         />
       )}
 
-      {showModalReset.visible && <ResetPassword
-        email={showModalReset.email}
-        setShowModalReset={setShowModalReset}
-      />}
+      {showModalReset.visible && (
+        <ResetPassword
+          email={showModalReset.email}
+          setShowModalReset={setShowModalReset}
+        />
+      )}
 
       <div style={{ height: "40px" }}></div>
       <div>
@@ -98,7 +101,7 @@ const Home = () => {
         </div>
         <div style={{ textAlign: "right" }}>
           <div
-            style={{ width: "80%", marginRight: "auto", marginLeft: "auto" }}
+          // style={{ width: "80%", marginRight: "auto", marginLeft: "auto" }}
           >
             <p>קורה עכשיו בבנימין טק</p>
             <Carousel

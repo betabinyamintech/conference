@@ -40,7 +40,7 @@ export default function OtpModal({ phone }) {
           backgroundColor: "#00aaaf",
           backgroundSize: "cover",
           height: "100%",
-          width: "100%",
+          // width: "100%",
           marginTop: 0,
           zIndex: 1,
           overflow: "hidden",
@@ -64,7 +64,6 @@ export default function OtpModal({ phone }) {
             onChange={async (otp) => {
               console.info(otp);
               setOtp(otp);
-
               if (otp.length >= 4) {
                 setError(null);
                 const details = { phone: phone, code: otp };
@@ -74,8 +73,9 @@ export default function OtpModal({ phone }) {
                   await loginToken();
                   navigate("/bookrequest");
                 } else {
-                  const text = await response.text();
-                  setError(text);
+                  console.log("res", response);
+                  // const text = await response.text();
+                  // setError(text);
                 }
               }
             }}

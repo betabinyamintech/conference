@@ -5,7 +5,7 @@ var moment = require("moment"); // require
 
 export const BookingAltenativeRoom = ({ book, booking }) => {
   let { meetingDate, startTime, endTime, roomDetails } = booking;
-  console.log("booking in alternatives", booking)
+  console.log("booking in alternatives", booking);
   // let fromTime = moment.unix(startTime);
   // let toTime = moment.unix(endTime);
   const { value, name, maxOfPeople } = roomDetails;
@@ -13,8 +13,12 @@ export const BookingAltenativeRoom = ({ book, booking }) => {
   let day = moment(meetingDate, "YYYYMMDD").format("dddd");
   let fromTime = moment.unix(startTime);
   let toTime = moment.unix(endTime);
-  let toTimeString = toTime.format("HHmm").slice(0, 2) + ":" + toTime.format("HHmm").slice(2);
-  let fromTimeString = fromTime.format("HHmm").slice(0, 2) + ":" + fromTime.format("HHmm").slice(2);
+  let toTimeString =
+    toTime.format("HHmm").slice(0, 2) + ":" + toTime.format("HHmm").slice(2);
+  let fromTimeString =
+    fromTime.format("HHmm").slice(0, 2) +
+    ":" +
+    fromTime.format("HHmm").slice(2);
   let bookValue = roomDetails.value * toTime.diff(fromTime, "hours");
 
   return (
@@ -40,7 +44,7 @@ export const BookingAltenativeRoom = ({ book, booking }) => {
         type="text"
         style={{ color: "blue" }}
         onClick={() => {
-          booking = { ...booking, bookValue }
+          booking = { ...booking, bookValue };
           book(booking);
         }}
       >
