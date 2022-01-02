@@ -1,39 +1,48 @@
-import { Form, Input, Button, Alert } from "antd";
-import { useState } from "react";
+import { Form, Input, Button, Alert, Link } from "antd";
+import { useState, useRef } from "react";
 import { getUserDetails, login } from "../../actions/auth";
 import { Switch, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/user";
 import "../../App.css";
+import "./Login.css";
 
-export const Login = () => {
-  const [error, setError] = useState();
+export const Login = ({ setShowModalLogin, setShowModalReset }) => {
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [selectedValue, setSElectedValue] = useState();
   const { loginToken } = useContext(UserContext);
-
+  const emailRef = useRef("");
   const handleLogin = async (loginDetails) => {
     setError(null);
-    try {
-      const response = await login(loginDetails);
-      let res = response.json();
-      console.log("res", res);
-      if (!response.ok) {
-        const text = await response.text();
-        setError(text);
-      } else {
-        console.log("login success");
-        //save user at UserContext
-        await loginToken();
-        navigate("/bookrequest");
-      }
-    } catch (err) {
-      console.log("err", err);
+    const response = await login(loginDetails);
+    if (!response.ok) {
+      console.log("user or password are invalid");
+      console.log("selectedValue", selectedValue);
+      setError(true);
+    } else {
+      console.log("login success");
+      //save user at UserContext
+      await loginToken();
+      navigate("/");
     }
   };
+  const resetPass = async () => {
+    setShowModalLogin(false);
+    console.log("selectedValue in reset", selectedValue);
+    setShowModalReset({ visible: true, email: selectedValue });
+  };
+
   return (
     <div className="main" style={{ margin: "3%" }}>
-      {error}
-      {error && <Alert type="error">{error}</Alert>}
+      {error && (
+        <Alert
+          className="alert"
+          type="error"
+          message="שם משתמש או סיסמא אינם נכונים"
+          showIcon
+        ></Alert>
+      )}
       <Form onFinish={handleLogin}>
         <Form.Item
           name="email"

@@ -11,6 +11,7 @@ import { BookingMenu } from "./BookingMenu";
 import UserProfile from "./UserProfile/UserProfile";
 import MeetingRoomsTable from "./MeetingRoom/MeetingRomesTable";
 import Home from "./Home";
+import ManageUsers from "../components/ManageUsers/ManageUsers";
 import Pay from "./Pay";
 import { LoginOtp } from "./Authentication/LoginOtp";
 import { ConfigProvider } from "antd";
@@ -30,6 +31,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+          <Route path="/ManageUsers" element={<ManageUsers />} />
 
           {
             // we must check that usr state is true otherwise, this component will

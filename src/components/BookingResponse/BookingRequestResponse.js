@@ -21,11 +21,13 @@ const BookingRequestResponse = ({
 
   const book = async (bookingDetails) => {
     console.log("bookingDetails ", bookingDetails);
-    let fromTime = moment.unix(bookingDetails.startTime).format("HHmmss");
-    let toTime = moment.unix(bookingDetails.endTime).format("HHmmss");
+    let fromTime = +moment.unix(bookingDetails.startTime).format("HHmmss");
+    let toTime = +moment.unix(bookingDetails.endTime).format("HHmmss");
+    let x = bookingDetails.meetingDate + "T" + fromTime + "Z";
+    console.log("X", x);
     const url = googleCalendarEventUrl({
-      start: bookingDetails.meetingDate + "T" + fromTime + "Z",
-      end: bookingDetails.meetingDate + "T" + toTime + "Z",
+      start: +bookingDetails.meetingDate + "T" + fromTime + "Z",
+      end: +bookingDetails.meetingDate + "T" + toTime + "Z",
       title: "פגישה בבנימין טק",
       details: "פגישה בבנימין טק",
       location: " בחדר " + bookingDetails.roomDetails.name,

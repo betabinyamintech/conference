@@ -4,6 +4,7 @@ import { UserContext } from "../../context/user";
 import { fetchBookingRequest } from "../../actions/bookingRequest";
 import BookingRequestResponse from "../BookingResponse/BookingRequestResponse";
 import ProfileHeader from "../UserProfile/ProfileHeader";
+import { Link } from "react-router-dom";
 var moment = require("moment");
 
 const formItemLayout = {

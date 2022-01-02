@@ -1,14 +1,15 @@
 import { Table, Space, Modal, Select, InputNumber } from "antd";
 import { useState, useEffect, useRef } from "react";
-import MeetingRoomEdit from "./MeetingRoomEdit";
+import EditUser from "../ManageUsers/EditUser";
 import React from "react";
-import { data } from "./mock";
+// import { data } from "./mock";
 import "../../App.css";
-import { getMeetingRooms } from "../../actions/manage";
+import { getAllUsers, getMeetingRooms } from "../../actions/manage";
+import MeetingRoomEdit from "../MeetingRoom/MeetingRoomEdit";
 
 const MeetingRoomsTable = () => {
-  const [unfilteredData, setUnfilteredData] = useState();
-  const [filteredData, setFilteredData] = useState();
+  const [users, setUsers] = useState();
+  const [filteredData, setFilteredData] = useState([]);
   // const [loading, setLoading] = useState(false);
   // const [visible, setVisible] = useState(false);
   const [modalRecord, setModalRecord] = useState(false);
@@ -37,14 +38,14 @@ const MeetingRoomsTable = () => {
 
   const columns = [
     {
-      title: "שם החדר",
+      title: "שם",
       dataIndex: "name",
       key: "name",
       render: (text, record) => (
         <a
           onClick={() => {
             console.log(record);
-            console.log(unfilteredData);
+            console.log(users);
           }}
         >
           {text}
@@ -52,15 +53,49 @@ const MeetingRoomsTable = () => {
       ),
     },
     {
-      title: "מקסימום משתתפים",
-      dataIndex: "maxOfPeople",
-      key: "maxOfPeople",
+      title: "טלפון",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
-      title: "מחיר בסיס לשעה",
-      dataIndex: "value",
-      key: "value",
+      title: "מייל",
+      dataIndex: "email",
+      key: "email",
     },
+    {
+      title: "מנוי",
+      key: "isSubscribed",
+      render: ({ isSubscribed }) => <a> {isSubscribed ? "מנוי" : "לא מנוי"}</a>,
+    },
+    {
+      title: "נרכשו/חודשיים",
+      key: "purchasedCoins",
+      render: (data) => (
+        console.log(data),
+        (
+          <Space size="middle">
+            <a>{data.purchasedCoins ? data.purchasedCoins : 0}</a>/
+            <a>{data.monthlyCoins ? data.monthlyCoins : 0}</a>
+          </Space>
+        )
+      ),
+    },
+    {
+      title: "עריכה",
+      key: "edit",
+      render: (text, record) => (
+        <Space size="middle">
+          <a
+            onClick={() => {
+              showModal(record);
+            }}
+          >
+            Edit
+          </a>
+        </Space>
+      ),
+    },
+
     // לא למחוק!
     // {
     //   title: "תוכניות",
@@ -82,35 +117,19 @@ const MeetingRoomsTable = () => {
     //     </>
     //   ),
     // },
-    {
-      title: "עריכה",
-      key: "edit",
-      render: (text, record) => (
-        <Space size="middle">
-          <a
-            onClick={() => {
-              showModal(record);
-            }}
-          >
-            Edit
-          </a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
   ];
 
-  async function getAllMeetingRooms() {
-    const response = await getMeetingRooms();
-    setUnfilteredData(response.rooms);
-    console.log(unfilteredData);
-    setFilteredData(data);
-
+  async function getUsers() {
+    const response = await getAllUsers();
+    console.log(await response);
+    setUsers(response);
+    // console.log(unfilteredData);
+    // setFilteredData(data);
     // setUnfilteredData(data)
     // setFilteredData(data)
   }
   useEffect(() => {
-    getAllMeetingRooms();
+    getUsers();
   }, []);
 
   // async function f2() {
@@ -143,7 +162,7 @@ const MeetingRoomsTable = () => {
         case "maxOfPeople": {
           switch (operatorFilter) {
             case ">=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.maxOfPeople >= _valueFieldFilter
@@ -153,7 +172,7 @@ const MeetingRoomsTable = () => {
               break;
             }
             case "=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.maxOfPeople == _valueFieldFilter
@@ -164,7 +183,7 @@ const MeetingRoomsTable = () => {
               break;
             }
             case "<=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.maxOfPeople <= _valueFieldFilter
@@ -179,7 +198,7 @@ const MeetingRoomsTable = () => {
         case "value": {
           switch (operatorFilter) {
             case ">=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.value >= _valueFieldFilter
@@ -188,7 +207,7 @@ const MeetingRoomsTable = () => {
               break;
             }
             case "=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.value == _valueFieldFilter
@@ -198,7 +217,7 @@ const MeetingRoomsTable = () => {
               break;
             }
             case "<=": {
-              const result = unfilteredData.filter(
+              const result = users.filter(
                 (room) =>
                   room.name.includes(_valueNameFilter) &&
                   room.value <= _valueFieldFilter
@@ -213,7 +232,7 @@ const MeetingRoomsTable = () => {
         }
       }
     else {
-      const result = unfilteredData.filter((room) =>
+      const result = users.filter((room) =>
         room.name.includes(_valueNameFilter)
       );
       setFilteredData(result);
@@ -221,7 +240,7 @@ const MeetingRoomsTable = () => {
   }
 
   const updateRecord = (updatedRecord) => {
-    setUnfilteredData((previousData) => {
+    setUsers((previousData) => {
       console.log("previousData: ", previousData);
       // return previousData
       //   .filter((record) => record != updatedRecord.key)
@@ -242,22 +261,23 @@ const MeetingRoomsTable = () => {
   let handleCancel = () => {
     setModalRecord([]);
   };
-  console.log(unfilteredData);
+  console.log(users);
 
   return (
     <>
+      <div style={{ backgroud: "red", color: "white" }}>USERS!!!!!!!!!!</div>
       {modalRecord && (
         <Modal
           visible={modalRecord}
-          title={modalRecord.roomName}
+          title={modalRecord.name}
           onOk={handleOk}
           onCancel={handleCancel}
           footer={[]}
         >
-          <MeetingRoomEdit data={modalRecord} updateRecord={updateRecord} />
+          <EditUser data={modalRecord} updateRecord={updateRecord} />
         </Modal>
       )}
-      <div style={{ direction: "rtl" }}>
+      {/* <div style={{ direction: "rtl" }}>
         <label>סנן לפי שם חדר</label>
         <input ref={valueNameFilter} onChange={() => filterByName()}></input>
       </div>
@@ -280,14 +300,13 @@ const MeetingRoomsTable = () => {
           ref={valueFieldFilter}
           onChange={() => handleFilterByField()}
         ></InputNumber>
-      </div>
+      </div> */}
       <Table
         style={{ direction: "rtl" }}
         columns={columns}
-        dataSource={unfilteredData}
+        dataSource={users}
       />
     </>
   );
 };
-
 export default MeetingRoomsTable;

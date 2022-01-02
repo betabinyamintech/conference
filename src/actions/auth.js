@@ -1,6 +1,7 @@
 import { baseUrl } from ".";
 
 export async function register(details) {
+  console.log("gtyugyffbcbfbfd");
   const response = await fetch(baseUrl + "/auth/register", {
     method: "POST",
     headers: {
@@ -10,9 +11,13 @@ export async function register(details) {
     body: JSON.stringify(details),
   });
   if (response.ok) {
-    // console.log("token received and written to localStorage");
+    console.log("token received and written to localStorage");
     localStorage.setItem("token", (await response.json()).token);
+    return response;
   }
+  console.log("data");
+  // let data = await response.json()
+  // console.log("data", data)
   return response;
 }
 
@@ -51,12 +56,10 @@ export async function loginOtp(details) {
       const token = (await response.json()).token;
       localStorage.setItem("token", token);
       console.log("auth - loginOtp - written token!");
-    } else {
-      console.log("res", response.text());
     }
     return response;
   } catch (err) {
-    console.log("err", err);
+    console.log(err);
   }
 }
 
@@ -74,5 +77,22 @@ export async function getUserDetails() {
   }
   if (response.ok) {
     return await response.json();
+  }
+}
+
+export async function resetUserPass(email) {
+  console.log("email in func", email);
+  const response = await fetch(baseUrl + "/auth/resetPass", {
+    method: "post",
+    cors: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email }),
+  });
+  if (response.ok) return response;
+  if (!response.ok) {
+    console.log("response", response);
+    return -1;
   }
 }

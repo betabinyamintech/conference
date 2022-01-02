@@ -11,6 +11,7 @@ import { Register } from "./Authentication/Register";
 import { LoginOtp } from "./Authentication/LoginOtp";
 import { Login } from "./Authentication/Login";
 import { BookingMenu } from "./BookingMenu";
+import { ResetPassword } from "./ResetPassword";
 
 const { TabPane } = Tabs;
 

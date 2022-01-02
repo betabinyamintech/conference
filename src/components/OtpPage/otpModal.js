@@ -67,15 +67,23 @@ export default function OtpModal({ phone }) {
               if (otp.length >= 4) {
                 setError(null);
                 const details = { phone: phone, code: otp };
-                const response = await loginOtp(details);
-                if (response.ok) {
-                  //save user at UserContext
-                  await loginToken();
-                  navigate("/bookrequest");
-                } else {
-                  console.log("res", response);
-                  // const text = await response.text();
-                  // setError(text);
+                try {
+                  const response = await loginOtp(details);
+                  if (response.ok) {
+                    //save user at UserContext
+                    await loginToken();
+                    navigate("/bookrequest");
+                  } else {
+                    if (response.status === 455) {
+                      setError("אתה מנוי אצלנו! רק הירשם למערכת ונתחיל");
+
+                      console.log(" should login auto");
+                    }
+                    // const text = await response.text();
+                    // setError(text);
+                  }
+                } catch (err) {
+                  console.log(err);
                 }
               }
             }}
@@ -103,7 +111,11 @@ export default function OtpModal({ phone }) {
             shouldAutoFocus
           />
 
-          {error && <Alert type="error">{error}</Alert>}
+          {error && (
+            <div type="error" style={{ color: "red", fontSize: "20px" }}>
+              {error}
+            </div>
+          )}
           <p>עדיין מחכה לקוד?</p>
           <a
             onClick={() => {
