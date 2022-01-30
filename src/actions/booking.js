@@ -1,6 +1,7 @@
 import { baseUrl } from ".";
 
 export async function bookCommit(bookDetails) {
+  console.log(bookDetails);
   const response = await fetch(baseUrl + "/booking/bookingcommitRequest", {
     method: "POST",
     headers: {

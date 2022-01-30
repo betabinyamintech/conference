@@ -18,10 +18,21 @@ const { TabPane } = Tabs;
 function onChange(a, b, c) {}
 
 const headDiv = {
-  height: "2cm",
+  position: "absolute",
+  width: "15%",
+  left: "42.5%",
+  top: "2%",
   textAlign: "center",
-  background: "#F9F9F9",
   lineHeight: "80px",
+  // border: "1px solid red",
+};
+const contentStyle = {
+  height: "160px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+  // border: "1px solid red",
 };
 const ModalLogin = ({ setShowModalLogin, setShowModalReset }) => {
   return (
@@ -69,7 +80,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <ProfileHeader />
+      <ProfileHeader style={{ border: "1px solid blue" }} />
       {showModalLogin && (
         <ModalLogin
           setShowModalLogin={setShowModalLogin}
@@ -85,57 +96,58 @@ const Home = () => {
       )}
 
       <div style={{ height: "40px" }}></div>
-      <div>
-        <div style={headDiv}>
-          <Button
-            type="primary"
-            style={{ background: "#00AAAF" }}
-            shape="round"
-            icon={<PlusOutlined />}
-            size={"large"}
-            onClick={() => {
-              NewBookingButton();
-            }}
+      <div style={headDiv}>
+        <Button
+          type="primary"
+          style={{ background: "#00000", width: "100%" }}
+          shape="round"
+          icon={<PlusOutlined />}
+          size={"large"}
+          onClick={() => {
+            NewBookingButton();
+          }}
+        >
+          פגישה חדשה
+        </Button>
+      </div>
+      <div className="content">
+        <div className="carouselDiv">
+          <p className="title"> עכשיו בבנימין טק</p>
+          <Carousel
+            autoplay
+            className="carousel"
+            arrows
+            prevArrow={<LeftOutlined />}
+            nextArrow={<RightOutlined />}
           >
-            פגישה חדשה
-          </Button>
+            <div style={contentStyle} className="carouselCell">
+              <img
+                alt="תמונה"
+                src="https://binyamintech.co.il/wp-content/uploads/2021/11/wordpress.png"
+              />
+            </div>
+            <div className="carouselCell">
+              <img
+                alt="תמונה"
+                src="https://binyamintech.co.il/wp-content/uploads/2021/01/SJ2A0013.jpg"
+              />
+            </div>
+            <div className="carouselCell">
+              <img
+                alt="תמונה"
+                src="https://binyamintech.co.il/wp-content/uploads/2021/02/02-2-1.png"
+              />
+            </div>
+          </Carousel>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <div
-          // style={{ width: "80%", marginRight: "auto", marginLeft: "auto" }}
-          >
-            <p>קורה עכשיו בבנימין טק</p>
-            <Carousel
-              afterChange={onChange}
-              arrows
-              prevArrow={<LeftOutlined />}
-              nextArrow={<RightOutlined />}
-            >
-              <div class="img_carousel">
-                <img
-                  alt="תמונה"
-                  src="https://binyamintech.co.il/wp-content/uploads/2021/11/wordpress.png"
-                />
-              </div>
-              <div class="img_carousel">
-                <img
-                  alt="תמונה"
-                  src="https://binyamintech.co.il/wp-content/uploads/2021/01/SJ2A0013.jpg"
-                />
-              </div>
-              <div class="img_carousel">
-                <img alt="תמונה" src={english} />
-              </div>
-              <div class="img_carousel">
-                <img
-                  alt="תמונה"
-                  src="https://binyamintech.co.il/wp-content/uploads/2021/02/02-2-1.png"
-                />
-              </div>
-            </Carousel>
-            {userState && <BookingMenu />}
+        {userState && (
+          <div className="userLastData">
+            <div>המידע שלך</div>
+            <div className="userLastData">
+              <BookingMenu />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+.container {
+  /* border: 1px solid red; */
+  background: rgb(245, 245, 245);
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+.field {
+  display: flex;
+  /* flex-direction: row; */
+  /* border: 1px solid red; */
+  text-align: center;
+  justify-content: space-between;
+  margin: 4px;
+}
+.fieldTitle {
+  /* border: 1px solid blue; */
+  /* margin-left: 10px; */
+  align-self: center;
+}
+.fieldContent {
+  height: fit-content;
+  align-self: center;
+
+  /* border: 1px solid green; */
+}

@@ -21,10 +21,14 @@ const BookingRequestResponse = ({
 
   const book = async (bookingDetails) => {
     console.log("bookingDetails ", bookingDetails);
-    let fromTime = +moment.unix(bookingDetails.startTime).format("HHmmss");
-    let toTime = +moment.unix(bookingDetails.endTime).format("HHmmss");
-    let x = bookingDetails.meetingDate + "T" + fromTime + "Z";
-    console.log("X", x);
+    let fromTime = new Date(bookingDetails.startTime)
+      .toTimeString()
+      .split(" ")[0]
+      .replaceAll(":", "");
+    let toTime = new Date(bookingDetails.endTime)
+      .toTimeString()
+      .split(" ")[0]
+      .replaceAll(":", "");
     const url = googleCalendarEventUrl({
       start: +bookingDetails.meetingDate + "T" + fromTime + "Z",
       end: +bookingDetails.meetingDate + "T" + toTime + "Z",
@@ -35,10 +39,20 @@ const BookingRequestResponse = ({
     delete bookingDetails.roomDetails;
     bookingDetails = { ...bookingDetails, url };
     const checkIfSubscriber = await IfSubscriberPay({ bookingDetails });
+    console.log(checkIfSubscriber);
     if (checkIfSubscriber == -1) navigate("/pay");
     else {
+      let { payedFromPurchased, payedFromMonthly, payedFromCreditcard } =
+        checkIfSubscriber;
       console.log("checkIfSubscriber", checkIfSubscriber);
-      const bookCommit1 = await bookCommit(bookingDetails);
+      const bookCommit1 = await bookCommit({
+        ...bookingDetails,
+        payedFrom: {
+          purchased: payedFromPurchased,
+          monthly: payedFromMonthly,
+          creditCard: payedFromCreditcard,
+        },
+      });
       setBookingResponse(bookCommit1);
       setUserState({
         ...userState,

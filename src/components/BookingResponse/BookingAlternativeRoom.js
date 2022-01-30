@@ -5,6 +5,7 @@ var moment = require("moment"); // require
 
 export const BookingAltenativeRoom = ({ book, booking }) => {
   let { meetingDate, startTime, endTime, roomDetails } = booking;
+  console.log("start time", new Date(startTime));
   console.log("booking in alternatives", booking);
   // let fromTime = moment.unix(startTime);
   // let toTime = moment.unix(endTime);

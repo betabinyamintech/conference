@@ -25,6 +25,7 @@ export const BookingMenu = () => {
     async function book() {
       // console.log("userState of bookingMenu", userState);
       const allUserBooking = await getUserBookings({ user: userState._id });
+      console.log(await allUserBooking);
       const now = moment();
       // console.log("now", now);
       // let nowToCompare = now.getTime()
@@ -48,33 +49,45 @@ export const BookingMenu = () => {
   }, [meetingChange]);
   if (!meetings) return <div>לא הזמנת פגישות עדיין</div>;
   const { lastMeetings, nextMeetings } = meetings;
-  // console.log("allRoomsaftereffect", allRooms);
   return (
     <>
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="הסטוריית הזמנות" key="1" className="tab">
-          {lastMeetings &&
-            lastMeetings.map((meeting) => (
-              <BookByDate
-                flag={0}
-                book={meeting}
-                allRooms={allRooms}
-                setMeetingChange={setMeetingChange}
-              />
-            ))}
-        </TabPane>
-        <TabPane tab="חדרים מוזמנים" key="2">
-          {nextMeetings &&
-            nextMeetings.map((meeting) => (
-              <BookByDate
-                flag={1}
-                book={meeting}
-                allRooms={allRooms}
-                setMeetingChange={setMeetingChange}
-              />
-            ))}
-        </TabPane>
-      </Tabs>
+      {meetings && (
+        <Tabs
+          defaultActiveKey={nextMeetings ? "2" : "1"}
+          style={{
+            position: "relative",
+            overflowY: "auto",
+            maxHeight: "280px",
+          }}
+        >
+          {nextMeetings && nextMeetings.length > 0 && (
+            <TabPane tab="חדרים מוזמנים" key="2">
+              {nextMeetings &&
+                nextMeetings.map((meeting) => (
+                  <BookByDate
+                    flag={1}
+                    book={meeting}
+                    allRooms={allRooms}
+                    setMeetingChange={setMeetingChange}
+                  />
+                ))}
+            </TabPane>
+          )}
+          {lastMeetings && lastMeetings.length > 0 && (
+            <TabPane tab="הסטוריית הזמנות" key="1" className="tab">
+              {lastMeetings &&
+                lastMeetings.map((meeting) => (
+                  <BookByDate
+                    flag={0}
+                    book={meeting}
+                    allRooms={allRooms}
+                    setMeetingChange={setMeetingChange}
+                  />
+                ))}
+            </TabPane>
+          )}
+        </Tabs>
+      )}
     </>
   );
 };

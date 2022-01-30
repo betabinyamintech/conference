@@ -30,7 +30,7 @@ const Router = () => {
           <Route path="/loginOtp" element={<LoginOtp />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/MeetingRoomsTable" element={<MeetingRoomsTable />} />
+          <Route path="/ManageRooms" element={<MeetingRoomsTable />} />
           <Route path="/ManageUsers" element={<ManageUsers />} />
 
           {

@@ -8,6 +8,7 @@ import "./ProfileHeader.css";
 
 export default function ProfileHeader() {
   const { userState } = useContext(UserContext);
+  console.log(userState);
 
   return (
     <div>
@@ -17,18 +18,48 @@ export default function ProfileHeader() {
         </div>
         {userState ? (
           <div className="details">
-            <div className="fullName">
-              <h4>
-                {"שלום,"} {userState.name}
-              </h4>
-              {userState.subscription && (
-                <div className="bitCoins">
-                  <h6>יתרתך {userState.subscription.balance} קרדיטים</h6>
-                </div>
-              )}
+            <div className="head">
+              <div className="fullName">
+                <h4
+                  style={{
+                    width: "90px",
+                    textAlign: "center",
+                    justifySelf: "center",
+                    // border: "1px solid red",
+                  }}
+                >
+                  {"שלום,"} {userState.name}
+                </h4>
+                <br />
+              </div>
+              <div className="avatar">
+                <Avatar icon={<UserOutlined />} />
+              </div>
             </div>
-            <div className="avatar">
-              <Avatar icon={<UserOutlined />} />
+            <div className="content">
+              <div className="bitCoins">
+                <h4 style={{ textAlign: "center" }}>קרדיטים</h4>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>{userState.purchasedBalance}</div>
+                  <div>:נרכש</div>
+                </div>
+
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>{userState.currentMonthBalance}</div>
+                  <div>:חודש נוכחי</div>
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>{userState.nextMonthBalance}</div>
+                  <div>:חודש הבא</div>
+                </div>
+                {/* <h6>יתרתך {userState.subscription.balance} קרדיטים</h6> */}
+              </div>
             </div>
           </div>
         ) : (

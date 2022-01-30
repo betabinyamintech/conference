@@ -5,7 +5,9 @@ var moment = require("moment"); // require
 const BookingDetails = ({ book, details, setBookingRequestResponse }) => {
   console.log("in the modal: ", details);
   let { meetingDate, startTime, endTime, roomDetails } = details;
+  console.log("start time", new Date(startTime));
   let fromTime = moment.unix(startTime);
+  console.log("from", fromTime);
   let toTime = moment.unix(endTime);
   let bookValue = roomDetails.value * toTime.diff(fromTime, "hours");
   let stringDate = moment(meetingDate, "YYYYMMDD").format("l");
